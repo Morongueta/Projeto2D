@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
                 //curContract.transform.localScale = Vector3.one * 1.25f;
 
                 curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1000;
+                curContract.GetComponentInChildren<TextMeshPro>().sortingOrder = 1000;
             }
             else
             {
@@ -70,7 +71,8 @@ public class GameManager : MonoBehaviour
                 }
 
                 offset.x = offsetValue * (i - curIndex);
-                curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = -Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i)));
+                curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = (-Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i))) );
+                curContract.GetComponentInChildren<TextMeshPro>().sortingOrder = (-Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i))) );
 
                 curContract.transform.position = contractPlacement.transform.position + offset;
                 //curContract.transform.localScale = Vector3.one * (1 - (.15f * Mathf.Abs(i - curIndex)));
