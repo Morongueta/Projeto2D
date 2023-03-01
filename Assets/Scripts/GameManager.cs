@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         foreach(Contract cont in contracts)
         {
             GameObject obj = Instantiate(contractObject, contractPlacement);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = cont.ownerName;
+            obj.GetComponentInChildren<TextMeshPro>().text = cont.ownerName;
             contractObjects.Add(obj);
         }
         UpdateContracts();
@@ -52,13 +52,28 @@ public class GameManager : MonoBehaviour
             GameObject curContract = contractObjects[i];
             if (i == curIndex)
             {
-                curContract.transform.position = contractPlacement.transform.position;
+                Vector3 pos = contractPlacement.transform.position;
+                curContract.transform.position = pos;
+                //curContract.transform.localScale = Vector3.one * 1.25f;
+
+                curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1000;
             }
             else
             {
+                //Debug.Log(());
                 Vector3 offset = Vector3.zero;
 
+                float offsetValue = 2.1f;
+                if(Mathf.Abs(i - curIndex) >= 3)
+                {
+                    offsetValue *= 0.75f;
+                }
+
+                offset.x = offsetValue * (i - curIndex);
+                curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = -Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i)));
+
                 curContract.transform.position = contractPlacement.transform.position + offset;
+                //curContract.transform.localScale = Vector3.one * (1 - (.15f * Mathf.Abs(i - curIndex)));
             }
             
         }

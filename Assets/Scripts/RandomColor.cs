@@ -7,7 +7,7 @@ public class RandomColor : MonoBehaviour
 {
     void Start()
     {
-        GetComponent<Image>().color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f),1f);
+        GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f),1f);
     }
 
 }
