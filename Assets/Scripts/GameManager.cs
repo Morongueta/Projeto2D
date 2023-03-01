@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> contractObjects;
 
+    private float timer;
     private int curIndex;
 
     private void Start()
@@ -28,13 +29,21 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if(timer > 0f)
         {
-            SetCur(-1);
+            timer -= Time.deltaTime;
+            return;
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+
+        if(Input.GetKey(KeyCode.LeftArrow))
         {
             SetCur(1);
+            timer = .15f;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            SetCur(-1);
+            timer = .15f;
         }
     }
 
@@ -53,7 +62,8 @@ public class GameManager : MonoBehaviour
             if (i == curIndex)
             {
                 Vector3 pos = contractPlacement.transform.position;
-                curContract.transform.position = pos;
+                
+                curContract.LeanMove(pos,0.05f);
                 //curContract.transform.localScale = Vector3.one * 1.25f;
 
                 curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1000;
@@ -64,17 +74,14 @@ public class GameManager : MonoBehaviour
                 //Debug.Log(());
                 Vector3 offset = Vector3.zero;
 
-                float offsetValue = 2.1f;
-                if(Mathf.Abs(i - curIndex) >= 3)
-                {
-                    offsetValue *= 0.75f;
-                }
+                float offsetValue = 1f;
+                offsetValue *= (2 - (.15f * Mathf.Abs(i - curIndex)));
 
                 offset.x = offsetValue * (i - curIndex);
                 curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = (-Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i))) );
                 curContract.GetComponentInChildren<TextMeshPro>().sortingOrder = (-Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i))) );
 
-                curContract.transform.position = contractPlacement.transform.position + offset;
+                curContract.LeanMove(contractPlacement.transform.position + offset,0.05f);
                 //curContract.transform.localScale = Vector3.one * (1 - (.15f * Mathf.Abs(i - curIndex)));
             }
             
