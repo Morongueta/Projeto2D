@@ -839,6 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2061405923}
   - component: {fileID: 2061405922}
+  - component: {fileID: 2061405924}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -858,20 +859,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa5a4da46e86014da5bd952fc146d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceBtwCurriculum: 0.45
-  contractObject: {fileID: 5418390981231508917, guid: 76f2128d5ceb72846a22f368cd415ebf, type: 3}
-  contractPlacement: {fileID: 319671997}
-  contracts:
-  - ownerName: Guilherme
-  - ownerName: Henrique
-  - ownerName: Henrique
-  - ownerName: Henrique
-  - ownerName: Henrique
-  - ownerName: Henrique
-  - ownerName: Henrique
-  - ownerName: Henrique
-  - ownerName: Henrique
-  - ownerName: Henrique
+  specialEvents:
+  - day: 1
+    onStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2061405924}
+          m_TargetAssemblyTypeName: ContractManager, Assembly-CSharp
+          m_MethodName: ShowContracts
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "Dia de Contrata\xE7\xE3o"
+            m_BoolArgument: 0
+          m_CallState: 2
+    onFinish:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2061405924}
+          m_TargetAssemblyTypeName: ContractManager, Assembly-CSharp
+          m_MethodName: ClearContracts
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - day: 30
+    onStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2061405922}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: ShowText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "Dia de Demiss\xE3o eba"
+            m_BoolArgument: 0
+          m_CallState: 2
+    onFinish:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!4 &2061405923
 Transform:
   m_ObjectHideFlags: 0
@@ -887,3 +925,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2061405924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061405921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aba7b6972d02974a945756a22c38701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceBtwCurriculum: 0.45
+  contractObject: {fileID: 5418390981231508917, guid: 76f2128d5ceb72846a22f368cd415ebf, type: 3}
+  contractPlacement: {fileID: 319671997}
+  contracts:
+  - ownerName: 
+  - ownerName: 
+  - ownerName: 
+  - ownerName: 
