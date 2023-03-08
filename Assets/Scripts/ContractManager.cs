@@ -55,6 +55,7 @@ public class ContractManager : MonoBehaviour
         }
 
         string[] exp = new string[] { "Baixo", "Moderado", "Avançado" };
+        string[] rel = new string[] { "Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viuvo(a)" };
 
         curIndex = Mathf.Clamp(Mathf.RoundToInt(contracts.Count / 2), 0, contracts.Count - 1);
         contractObjects = new List<GameObject>();
@@ -66,7 +67,7 @@ public class ContractManager : MonoBehaviour
             cont.age = UnityEngine.Random.Range(14, 60);
             cont.cellphone = UnityEngine.Random.Range(0, 9999999);
             cont.gender = (gender < 50f) ? "Mulher" : "Homem" ;
-            cont.civil = ((UnityEngine.Random.value * 100) < 50f) ? "Solteiro(a)" : "Casado(a)";
+            cont.civil = rel[UnityEngine.Random.Range(0, rel.Length)];
             cont.cellphone = UnityEngine.Random.Range(0, 9999999);
 
             Vacancy v = vacancy[UnityEngine.Random.Range(0, vacancy.Count)];
