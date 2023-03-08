@@ -63,7 +63,7 @@ public class ContractManager : MonoBehaviour
             float gender = (UnityEngine.Random.value * 100);
             GameObject obj = Instantiate(contractObject, contractPlacement);
             cont.ownerName = (gender < 50f) ? feminineNames[UnityEngine.Random.Range(0, feminineNames.Length)] : masculineNames[UnityEngine.Random.Range(0, masculineNames.Length)];
-            cont.age = UnityEngine.Random.Range(14, 100);
+            cont.age = UnityEngine.Random.Range(14, 60);
             cont.cellphone = UnityEngine.Random.Range(0, 9999999);
             cont.gender = (gender < 50f) ? "Mulher" : "Homem" ;
             cont.civil = ((UnityEngine.Random.value * 100) < 50f) ? "Solteiro(a)" : "Casado(a)";
