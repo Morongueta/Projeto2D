@@ -1,0 +1,9 @@
+Faxineiro(a),1000,2000
+Administrador,2000,4000
+Contador,3000,5000
+Secretário(a),2000,3000
+Segurança,1500,3500
+Atendente,1000,2000
+Cozinheiro(a),1000,3000
+Comunicador(a),4000,6000
+Gerente,5000,10000
