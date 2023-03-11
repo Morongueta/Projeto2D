@@ -33,9 +33,9 @@ public class ContractManager : MonoBehaviour
     {
         ClearContracts();
         TextAsset txt = Resources.Load("NomesFemininos") as TextAsset;
-        string[] feminineNames = txt.ToString().Split("\n");
+        string[] feminineNames = txt.ToString().Replace("Srta. ", "").Replace("Sra. ", "").Replace("Dra. ", "").Split("\n");
         txt = Resources.Load("NomesMasculinos") as TextAsset;
-        string[] masculineNames = txt.ToString().Split("\n");
+        string[] masculineNames = txt.ToString().Replace("Sr. ", "").Replace("Dr. ", "").Split("\n");
         txt = Resources.Load("Vagas") as TextAsset;
         string[] vagas = txt.ToString().Split("\n");
 
