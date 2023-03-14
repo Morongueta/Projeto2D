@@ -1,6 +1,6 @@
 Faxineiro(a),1000,2000
-Administrador,2000,4000
-Contador,3000,5000
+Administrador(a),2000,4000
+Contador(a),3000,5000
 Secretário(a),2000,3000
 Segurança,1500,3500
 Atendente,1000,2000

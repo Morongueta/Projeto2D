@@ -1129,5 +1129,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde90944f056c1e4895b5a386972ae38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startEmployees: 5
+  startEmployees:
+  - name: 
+    cargo: 
+    experience: 2
+    salary: 4000
+  - name: 
+    cargo: 
+    experience: 2
+    salary: 2000
+  - name: 
+    cargo: 
+    experience: 2
+    salary: 6000
+  - name: 
+    cargo: 
+    experience: 1
+    salary: 1500
+  - name: 
+    cargo: 
+    experience: 1
+    salary: 1500
   employees: []

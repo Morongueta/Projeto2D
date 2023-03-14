@@ -54,8 +54,8 @@ public class ContractManager : MonoBehaviour
 
         }
 
-        string[] exp = new string[] { "Baixo", "Moderado", "Avançado" };
-        string[] rel = new string[] { "Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viuvo(a)" };
+        string[] exp = new string[] { "Baixo", "Moderado", "AvanÃ§ado" };
+        string[] rel = new string[] { "Solteiro", "Casado", "Divorciado", "Viuvo" };
 
         curIndex = Mathf.Clamp(Mathf.RoundToInt(contracts.Count / 2), 0, contracts.Count - 1);
         contractObjects = new List<GameObject>();
@@ -67,15 +67,36 @@ public class ContractManager : MonoBehaviour
             cont.age = UnityEngine.Random.Range(14, 60);
             cont.cellphone = UnityEngine.Random.Range(0, 9999999);
             cont.gender = (gender < 50f) ? "Mulher" : "Homem" ;
-            cont.civil = rel[UnityEngine.Random.Range(0, rel.Length)];
+            string relr = (rel[UnityEngine.Random.Range(0, rel.Length)]);
+            cont.civil = (gender < 50f) ? relr.Remove(relr.Length - 1, 1) + "a" : relr;
             cont.cellphone = UnityEngine.Random.Range(0, 9999999);
 
             Vacancy v = vacancy[UnityEngine.Random.Range(0, vacancy.Count)];
 
+            
+
             int experience = UnityEngine.Random.Range(0, exp.Length);
             string salary = (100 * (int)Math.Round((UnityEngine.Random.Range(v.min, v.max) + ((experience + 1) * 550) - 550) / 100.0)).ToString();
 
-            obj.GetComponent<Curriculum>().Set(cont.ownerName, cont.gender.ToString(), cont.age.ToString("D2"), cont.cellphone.ToString("D7"), cont.civil, "Vaga: " + v.name, exp[experience], "R$" + salary);
+            string removed = v.name.Replace("(a)", "");
+
+            string femaleSimple = removed + "a";
+            string femaleComplex = removed.Remove(removed.Length - 1, 1) + "a";
+
+            string correct = removed;
+            if(v.name.Contains("(a)") && gender < 50f)
+            {
+                if(removed[removed.Length - 1] == 'o')
+                {
+                    correct = femaleComplex;
+                }else{
+                    correct = femaleSimple;
+                }   
+            }
+
+            string vaga = correct;
+
+            obj.GetComponent<Curriculum>().Set(cont.ownerName, cont.gender.ToString(), cont.age.ToString("D2"), cont.cellphone.ToString("D7"), cont.civil, "Vaga: " + vaga, exp[experience], "R$" + salary);
             contractObjects.Add(obj);
         }
         UpdateContracts();
@@ -114,8 +135,14 @@ public class ContractManager : MonoBehaviour
                 selected.Add(curIndex);
                 UpdateContracts();
             }
+        }
 
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (selected.Count >= maxSelected)
+            {
+                Debug.Log("Selected Group");
+            }
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EmployeeManager : MonoBehaviour
 {
-    [SerializeField]private int startEmployees;
+
+    [SerializeField] private List<Employee> startEmployees;
+
     [SerializeField] private List<Employee> employees = new List<Employee>();
 
     private void Start()
@@ -12,7 +14,7 @@ public class EmployeeManager : MonoBehaviour
         GenerateEmployees(startEmployees);
     }
 
-    public void GenerateEmployees(int qtd)
+    public void GenerateEmployees(List<Employee> emp)
     {
         TextAsset txt = Resources.Load("NomesFemininos") as TextAsset;
         string[] feminineNames = txt.ToString().Replace("Srta. ", "").Replace("Sra. ", "").Replace("Dra. ", "").Split("\n");
@@ -39,38 +41,61 @@ public class EmployeeManager : MonoBehaviour
         }
 
 
-        int salaryMax = 5000;
+        int salaryMax = 20000;
 
-        while (employees.Count < qtd)
+        while(emp.Count > 0)
         {
-            Employee emp = new Employee();
-
-            float gender = (UnityEngine.Random.value * 100);
-            emp.name = (gender < 50f) ? feminineNames[UnityEngine.Random.Range(0, feminineNames.Length)] : masculineNames[UnityEngine.Random.Range(0, masculineNames.Length)];
-
+            float gender = (UnityEngine.Random.value );
+            emp[0].name = (gender < 50f) ? feminineNames[UnityEngine.Random.Range(0, feminineNames.Length)] : masculineNames[UnityEngine.Random.Range(0, masculineNames.Length)];
+            
             ContractManager.Vacancy v = vacancy[UnityEngine.Random.Range(0, vacancy.Count)];
 
-            int experience = UnityEngine.Random.Range(0, exp.Length);
-            int salary = (100 * (int)Mathf.Round((UnityEngine.Random.Range(v.min, v.max) + ((experience + 1) * 550) - 550) / 100.0f));
+            string removed = v.name.Replace("(a)", "");
 
-            emp.experience = experience;
-            emp.salary = salary;
+            string femaleSimple = removed + "a";
+            string femaleComplex = removed.Remove(removed.Length - 1, 1) + "a";
 
-            if (SalarySum(salary) < salaryMax)
+            string correct = removed;
+            if(v.name.Contains("(a)") && gender < 50f)
             {
-                employees.Add(emp);
+                if(removed[removed.Length - 1] == 'o')
+                {
+                    correct = femaleComplex;
+                }else{
+                    correct = femaleSimple;
+                }   
+            }
+
+            emp[0].cargo = correct;
+
+            int experience = emp[0].experience;
+            int salary = emp[0].salary;
+
+            if(salary > v.min && salary < v.max )
+            {
+
+                if(SalarySum(salary) < salaryMax)
+                {
+                    employees.Add(emp[0]);
+                    emp.RemoveAt(0);
+                }else{
+                    emp.AddRange(employees);
+                    employees.Clear();
+                }
             }
         }
+
     }
 
     public int SalarySum(int salary)
     {
         int sum = salary;
 
-        for (int i = 0; i < employees.Count; i++)
-        {
-            sum += employees[i].salary;
-        }
+        if(employees.Count > 0)
+            for (int i = 0; i < employees.Count; i++)
+            {
+                sum += employees[i].salary;
+            }
 
         return sum;
     }
@@ -81,6 +106,7 @@ public class EmployeeManager : MonoBehaviour
 public class Employee
 {
     public string name;
+    public string cargo;
     public int experience;
     public int salary;
 }
