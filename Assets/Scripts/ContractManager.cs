@@ -6,12 +6,21 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 
+public enum ContractState
+{
+    CHOOSE,
+    INTERVIEW
+}
+
 public class ContractManager : MonoBehaviour
 {
     [SerializeField] private float spaceBtwCurriculum;
     [SerializeField] private GameObject contractObject;
     [SerializeField] private Transform contractPlacement;
     [SerializeField] private List<Contract> contracts;
+
+    private ContractState curState;
+
 
     private List<int> selected = new List<int>();
 
@@ -22,61 +31,38 @@ public class ContractManager : MonoBehaviour
     private float timer;
     private int curIndex;
 
-    public struct Vacancy
-    {
-        public string name;
-        public int min;
-        public int max;
-    }
+    private bool canInteract = false;
+
+    
 
     public void ShowContracts()
     {
         ClearContracts();
-        TextAsset txt = Resources.Load("NomesFemininos") as TextAsset;
-        string[] feminineNames = txt.ToString().Replace("Srta. ", "").Replace("Sra. ", "").Replace("Dra. ", "").Split("\n");
-        txt = Resources.Load("NomesMasculinos") as TextAsset;
-        string[] masculineNames = txt.ToString().Replace("Sr. ", "").Replace("Dr. ", "").Split("\n");
-        txt = Resources.Load("Vagas") as TextAsset;
-        string[] vagas = txt.ToString().Split("\n");
 
-        List<Vacancy> vacancy = new List<Vacancy>();
-
-        for (int i = 0; i < vagas.Length; i++)
-        {
-            string[] vaga = vagas[i].Split(",");
-
-            Vacancy v = new Vacancy();
-            v.name = vaga[0];
-            v.min = int.Parse(vaga[1]);
-            v.max = int.Parse(vaga[2]);
-            vacancy.Add(v);
-
-
-        }
-
-        string[] exp = new string[] { "Baixo", "Moderado", "Avançado" };
-        string[] rel = new string[] { "Solteiro", "Casado", "Divorciado", "Viuvo" };
+        curState = ContractState.CHOOSE;
 
         curIndex = Mathf.Clamp(Mathf.RoundToInt(contracts.Count / 2), 0, contracts.Count - 1);
         contractObjects = new List<GameObject>();
         foreach (Contract cont in contracts)
         {
+            GameObject obj = Instantiate(contractObject, contractPlacement.transform.position + Vector3.down * 10f, Quaternion.identity);
+            obj.transform.parent = contractPlacement.transform;
+            
+            
             float gender = (UnityEngine.Random.value * 100);
-            GameObject obj = Instantiate(contractObject, contractPlacement);
-            cont.ownerName = (gender < 50f) ? feminineNames[UnityEngine.Random.Range(0, feminineNames.Length)] : masculineNames[UnityEngine.Random.Range(0, masculineNames.Length)];
+            cont.ownerName = (gender < 50f) ? InformationDatabase.i.feminineNames[UnityEngine.Random.Range(0, InformationDatabase.i.feminineNames.Length)] : InformationDatabase.i.masculineNames[UnityEngine.Random.Range(0, InformationDatabase.i.masculineNames.Length)];
             cont.age = UnityEngine.Random.Range(14, 60);
-            cont.cellphone = UnityEngine.Random.Range(0, 9999999);
+            cont.cellphone = "("+ UnityEngine.Random.Range(10,99)+")" + UnityEngine.Random.Range(0, 9999999).ToString("D7");
             cont.gender = (gender < 50f) ? "Mulher" : "Homem" ;
-            string relr = (rel[UnityEngine.Random.Range(0, rel.Length)]);
+            string relr = (InformationDatabase.i.rel[UnityEngine.Random.Range(0, InformationDatabase.i.rel.Length)]);
             cont.civil = (gender < 50f) ? relr.Remove(relr.Length - 1, 1) + "a" : relr;
-            cont.cellphone = UnityEngine.Random.Range(0, 9999999);
 
-            Vacancy v = vacancy[UnityEngine.Random.Range(0, vacancy.Count)];
+            InformationDatabase.Vacancy v = InformationDatabase.i.vacancyList[UnityEngine.Random.Range(0, InformationDatabase.i.vacancyList.Count)];
 
             
 
-            int experience = UnityEngine.Random.Range(0, exp.Length);
-            string salary = (100 * (int)Math.Round((UnityEngine.Random.Range(v.min, v.max) + ((experience + 1) * 550) - 550) / 100.0)).ToString();
+            int experience = UnityEngine.Random.Range(0, InformationDatabase.i.exp.Length);
+            string salary = (100 * (int)Math.Round((UnityEngine.Random.Range(v.min, v.max) + ((experience + 1) * 550) - 550) / 100.0f)).ToString();
 
             string removed = v.name.Replace("(a)", "");
 
@@ -96,10 +82,49 @@ public class ContractManager : MonoBehaviour
 
             string vaga = correct;
 
-            obj.GetComponent<Curriculum>().Set(cont.ownerName, cont.gender.ToString(), cont.age.ToString("D2"), cont.cellphone.ToString("D7"), cont.civil, "Vaga: " + vaga, exp[experience], "R$" + salary);
+            obj.GetComponent<Curriculum>().Set(cont.ownerName, cont.gender.ToString(), cont.age.ToString("D2"), cont.cellphone, cont.civil, "Vaga: " + vaga, InformationDatabase.i.exp[experience], "R$" + salary);
             contractObjects.Add(obj);
         }
-        UpdateContracts();
+
+        float timeToShow = .33f;
+
+        for (int i = 0; i < contractObjects.Count; i++)
+        {
+            contractObjects[i].GetComponentInChildren<SpriteRenderer>().sortingOrder = (-Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i))));
+
+            TextMeshPro[] texts = contractObjects[i].GetComponentsInChildren<TextMeshPro>();
+
+            foreach (var text in texts)
+            {
+                text.sortingOrder = (-Mathf.Abs(Mathf.RoundToInt(1 - (curIndex - i))));
+            }
+
+
+            if (i == contractObjects.Count - 1)
+            {
+                contractObjects[i].LeanMove(contractPlacement.transform.position, timeToShow).setOnComplete(() => { UpdateContracts(); canInteract = true; });
+            }
+            else if(i == curIndex)
+            {
+                contractObjects[i].GetComponentInChildren<SpriteRenderer>().sortingOrder = 1000;
+                contractObjects[i].GetComponentInChildren<SpriteRenderer>().color = Color.white;
+
+                texts = contractObjects[i].GetComponentsInChildren<TextMeshPro>();
+
+                foreach (var text in texts)
+                {
+                    text.sortingOrder = 1000;
+                }
+
+                contractObjects[i].LeanMove(contractPlacement.transform.position, timeToShow);
+            }
+            else
+            {
+                contractObjects[i].LeanMove(contractPlacement.transform.position, timeToShow);
+            }
+        }
+        
+        
     }
 
     public void ClearContracts()
@@ -115,13 +140,22 @@ public class ContractManager : MonoBehaviour
 
     private void Update()
     {
-        if (timer > 0f)
+        switch (curState)
         {
-            timer -= Time.deltaTime;
-            return;
+            case ContractState.CHOOSE:
+                ChooseArea();
+                break;
+            case ContractState.INTERVIEW:
+                InterviewArea();
+                break;
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.R))
+    private void ChooseArea()
+    {
+        if (!canInteract) return;
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (selected.Contains(curIndex))
             {
@@ -137,12 +171,19 @@ public class ContractManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             if (selected.Count >= maxSelected)
             {
-                Debug.Log("Selected Group");
+                HideContracts();
+                curState = ContractState.INTERVIEW;
             }
+        }
+
+        if (timer > 0f)
+        {
+            timer -= Time.deltaTime;
+            return;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -157,6 +198,11 @@ public class ContractManager : MonoBehaviour
         }
     }
 
+    private void InterviewArea()
+    {
+        Debug.Log("Interview");
+    }
+
     public void SetCur(int value)
     {
         curIndex += value;
@@ -164,6 +210,26 @@ public class ContractManager : MonoBehaviour
 	    if(curIndex == contracts.Count) curIndex = 0;
         curIndex = Mathf.Clamp(curIndex, 0, contracts.Count - 1);
         UpdateContracts();
+    }
+
+    public void HideContracts()
+    {
+        float timeToHide = .25f;
+        canInteract = false;
+        for (int i = 0; i < contractObjects.Count; i++)
+        {
+            GameObject cur = contractObjects[i];
+            if(!selected.Contains(i))
+            {
+                cur.LeanMoveY(cur.transform.position.y - 10f, timeToHide).setOnComplete(()=>Destroy(cur.gameObject));
+            }
+            else
+            {
+                cur.LeanMove(contractPlacement.transform.position, timeToHide);
+            }
+        }
+
+        
     }
 
     public void UpdateContracts()
@@ -226,7 +292,7 @@ public class Contract
     //public Sprite face;
     public string ownerName;
     public int age;
-    public int cellphone;
+    public string cellphone;
 
     public string gender;
 

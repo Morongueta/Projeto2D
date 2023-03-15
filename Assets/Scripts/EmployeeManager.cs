@@ -16,39 +16,14 @@ public class EmployeeManager : MonoBehaviour
 
     public void GenerateEmployees(List<Employee> emp)
     {
-        TextAsset txt = Resources.Load("NomesFemininos") as TextAsset;
-        string[] feminineNames = txt.ToString().Replace("Srta. ", "").Replace("Sra. ", "").Replace("Dra. ", "").Split("\n");
-        txt = Resources.Load("NomesMasculinos") as TextAsset;
-        string[] masculineNames = txt.ToString().Replace("Sr. ", "").Replace("Dr. ", "").Split("\n");
-        txt = Resources.Load("Vagas") as TextAsset;
-        string[] vagas = txt.ToString().Split("\n");
-
-        int[] exp = new int[] { 0, 1, 2 };
-
-        List<ContractManager.Vacancy> vacancy = new List<ContractManager.Vacancy>();
-
-        for (int i = 0; i < vagas.Length; i++)
-        {
-            string[] vaga = vagas[i].Split(",");
-
-            ContractManager.Vacancy v = new ContractManager.Vacancy();
-            v.name = vaga[0];
-            v.min = int.Parse(vaga[1]);
-            v.max = int.Parse(vaga[2]);
-            vacancy.Add(v);
-
-
-        }
-
-
         int salaryMax = 20000;
 
         while(emp.Count > 0)
         {
-            float gender = (UnityEngine.Random.value );
-            emp[0].name = (gender < 50f) ? feminineNames[UnityEngine.Random.Range(0, feminineNames.Length)] : masculineNames[UnityEngine.Random.Range(0, masculineNames.Length)];
-            
-            ContractManager.Vacancy v = vacancy[UnityEngine.Random.Range(0, vacancy.Count)];
+            float gender = (UnityEngine.Random.value * 100f);
+            emp[0].name = (gender < 50f) ? InformationDatabase.i.feminineNames[UnityEngine.Random.Range(0, InformationDatabase.i.feminineNames.Length)] : InformationDatabase.i.masculineNames[UnityEngine.Random.Range(0, InformationDatabase.i.masculineNames.Length)];
+
+            InformationDatabase.Vacancy v = InformationDatabase.i.vacancyList[UnityEngine.Random.Range(0, InformationDatabase.i.vacancyList.Count)];
 
             string removed = v.name.Replace("(a)", "");
 
@@ -67,6 +42,7 @@ public class EmployeeManager : MonoBehaviour
             }
 
             emp[0].cargo = correct;
+            emp[0].cargoID = v.id;
 
             int experience = emp[0].experience;
             int salary = emp[0].salary;
@@ -107,6 +83,7 @@ public class Employee
 {
     public string name;
     public string cargo;
+    public int cargoID;
     public int experience;
     public int salary;
 }
