@@ -16,7 +16,7 @@ public class ContractManager : MonoBehaviour
 {
     [SerializeField] private float spaceBtwCurriculum;
     [SerializeField] private GameObject contractObject;
-    [SerializeField] private Transform contractPlacement;
+    [SerializeField] private Transform contractPlacement, interviewContainer;
     [SerializeField] private List<Contract> contracts;
 
     private ContractState curState;
@@ -177,6 +177,8 @@ public class ContractManager : MonoBehaviour
             {
                 HideContracts();
                 curState = ContractState.INTERVIEW;
+
+                
             }
         }
 
@@ -188,28 +190,47 @@ public class ContractManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            SetCur(-1);
+            SetCur(-1, contracts.Count, ()=> UpdateContracts());
             timer = .15f;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            SetCur(1);
+            SetCur(1, contracts.Count, () => UpdateContracts());
             timer = .15f;
         }
     }
 
     private void InterviewArea()
     {
+        
+
+        if (timer > 0f)
+        {
+            timer -= Time.deltaTime;
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            SetCur(-1, contractObjects.Count, () => UpdateInterview());
+            timer = .15f;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            SetCur(1, contractObjects.Count, () => UpdateInterview());
+            timer = .15f;
+        }
         Debug.Log("Interview");
     }
 
-    public void SetCur(int value)
+    public void SetCur(int value, int count, Action onUpdate)
     {
         curIndex += value;
-	    if(curIndex < 0) curIndex = contracts.Count - 1;
-	    if(curIndex == contracts.Count) curIndex = 0;
-        curIndex = Mathf.Clamp(curIndex, 0, contracts.Count - 1);
-        UpdateContracts();
+	    if(curIndex < 0) curIndex = count - 1;
+	    if(curIndex == count) curIndex = 0;
+        curIndex = Mathf.Clamp(curIndex, 0, count - 1);
+        
+        onUpdate?.Invoke();
     }
 
     public void HideContracts()
@@ -221,15 +242,21 @@ public class ContractManager : MonoBehaviour
             GameObject cur = contractObjects[i];
             if(!selected.Contains(i))
             {
-                cur.LeanMoveY(cur.transform.position.y - 10f, timeToHide).setOnComplete(()=>Destroy(cur.gameObject));
+                cur.LeanMoveY(cur.transform.position.y - 10f, timeToHide).setOnComplete(() => { 
+                    Destroy(cur.gameObject);
+
+                    
+                });
             }
             else
             {
-                cur.LeanMove(contractPlacement.transform.position, timeToHide);
+                 //cur.LeanMove(contractPlacement.transform.position, timeToHide);
             }
         }
 
         
+
+
     }
 
     public void UpdateContracts()
@@ -280,6 +307,42 @@ public class ContractManager : MonoBehaviour
 
                 curContract.LeanMove(contractPlacement.transform.position + offset, 0.05f);
                 //curContract.transform.localScale = Vector3.one * (1 - (.15f * Mathf.Abs(i - curIndex)));
+            }
+
+        }
+    }
+
+    
+    public void UpdateInterview()
+    {
+        
+        for (int i = 0; i < contractObjects.Count; i++)
+        {
+            GameObject curContract = contractObjects[i];
+            if (i == curIndex)
+            {
+                Vector3 pos = contractPlacement.transform.position;
+
+                curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1000;
+                curContract.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+
+                TextMeshPro[] texts = curContract.GetComponentsInChildren<TextMeshPro>();
+
+                foreach (var text in texts)
+                {
+                    text.sortingOrder = 1000;
+                }
+            }
+            else
+            {
+                curContract.GetComponentInChildren<SpriteRenderer>().sortingOrder = -1;
+
+                TextMeshPro[] texts = curContract.GetComponentsInChildren<TextMeshPro>();
+
+                foreach (var text in texts)
+                {
+                    text.sortingOrder = -2;
+                }
             }
 
         }
