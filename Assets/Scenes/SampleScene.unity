@@ -1518,6 +1518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91af1c45c8dcaa4aa852eab871e3fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minPaperSize: {x: -8.91, y: -3.08}
+  maxPaperSize: {x: 8.96, y: 3.17}
 --- !u!4 &1855849142
 Transform:
   m_ObjectHideFlags: 0
