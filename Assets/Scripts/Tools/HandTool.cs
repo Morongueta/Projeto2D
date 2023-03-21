@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HandTool : MonoBehaviour
 {
-    [SerializeField]private LayerMask paperLayer;
+    [SerializeField]private LayerMask dragLayer;
     private Vector2 mousePos;
     private Vector2 cameraOffset;
     private Vector2 startMousePos;
@@ -12,15 +12,18 @@ public class HandTool : MonoBehaviour
     private Vector2 pos;
 
     private Vector2 lastPos;
-
-    private bool hover = false;
-
     private GameObject objectDown;
 
     private SpriteRenderer objectRender;
     private Rigidbody2D objectRB;
 
+    public bool released;
+    public static HandTool i;
 
+    private void Awake()
+    {
+        i = this;
+    }
     private void Update()
     {
         if(ToolManager.i.GetTool() != Tool.HAND) return;
@@ -33,9 +36,8 @@ public class HandTool : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) //Mouse click
         {
-            startMousePos = Input.mousePosition;
-            cameraOffset = Camera.main.transform.position;
-            RaycastHit2D[] hit = Physics2D.RaycastAll(mouse, Vector2.zero, 1f,paperLayer);
+            cameraOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D[] hit = Physics2D.RaycastAll(mouse, Vector2.zero, 1f,dragLayer);
             if(hit.Length == 0) return;
             RaycastHit2D closest = hit[0];
             int close = -9999999;
@@ -58,13 +60,15 @@ public class HandTool : MonoBehaviour
                     objectDown.GetComponent<Draggable>().holding = true;
                     objectRender = objectDown.GetComponentInChildren<SpriteRenderer>();
                     objectRB = objectDown.GetComponent<Rigidbody2D>();
+                    objectDown.GetComponent<Draggable>().OnSelect?.Invoke();
                 }
             }
         }
-        Vector3 startMouse = Camera.main.ScreenToWorldPoint(startMousePos);
+
         if (Input.GetKey(KeyCode.Mouse0) && objectDown != null)
         {
-            pos = mouse - startMouse + (Vector3)objectPos;
+            
+            pos = (mouse - (Vector3)cameraOffset) + (Vector3)objectPos;
 
             lastPos = pos;
 
@@ -86,44 +90,36 @@ public class HandTool : MonoBehaviour
         }
     }
 
+    public void TransferObject(GameObject to)
+    {
+        to.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        cameraOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        objectDown.GetComponent<Draggable>().GoBackward();
+        objectPos = to.transform.position;
+        objectDown = to;
+        objectDown.GetComponent<Draggable>().GoForward();
+        objectDown.GetComponent<Draggable>().holding = true;
+        objectRender = objectDown.GetComponentInChildren<SpriteRenderer>();
+        objectRB = objectDown.GetComponent<Rigidbody2D>();
+        objectDown.GetComponent<Draggable>().OnSelect?.Invoke();
+    }
+
     private void UpFuction()
     {
-        // Rigidbody2D rb = objectRB;
+        if(objectDown.GetComponent<Paper>() != null)
+        {
+            objectDown.GetComponent<Paper>().ReleasePaper();
+        }
 
-        // Vector3 dir = (Vector2)Camera.main.ScreenToWorldPoint(mousePos) - pos;
-        // Debug.Log(dir);
-        // rb.AddForce(dir * 10f);
-
-
-        
         objectRB = null;
         objectDown.GetComponent<Draggable>().holding = false;
         objectDown.GetComponent<Draggable>().GoBackward();
         objectDown = null;
     }
 
-    public bool GetIsInArea(Vector2 min, Vector2 max, Vector2 pos, Sprite spr = null)
+    public GameObject GetCurHolding()
     {
-        bool result = false;
-
-        if(spr != null)
-        {
-            if((min.x < pos.x && max.x > pos.x) && (min.y < pos.y && max.y > pos.y))
-            {
-                result = true;
-
-            }
-        }
-        else
-        {
-            if ((min.x < pos.x && max.x > pos.x) && (min.y < pos.y && max.y > pos.y))
-            {
-                result = true;
-
-            }
-        }
-
-        return result;
+        return objectDown;
     }
 
 

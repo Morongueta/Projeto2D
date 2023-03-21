@@ -12,8 +12,8 @@ TagManager:
   - Water
   - UI
   - Paper
-  - 
-  - 
+  - Box
+  - Tool
   - 
   - 
   - 
@@ -43,6 +43,12 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Person
+    uniqueID: 637706451
+    locked: 0
+  - name: Desk
+    uniqueID: 924220083
     locked: 0
   - name: CustomMouse
     uniqueID: 2390064113

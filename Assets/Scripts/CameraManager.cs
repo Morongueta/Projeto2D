@@ -11,9 +11,18 @@ public class CameraManager : MonoBehaviour
     
     [SerializeField]private float camSpeed;
 
+    public bool camIsMoving = false;
+
     Vector3 clampPos;
 
     private Camera cam;
+
+    public static CameraManager i;
+
+    private void Awake()
+    {
+        i = this;
+    }
 
     private void Start()
     {
@@ -22,13 +31,17 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        if(ToolManager.i.UsingHand || ToolManager.i.UsingTool) return;
+        //if(ToolManager.i.UsingHand || ToolManager.i.UsingTool) return;
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         if(Mathf.Abs(cam.transform.position.y - mousePos.y) <= mouseThreshold)
         {
             clampPos = cam.transform.position;
+            camIsMoving = false;
             return;
+        }else{
+            camIsMoving = true;
         }
+        
 
         clampPos = Vector2.MoveTowards(cam.transform.position, mousePos, camSpeed * Time.deltaTime);
         float height = 2f * cam.orthographicSize;
@@ -49,6 +62,8 @@ public class CameraManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Camera.main.gameObject.transform.position, mouseThreshold);
         Gizmos.color = Color.yellow;
         Vector2 downLeft = new Vector2(minPos.x, minPos.y);
         Vector2 downRight = new Vector2(maxPos.x, minPos.y);

@@ -11,10 +11,13 @@ public enum Tool
 public class ToolManager : MonoBehaviour
 {
     [SerializeField]private Tool curTool;
+    [SerializeField]private LayerMask toolLayer;
 
     public bool UsingHand, UsingTool;
 
     private int curIndex = 0;
+
+    private ToolButton lastTool;
 
     public static ToolManager i;
 
@@ -34,11 +37,32 @@ public class ToolManager : MonoBehaviour
         {
             UsingTool = Input.GetKey(KeyCode.Mouse0);
         }
-        if(Input.GetKeyDown(KeyCode.Tab))
+
+
+        if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            curIndex++;
-            if(curIndex > 2) curIndex = 0;
-            curTool = (Tool)curIndex;
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            RaycastHit2D hit = Physics2D.CircleCast(pos, .25f, Vector2.zero, .25f, toolLayer);
+
+            if(hit.collider != null)
+            {
+                ToolButton btn = hit.collider.GetComponent<ToolButton>();
+                if(btn != null)
+                {
+                    if(curTool == btn.tool)
+                    {
+                        btn.SetColor(Color.white);
+                        curTool = Tool.HAND;
+                    }else{
+                        if(lastTool != null) lastTool.SetColor(Color.white);
+                        btn.SetColor(new Color(1f,1f,1f,.5f));
+                        curTool = btn.tool;
+                    }
+
+                    lastTool = btn;
+                }
+            }
         }
     }
 }

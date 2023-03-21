@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,13 +6,14 @@ using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
+    [SerializeField] private bool lockIn = false;
     [SerializeField] private Vector2 minPaperSize;
     [SerializeField] private Vector2 maxPaperSize;
 
+    public Action OnSelect;
+
     public bool holding = false;
 
-    private Vector3 paperScale;
-    private Vector3 miniScale;
     private SpriteRenderer rend;
 
     private void Awake()
@@ -23,8 +25,6 @@ public class Draggable : MonoBehaviour
 
     private void Start()
     {
-        paperScale = transform.localScale;
-        miniScale = paperScale * .75f;
         GoForward();
         GoBackward();
     }
@@ -35,16 +35,9 @@ public class Draggable : MonoBehaviour
         float height = rend.bounds.size.y / 2f;
 
         Vector2 pos = transform.position;
-        pos.x = Mathf.Clamp(transform.position.x, minPaperSize.x + width, (holding) ? transform.position.x : maxPaperSize.x - width );
+        pos.x = Mathf.Clamp(transform.position.x, minPaperSize.x + width, maxPaperSize.x - width );
         pos.y = Mathf.Clamp(transform.position.y, minPaperSize.y + height, maxPaperSize.y - height);
         transform.position = pos;
-
-        if(transform.position.x > maxPaperSize.x)
-        {
-            transform.localScale = miniScale;
-        }else{
-            transform.localScale = paperScale;
-        }
     }
 
     public void GoForward()
