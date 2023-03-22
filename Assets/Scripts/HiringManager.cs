@@ -83,24 +83,30 @@ public class HiringManager : MonoBehaviour
         LeanTween.cancel(selectionHiringButton.gameObject);
         setupInterview = false;
         startedInterview = false;
+        negateBox.DestroyFromBoxAll();
         
-        selectionHiringButton.gameObject.LeanMove(buttonHiddenPos, .25f).setOnComplete(()=>{hireState = HireState.INTERVIEW;});
+        selectionHiringButton.gameObject.LeanMove(buttonHiddenPos, .25f);
     }
     private void InterviewPhase()
     {
         if(setupInterview == false)
         {
-            negateBox.DestroyFromBoxAll();
-            hirePapers = Clean(hirePapers);
+            List<GameObject> reference = new List<GameObject>();
+            for (int i = 0; i < hirePapers.Length; i++)
+            {
+                if(hirePapers[i] != null)reference.Add(hirePapers[i]);
+            }
+            hirePapers = reference.ToArray();
             setupInterview = true;
+            return;
         }
         
         if(startedInterview == false)
         {
-            
             Debug.Log(hirePapers.Length);
             QueueManager.i.AddHiringPerson(hirePapers, true,1.5f);
             startedInterview = true;
+            return;
         }
         
     }
@@ -124,20 +130,19 @@ public class HiringManager : MonoBehaviour
             {
                 box[i].drag.enabled = false;
                 LeanTween.cancel(box[i].gameObject);
-                box[i].gameObject.transform.LeanMove(hiddenBoxPos, .35f);
+                box[i].gameObject.transform.LeanMove(hiddenBoxPos, .35f).setOnComplete(()=>hireState = HireState.INTERVIEW);
             }
         }
     }
 
-    private GameObject[] Clean(GameObject[] c)
+    private void Clean(GameObject[] c)
     {
         List<GameObject> reference = new List<GameObject>();
-        reference.AddRange(c);
-        for (int i = 0; i < reference.Count; i++)
+        for (int i = 0; i < c.Length; i++)
         {
-            if(reference[i] == null) reference.RemoveAt(i);
+            if(c[i] != null)reference.Add(c[i]);
         }
-        return reference.ToArray();
+        c = reference.ToArray();
     }
     private void OnDrawGizmos()
     {

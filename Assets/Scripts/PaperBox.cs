@@ -42,7 +42,7 @@ public class PaperBox : MonoBehaviour
     {
         if (GetPaperCount() >= maxPapers) return;
         if(add.GetComponent<Paper>().type != acceptPaperOfType) return;
-        
+
         add.GetComponent<Draggable>().active = false;
         add.GetComponent<Draggable>().SetLayer(paperInside.Count + 1);
         add.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -83,14 +83,12 @@ public class PaperBox : MonoBehaviour
 
     public void DestroyFromBoxAll()
     {
-        int count = paperInside.Count;
-        while (count > 0)
+        for (int i = 0; i < paperInside.Count; i++)
         {
-            GameObject paper = paperInside[paperInside.Count - 1];
-            paperInside.Remove(paper);
+            GameObject paper = paperInside[i];
             Destroy(paper);
-            count--;
         }
+        paperInside.Clear();
     }
 
     public int GetPaperCount()
