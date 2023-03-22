@@ -6,21 +6,26 @@ using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
+    public bool active = true;
     [SerializeField] private bool lockIn = false;
     [SerializeField] private Vector2 minPaperSize;
     [SerializeField] private Vector2 maxPaperSize;
+    [SerializeField] private bool canMoveLayer = true;
 
     public Action OnSelect;
 
     public bool holding = false;
 
     private SpriteRenderer rend;
+    private Collider2D col;
+
+    public static List<Draggable> allDraggables = new List<Draggable>();
 
     private void Awake()
     {
         rend = GetComponentInChildren<SpriteRenderer>();
-
-        
+        col = GetComponent<Collider2D>();
+        allDraggables.Add(this);
     }
 
     private void Start()
@@ -31,6 +36,8 @@ public class Draggable : MonoBehaviour
 
     private void Update()
     {
+        col.enabled = active;
+        if (!active) return;
         float width = rend.bounds.size.x / 2f;
         float height = rend.bounds.size.y / 2f;
 
@@ -42,6 +49,7 @@ public class Draggable : MonoBehaviour
 
     public void GoForward()
     {
+        if (!canMoveLayer) return;
         SpriteRenderer[] rend = GetComponentsInChildren<SpriteRenderer>();
         TextMeshPro[] texts = GetComponentsInChildren<TextMeshPro>();
         LineRenderer[] lines = GetComponentsInChildren<LineRenderer>();
@@ -63,22 +71,52 @@ public class Draggable : MonoBehaviour
 
     public void GoBackward()
     {
-        SpriteRenderer[] rends = FindObjectsOfType<SpriteRenderer>();
-        TextMeshPro[] texts = FindObjectsOfType<TextMeshPro>();
-        LineRenderer[] lines = FindObjectsOfType<LineRenderer>();
+        if (!canMoveLayer) return;
+        for (int y = 0; y < allDraggables.Count; y++)
+        {
+            if (!allDraggables[y].active || !allDraggables[y].canMoveLayer) return;
+            SpriteRenderer[] rends = allDraggables[y].GetComponentsInChildren<SpriteRenderer>();
+            TextMeshPro[] texts = allDraggables[y].GetComponentsInChildren<TextMeshPro>();
+            LineRenderer[] lines = allDraggables[y].GetComponentsInChildren<LineRenderer>();
+
+            for (int i = 0; i < rends.Length; i++)
+            {
+                if (rends[i].GetComponentInParent<Draggable>() == null) return;
+                rends[i].sortingOrder--;
+            }
+
+            for (int i = 0; i < texts.Length; i++)
+            {
+                if (texts[i].GetComponentInParent<Draggable>() == null) return;
+                texts[i].sortingOrder--;
+            }
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].GetComponentInParent<Draggable>() == null) return;
+                lines[i].sortingOrder--;
+            }
+        }
+    }
+
+    public void SetLayer(int layer)
+    {
+        if (!canMoveLayer) return;
+        SpriteRenderer[] rends = GetComponentsInChildren<SpriteRenderer>();
+        TextMeshPro[] texts = GetComponentsInChildren<TextMeshPro>();
+        LineRenderer[] lines = GetComponentsInChildren<LineRenderer>();
 
         for (int i = 0; i < rends.Length; i++)
         {
-            rends[i].sortingOrder--;
+            rends[i].sortingOrder = layer;
         }
 
         for (int i = 0; i < texts.Length; i++)
         {
-            texts[i].sortingOrder--;
+            texts[i].sortingOrder = layer;
         }
         for (int i = 0; i < lines.Length; i++)
         {
-            lines[i].sortingOrder--;
+            lines[i].sortingOrder = layer;
         }
 
 

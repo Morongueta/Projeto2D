@@ -35,7 +35,7 @@ public class Paper : MonoBehaviour
     private void Start()
     {
         paperScale = transform.localScale;
-        miniScale = paperScale * .75f;
+        miniScale = paperScale * .5f;
     }
 
     private void Update()

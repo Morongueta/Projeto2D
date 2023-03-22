@@ -54,6 +54,8 @@ public class HandTool : MonoBehaviour
                 Draggable drag = closest.collider.GetComponent<Draggable>();
                 if(drag != null)
                 {
+                    if (drag.active == false) return;
+
                     objectPos = drag.transform.position;
                     objectDown = drag.gameObject;
                     objectDown.GetComponent<Draggable>().GoForward();
@@ -95,6 +97,7 @@ public class HandTool : MonoBehaviour
         to.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         cameraOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         objectDown.GetComponent<Draggable>().GoBackward();
+        objectDown.GetComponent<Draggable>().holding = false;
         objectPos = to.transform.position;
         objectDown = to;
         objectDown.GetComponent<Draggable>().GoForward();

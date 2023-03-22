@@ -11,22 +11,35 @@ public enum HireState
 
 public class HiringManager : MonoBehaviour
 {
-    [SerializeField]private PaperBox confirmBox;
     [SerializeField]private PaperBox negateBox;
+
+    [SerializeField] private WorldButton selectionHiringButton;
 
     [SerializeField]private Vector2 visibleBoxPos;
     [SerializeField]private Vector2 hiddenBoxPos;
+    [SerializeField] private Vector2 buttonVisiblePos;
+    [SerializeField]private Vector2 buttonHiddenPos;
 
     [SerializeField]private HireState hireState;
 
-    
+    private Vector2 selectPos;
+
+    private void Start()
+    {
+        selectionHiringButton.OnClickAction += () => 
+        {
+            FinishSelections();
+        };
+    }
+
+
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.G))
         {
             hireState = HireState.SELECTING;
-            ShowBox(confirmBox,negateBox);
+            ShowBox(negateBox);
         }
         
         switch (hireState)
@@ -42,18 +55,39 @@ public class HiringManager : MonoBehaviour
 
     private void SelectionPhase()
     {
-        if(FindObjectsOfType<Paper>().Length == 0 && hireState == HireState.SELECTING)
+        if(negateBox.GetIsFull() && hireState == HireState.SELECTING)
         {
-            hireState = HireState.INTERVIEW;
-            HideBox(negateBox,confirmBox);
+            if (selectPos != buttonVisiblePos)
+            {
+                selectPos = buttonVisiblePos;
+                LeanTween.cancel(selectionHiringButton.gameObject);
+                selectionHiringButton.gameObject.LeanMove(buttonVisiblePos, .25f);
+            }
         }
+        else
+        {
+            if (selectPos != buttonHiddenPos)
+            {
+                selectPos = buttonHiddenPos;
+                LeanTween.cancel(selectionHiringButton.gameObject);
+                selectionHiringButton.gameObject.LeanMove(buttonHiddenPos, .25f);
+            }
+        }
+    }
+
+    private void FinishSelections()
+    {
+        hireState = HireState.INTERVIEW;
+        HideBox(negateBox);
+        LeanTween.cancel(selectionHiringButton.gameObject);
+        selectionHiringButton.gameObject.LeanMove(buttonHiddenPos, .25f);
+        negateBox.DestroyFromBoxAll();
     }
 
     private void InterviewPhase()
     {
         //Devolver os papéis do confirmBox
 
-        confirmBox.RemoveFromBoxAll();
     }
     private void ShowBox(params PaperBox[] box)
     {
@@ -63,7 +97,7 @@ public class HiringManager : MonoBehaviour
             {
                 Draggable drag = box[i].drag;
                 LeanTween.cancel(box[i].gameObject);
-                box[i].gameObject.transform.LeanMove(new Vector2(visibleBoxPos.x, box[i].startPos.y), .35f).setOnComplete(()=>{drag.enabled = true;});
+                box[i].gameObject.transform.LeanMove(visibleBoxPos, .35f).setOnComplete(()=>{drag.enabled = true;});
             }
         }
     }
@@ -76,7 +110,7 @@ public class HiringManager : MonoBehaviour
             {
                 box[i].drag.enabled = false;
                 LeanTween.cancel(box[i].gameObject);
-                box[i].gameObject.transform.LeanMove(new Vector2(hiddenBoxPos.x, box[i].startPos.y), .35f);
+                box[i].gameObject.transform.LeanMove(hiddenBoxPos, .35f);
             }
         }
     }
@@ -85,7 +119,9 @@ public class HiringManager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(hiddenBoxPos, .15f);
+        Gizmos.DrawWireSphere(buttonHiddenPos, .15f);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(visibleBoxPos, .15f);
+        Gizmos.DrawWireSphere(buttonVisiblePos, .15f);
     }
 }

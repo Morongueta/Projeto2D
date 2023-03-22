@@ -59,7 +59,7 @@ public class PenTool : MonoBehaviour
                     {
                         if(curLine != null)
                         {
-                            if(Vector2.Distance(lastPos, mousePos) > .0001f)
+                            if(Vector2.Distance(lastPos, mousePos) > .000001f)
                             {
                                 curLine.positionCount++;
                                 curLine.SetPosition(curLine.positionCount - 1, mousePos - (Vector2)drawingOn.transform.position);

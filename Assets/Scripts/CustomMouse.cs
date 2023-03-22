@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CustomMouse : MonoBehaviour
 {
-    [SerializeField]private Sprite defaultHand;
-    [SerializeField]private Sprite clickHand;
-    [SerializeField]private Sprite eraserHand;
-    [SerializeField]private Sprite penHand;
+    [SerializeField] private Sprite defaultHand;
+    [SerializeField] private Sprite clickHand;
+    [SerializeField] private Sprite eraserHand;
+    [SerializeField] private Sprite penHand;
+
+    [SerializeField] private LayerMask customUILayer;
 
     private SpriteRenderer render;
 
@@ -21,6 +23,12 @@ public class CustomMouse : MonoBehaviour
     }
     private void Update()
     {
+        DrawMouse();
+    }
+
+
+    private void DrawMouse()
+    {
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0;
         transform.position = pos;
@@ -31,13 +39,13 @@ public class CustomMouse : MonoBehaviour
         {
             case Tool.HAND:
                 handSprite = (ToolManager.i.UsingHand) ? clickHand : defaultHand;
-            break;
+                break;
             case Tool.ERASER:
                 handSprite = eraserHand;
-            break;
+                break;
             case Tool.PEN:
                 handSprite = penHand;
-            break;
+                break;
         }
 
         Cursor.visible = (handSprite == null);
