@@ -96,10 +96,10 @@ public class HandTool : MonoBehaviour
     {
         to.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         cameraOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        objectDown.GetComponent<Draggable>().GoBackward();
         objectDown.GetComponent<Draggable>().holding = false;
         objectPos = to.transform.position;
         objectDown = to;
+        objectDown.GetComponent<Draggable>().GoBackward();
         objectDown.GetComponent<Draggable>().GoForward();
         objectDown.GetComponent<Draggable>().holding = true;
         objectRender = objectDown.GetComponentInChildren<SpriteRenderer>();

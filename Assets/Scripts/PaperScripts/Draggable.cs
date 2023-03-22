@@ -74,26 +74,27 @@ public class Draggable : MonoBehaviour
         if (!canMoveLayer) return;
         for (int y = 0; y < allDraggables.Count; y++)
         {
-            if (!allDraggables[y].active || !allDraggables[y].canMoveLayer) return;
-            SpriteRenderer[] rends = allDraggables[y].GetComponentsInChildren<SpriteRenderer>();
-            TextMeshPro[] texts = allDraggables[y].GetComponentsInChildren<TextMeshPro>();
-            LineRenderer[] lines = allDraggables[y].GetComponentsInChildren<LineRenderer>();
+            if (allDraggables[y].active && allDraggables[y].canMoveLayer)
+            {
+                SpriteRenderer[] rends = allDraggables[y].GetComponentsInChildren<SpriteRenderer>();
+                TextMeshPro[] texts = allDraggables[y].GetComponentsInChildren<TextMeshPro>();
+                LineRenderer[] lines = allDraggables[y].GetComponentsInChildren<LineRenderer>();
 
-            for (int i = 0; i < rends.Length; i++)
-            {
-                if (rends[i].GetComponentInParent<Draggable>() == null) return;
-                rends[i].sortingOrder--;
-            }
+                Debug.Log("GoBackwards " + allDraggables[y].name);
 
-            for (int i = 0; i < texts.Length; i++)
-            {
-                if (texts[i].GetComponentInParent<Draggable>() == null) return;
-                texts[i].sortingOrder--;
-            }
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (lines[i].GetComponentInParent<Draggable>() == null) return;
-                lines[i].sortingOrder--;
+                for (int i = 0; i < rends.Length; i++)
+                {
+                    rends[i].sortingOrder--;
+                }
+
+                for (int i = 0; i < texts.Length; i++)
+                {
+                    texts[i].sortingOrder--;
+                }
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    lines[i].sortingOrder--;
+                }
             }
         }
     }

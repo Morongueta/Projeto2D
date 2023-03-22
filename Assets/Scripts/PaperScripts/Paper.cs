@@ -6,7 +6,8 @@ public enum PaperType
 {
     NONE,
     WARNING,
-    CONTRACT
+    CONTRACT,
+    HIRE
 }
 public class Paper : MonoBehaviour
 {

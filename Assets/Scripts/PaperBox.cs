@@ -10,6 +10,7 @@ public class PaperBox : MonoBehaviour
     [SerializeField] private int maxPapers;
     [SerializeField] private TextMeshPro countText;
     [SerializeField] private Vector2[] paperInsidePos;
+    [SerializeField] private PaperType acceptPaperOfType;
     private List<GameObject> paperInside = new List<GameObject>();
 
     private void Awake()
@@ -40,7 +41,8 @@ public class PaperBox : MonoBehaviour
     public void AddToBox(GameObject add)
     {
         if (GetPaperCount() >= maxPapers) return;
-
+        if(add.GetComponent<Paper>().type != acceptPaperOfType) return;
+        
         add.GetComponent<Draggable>().active = false;
         add.GetComponent<Draggable>().SetLayer(paperInside.Count + 1);
         add.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -73,8 +75,6 @@ public class PaperBox : MonoBehaviour
             GameObject paper = paperInside[paperInside.Count - 1];
             paper.GetComponent<Draggable>().active = true;
             paper.GetComponent<Paper>().ResetSize();
-            paper.GetComponent<Draggable>().GoBackward();
-            paper.GetComponent<Draggable>().GoForward();
             paperInside.Remove(paper);
             paper.transform.parent = null;
             count--;

@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 1877165524}
   - component: {fileID: 2140707738}
   m_Layer: 6
-  m_Name: ContractWorld
+  m_Name: PaperBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -641,9 +641,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8505564b1ab68274d90f2d85c7328db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 1
   lockIn: 0
   minPaperSize: {x: -8.8, y: -4}
   maxPaperSize: {x: 8.8, y: 15.13}
+  canMoveLayer: 1
   holding: 0
 --- !u!114 &1877165524
 MonoBehaviour:
@@ -669,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7ca31420207e0428ae510e6d7548ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 3
   boxLayer:
     serializedVersion: 2
     m_Bits: 128

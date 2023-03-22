@@ -9,6 +9,13 @@ public class QueueManager : MonoBehaviour
 
     [SerializeField]private List<Person> queue = new List<Person>();
 
+    public static QueueManager i;
+
+    private void Awake()
+    {
+        i = this;
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))
@@ -26,6 +33,30 @@ public class QueueManager : MonoBehaviour
         }
     }
 
+    public void AddHiringPerson(GameObject[] papers, bool delayed = false, float timeBtwPerson = .15f)
+    {
+        if(delayed)
+        {
+            StartCoroutine(EAddHiringPerson(papers, timeBtwPerson));
+            return;
+        }
+        for (int i = 0; i < papers.Length; i++)
+        {
+            AddPerson();
+        }
+    }
+
+    private IEnumerator EAddHiringPerson(GameObject[] papers, float delay)
+    {
+        int i = 0;
+        while(i < papers.Length)
+        {
+            AddPerson();
+            yield return new WaitForSeconds(delay);
+            i++;
+        }
+    }
+
     private void AddPerson()
     {
         GameObject newPerson = Instantiate(basePerson, new Vector2(-15f, basePerson.transform.position.y), Quaternion.identity);
@@ -40,7 +71,7 @@ public class QueueManager : MonoBehaviour
         {
             LeanTween.cancel(queue[i].gameObject);
             float distance = Vector2.Distance(queue[i].gameObject.transform.position, new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y));
-            queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), 1 + (.25f * Mathf.FloorToInt(distance / 5)));
+            queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance / 5)));
         }
     }
 

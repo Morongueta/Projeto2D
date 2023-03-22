@@ -25,4 +25,9 @@ public class Curriculum : MonoBehaviour
         expText.text = exp;
         salaryText.text = salary;
     }
+
+    private void Update()
+    {
+        salaryText.text = GetComponentInChildren<SpriteRenderer>().sortingOrder.ToString();
+    }
 }
