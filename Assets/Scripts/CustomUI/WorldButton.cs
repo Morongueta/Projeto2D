@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class WorldButton : MonoBehaviour
 {
-    private SpriteRenderer render;
-
+    [SerializeField] private SpriteRenderer render;
+    [SerializeField] private TextMeshPro renderText;
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color hoverColor;
     [SerializeField] private Color clickedColor;
@@ -22,7 +23,8 @@ public class WorldButton : MonoBehaviour
 
     private void Awake()
     {
-        render = GetComponent<SpriteRenderer>();
+        if(render != null)render = GetComponent<SpriteRenderer>();
+        if(renderText != null)renderText = GetComponent<TextMeshPro>();
 
         OnClickAction += () => OnClick?.Invoke();
     }
@@ -47,6 +49,8 @@ public class WorldButton : MonoBehaviour
     }
     public void OnMouseEnter()
     {
+        CustomMouse.i.pointing = true;
+
         if (!changingColor)
         {
             changingColor = true;
@@ -56,13 +60,12 @@ public class WorldButton : MonoBehaviour
     }
     public void OnMouseExit()
     {
+        CustomMouse.i.pointing = false;
         
-        if (!changingColor)
-        {
-            changingColor = true;
-            gameObject.LeanColor(defaultColor, colorChangeTime).setOnComplete(() => changingColor = false);
-        }
+        changingColor = true;
+        LeanTween.value(gameObject, 10,10,1f);
+        gameObject.LeanColor(defaultColor, colorChangeTime).setOnComplete(() => changingColor = false);
+    
         Debug.Log("Mouse Exit");
     }
-
 }

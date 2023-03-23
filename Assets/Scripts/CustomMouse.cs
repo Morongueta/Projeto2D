@@ -5,16 +5,20 @@ using UnityEngine;
 public class CustomMouse : MonoBehaviour
 {
     [SerializeField] private Sprite defaultHand;
+    [SerializeField] private Sprite pointingHand;
     [SerializeField] private Sprite clickHand;
     [SerializeField] private Sprite eraserHand;
     [SerializeField] private Sprite penHand;
-
     [SerializeField] private LayerMask customUILayer;
+
+    public bool pointing;
 
     private SpriteRenderer render;
 
+    public static CustomMouse i;
     private void Awake()
     {
+        i = this;
         render = GetComponent<SpriteRenderer>();
     }
     private void Start()
@@ -47,7 +51,7 @@ public class CustomMouse : MonoBehaviour
                 handSprite = penHand;
                 break;
         }
-
+        if(pointing) handSprite = pointingHand;
         Cursor.visible = (handSprite == null);
 
         render.sprite = handSprite;
