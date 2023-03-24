@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1685261629884738564}
   - component: {fileID: 1685261629884738565}
-  - component: {fileID: 2094002648275190424}
   - component: {fileID: 1365688603}
+  - component: {fileID: -6213085734491648544}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -87,18 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2094002648275190424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685261629884738570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac1f61d04f68c6348bd63c65dfcb734a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1365688603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +99,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770fb1dfd0a232240835ee361cff836d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6213085734491648544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685261629884738570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e9ba540551e6843b5ece337e87c978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inFrontUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  goingAwayUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1685261631631837403
 GameObject:
   m_ObjectHideFlags: 0

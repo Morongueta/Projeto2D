@@ -9,6 +9,8 @@ public class QueueManager : MonoBehaviour
 
     [SerializeField]private List<Person> queue = new List<Person>();
 
+    private Person personInFront;
+
     public static QueueManager i;
 
     private void Awake()
@@ -59,7 +61,7 @@ public class QueueManager : MonoBehaviour
 
     private void AddPerson()
     {
-        GameObject newPerson = Instantiate(basePerson, new Vector2(-15f, basePerson.transform.position.y), Quaternion.identity);
+        GameObject newPerson = Instantiate(basePerson, new Vector2((-queueSpacing * queue.Count) - 15f, basePerson.transform.position.y), Quaternion.identity);
         queue.Add(newPerson.GetComponent<Person>());
         UpdateQueue();
     }
@@ -70,12 +72,25 @@ public class QueueManager : MonoBehaviour
         for (int i = 0; i < queue.Count; i++)
         {
             LeanTween.cancel(queue[i].gameObject);
+            Person p = queue[i];
             float distance = Vector2.Distance(queue[i].gameObject.transform.position, new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y));
-            queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance / 5)));
+            //queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance / 5)));
+            
+            if(i == 0)
+            {
+                queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance))).setOnComplete(()=>{
+                    if(personInFront != queue[0])
+                    {
+                        queue[0].CallInFrontEvent();
+                        personInFront = queue[0];
+                    }
+                });
+            }
+            else queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance)));
         }
     }
 
-    private void RemoveFromQueue(int who)
+    public void RemoveFromQueue(int who)
     {
         if(queue.Count <= 0) return;
         //Remover e mover a pessoa da fila
@@ -84,6 +99,7 @@ public class QueueManager : MonoBehaviour
         Person save = this.queue[who];
         save.gameObject.LeanMove(new Vector2(15f, save.gameObject.transform.position.y), 1 + (.25f * Mathf.FloorToInt(distance / 5)) ).setOnComplete(()=>Destroy(save.gameObject));
         queue.RemoveAt(who);
+        save.CallGoingAwayEvent();
         UpdateQueue();
     }
 }

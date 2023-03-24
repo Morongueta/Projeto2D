@@ -2,10 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Person : MonoBehaviour
 {
     public Action inFrontEvent;
+    public Action goingAwayEvent;
+
+    public UnityEvent inFrontUnityEvent;
+    public UnityEvent goingAwayUnityEvent;
 
     private void Start()
     {
@@ -14,6 +19,16 @@ public class Person : MonoBehaviour
 
     public virtual void SetupEvent()
     {
-        inFrontEvent = null;
+        inFrontEvent += () => {inFrontUnityEvent?.Invoke();};
+        goingAwayEvent += () => {goingAwayUnityEvent?.Invoke();};
+    }
+
+    public virtual void CallInFrontEvent()
+    {
+        inFrontEvent?.Invoke();
+    }
+    public virtual void CallGoingAwayEvent()
+    {
+        goingAwayEvent?.Invoke();
     }
 }
