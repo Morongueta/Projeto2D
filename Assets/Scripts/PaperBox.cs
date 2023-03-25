@@ -42,9 +42,10 @@ public class PaperBox : MonoBehaviour
     {
         if (GetPaperCount() >= maxPapers) return;
         if(add.GetComponent<Paper>().type != acceptPaperOfType) return;
-
-        add.GetComponent<Draggable>().active = false;
-        add.GetComponent<Draggable>().SetLayer(paperInside.Count + 1);
+        Draggable drag = add.GetComponent<Draggable>();
+        drag.active = false;
+        drag.SetLayer(paperInside.Count + 1);
+        add.GetComponent<Paper>().LockGravity(true);
         add.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         paperInside.Add(add);
 
@@ -59,6 +60,8 @@ public class PaperBox : MonoBehaviour
         if(paperInside.Count <= 0) return;
 
         GameObject paper = paperInside[paperInside.Count - 1];
+
+        paper.GetComponent<Paper>().LockGravity(false);
 
         paper.GetComponent<Draggable>().active = true;
         paperInside.Remove(paper);

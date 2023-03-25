@@ -91,12 +91,13 @@ public class HiringManager : MonoBehaviour
     {
         if(setupInterview == false)
         {
-            List<GameObject> reference = new List<GameObject>();
-            for (int i = 0; i < hirePapers.Length; i++)
+            List<GameObject> papersRef = new List<GameObject>();
+            Paper[] papers = FindObjectsOfType<Paper>();
+            for (int i = 0; i < papers.Length; i++)
             {
-                if(hirePapers[i] != null)reference.Add(hirePapers[i]);
+                if (papers[i] != null && papers[i].type == PaperType.HIRE) papersRef.Add(papers[i].gameObject);
             }
-            hirePapers = reference.ToArray();
+            hirePapers = papersRef.ToArray();
             setupInterview = true;
             return;
         }

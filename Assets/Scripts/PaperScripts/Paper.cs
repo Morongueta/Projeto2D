@@ -20,6 +20,8 @@ public class Paper : MonoBehaviour
 
     [SerializeField] private bool fixedOn;
 
+    private bool lockGravity = false;
+
     
     private Vector3 paperScale;
     private Vector3 miniScale;
@@ -43,7 +45,14 @@ public class Paper : MonoBehaviour
     {
         BoxInteraction();
 
-        Gravity();
+        if (lockGravity)
+        {
+            rb.gravityScale = 0f;
+        }
+        else
+        {
+            Gravity();
+        }
     }
 
     private void BoxInteraction()
@@ -84,6 +93,11 @@ public class Paper : MonoBehaviour
         }else{
             rb.gravityScale = 0f;
         }
+    }
+
+    public void LockGravity(bool to)
+    {
+        lockGravity = to;
     }
 
     private void OnDrawGizmos()

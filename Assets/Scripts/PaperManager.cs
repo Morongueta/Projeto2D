@@ -64,6 +64,8 @@ public class PaperManager : MonoBehaviour
 
         string vaga = correct;
 
+        
+
         paper.GetComponent<Curriculum>().Set(ownerName, genderN.ToString(), age.ToString("D2"), cellphone, civil, "Vaga: " + vaga, InformationDatabase.i.exp[experience], "R$" + salary);
     }
 

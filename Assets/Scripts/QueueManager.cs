@@ -78,7 +78,7 @@ public class QueueManager : MonoBehaviour
             
             if(i == 0)
             {
-                queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance))).setOnComplete(()=>{
+                queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.075f * Mathf.FloorToInt(distance))).setOnComplete(()=>{
                     if(personInFront != queue[0])
                     {
                         queue[0].CallInFrontEvent();
@@ -86,7 +86,7 @@ public class QueueManager : MonoBehaviour
                     }
                 });
             }
-            else queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance)));
+            else queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.075f * Mathf.FloorToInt(distance)));
         }
     }
 

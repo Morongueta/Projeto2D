@@ -21,6 +21,7 @@ public class InformationDatabase : MonoBehaviour
 
     public string[] exp = new string[] { "Baixo", "Moderado", "Avançado" };
     public string[] rel = new string[] { "Solteiro", "Casado", "Divorciado", "Viuvo" };
+    public Trait[] traits;
 
     public static InformationDatabase i;
 
@@ -51,4 +52,15 @@ public class InformationDatabase : MonoBehaviour
             vacancyList.Add(v);
         }
     }
+}
+
+[System.Serializable]
+public struct Trait
+{
+    public string name;
+    [Range(0f, 1f)] public float depressiveAndHappiness;
+    [Range(0f, 1f)] public float aggressiveAndPassive;
+    [Range(0f, 1f)] public float lazyAndActive;
+    [Range(0f, 1f)] public float awayChance;
+       
 }

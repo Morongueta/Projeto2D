@@ -27,6 +27,7 @@ public class CustomMouse : MonoBehaviour
     }
     private void Update()
     {
+        pointing = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(Input.mousePosition), .15f, Vector2.zero, .15f, customUILayer).collider != null;
         DrawMouse();
     }
 

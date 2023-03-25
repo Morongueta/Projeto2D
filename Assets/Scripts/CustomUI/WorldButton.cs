@@ -32,7 +32,6 @@ public class WorldButton : MonoBehaviour
 
     public void OnMouseDown()
     {
-
         if (!changingColor)
         {
             changingColor = true;
@@ -43,14 +42,14 @@ public class WorldButton : MonoBehaviour
             }
             );
 
+            
             OnClickAction?.Invoke();
         }
+
         Debug.Log("Clicked");
     }
     public void OnMouseEnter()
     {
-        CustomMouse.i.pointing = true;
-
         if (!changingColor)
         {
             changingColor = true;
@@ -59,9 +58,7 @@ public class WorldButton : MonoBehaviour
         Debug.Log("Mouse Enter");
     }
     public void OnMouseExit()
-    {
-        CustomMouse.i.pointing = false;
-        
+    {  
         changingColor = true;
         LeanTween.value(gameObject, 10,10,1f);
         gameObject.LeanColor(defaultColor, colorChangeTime).setOnComplete(() => changingColor = false);
