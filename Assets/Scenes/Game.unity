@@ -584,19 +584,7 @@ MonoBehaviour:
   colorChangeTime: 0.1
   OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 243572347}
-        m_TargetAssemblyTypeName: QueueManager, Assembly-CSharp
-        m_MethodName: RemoveFromQueue
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!61 &123302965
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2122,19 +2110,7 @@ MonoBehaviour:
   colorChangeTime: 0.1
   OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 243572347}
-        m_TargetAssemblyTypeName: QueueManager, Assembly-CSharp
-        m_MethodName: RemoveFromQueue
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!61 &468684434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2267,19 +2243,7 @@ MonoBehaviour:
   colorChangeTime: 0.1
   OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 243572347}
-        m_TargetAssemblyTypeName: QueueManager, Assembly-CSharp
-        m_MethodName: RemoveFromQueue
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!61 &514482544
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3617,19 +3581,7 @@ MonoBehaviour:
   colorChangeTime: 0.1
   OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 243572347}
-        m_TargetAssemblyTypeName: QueueManager, Assembly-CSharp
-        m_MethodName: RemoveFromQueue
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!61 &1255225544
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5239,15 +5191,71 @@ MonoBehaviour:
   - Viuvo
   traits:
   - name: Pro-Ativo
-    depressiveAndHappiness: 0
+    type: 0
+    depressiveAndHappiness: 0.5
     aggressiveAndPassive: 0.5
     lazyAndActive: 0.5
-    awayChance: 0.05
-  - name: Lazy
-    depressiveAndHappiness: 0
+    awayChance: 0
+  - name: "Pregui\xE7oso"
+    type: 1
+    depressiveAndHappiness: 0.5
     aggressiveAndPassive: 0.5
-    lazyAndActive: 0
+    lazyAndActive: 0.152
     awayChance: 0.1
+  - name: Depressivo
+    type: 1
+    depressiveAndHappiness: 0.169
+    aggressiveAndPassive: 0.5
+    lazyAndActive: 0.5
+    awayChance: 0.1
+  - name: Otimista
+    type: 0
+    depressiveAndHappiness: 0.897
+    aggressiveAndPassive: 0.571
+    lazyAndActive: 0.65
+    awayChance: 0
+  - name: Agressivo
+    type: 1
+    depressiveAndHappiness: 0.5
+    aggressiveAndPassive: 0.16
+    lazyAndActive: 0.5
+    awayChance: 0
+  - name: Chato
+    type: 1
+    depressiveAndHappiness: 0.5
+    aggressiveAndPassive: 0.5
+    lazyAndActive: 0.5
+    awayChance: 0
+  - name: "\xC1gil"
+    type: 0
+    depressiveAndHappiness: 0.5
+    aggressiveAndPassive: 0.5
+    lazyAndActive: 0.5
+    awayChance: 0
+  - name: Cavalo
+    type: 0
+    depressiveAndHappiness: 0
+    aggressiveAndPassive: 0
+    lazyAndActive: 0
+    awayChance: 1
+  - name: Sabonete
+    type: 0
+    depressiveAndHappiness: 0.66
+    aggressiveAndPassive: 0.328
+    lazyAndActive: 0.715
+    awayChance: 0.288
+  - name: Cachorro
+    type: 1
+    depressiveAndHappiness: 0
+    aggressiveAndPassive: 1
+    lazyAndActive: 1
+    awayChance: 0.043
+  - name: "M\xE3e de Pet"
+    type: 1
+    depressiveAndHappiness: 0
+    aggressiveAndPassive: 0
+    lazyAndActive: 0
+    awayChance: 0
 --- !u!1 &1705766981
 GameObject:
   m_ObjectHideFlags: 0
@@ -5730,7 +5738,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 3.26
-  m_fontSizeMax: 72
+  m_fontSizeMax: 8
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -5866,19 +5874,7 @@ MonoBehaviour:
   colorChangeTime: 0.1
   OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 243572347}
-        m_TargetAssemblyTypeName: QueueManager, Assembly-CSharp
-        m_MethodName: RemoveFromQueue
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!61 &1811276917
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6177,6 +6173,7 @@ MonoBehaviour:
   interviewObj: {fileID: 1705766981}
   questionObj: {fileID: 1135169996}
   reportObj: {fileID: 2048982105}
+  reportText: {fileID: 1757355981}
 --- !u!4 &2044835205
 Transform:
   m_ObjectHideFlags: 0

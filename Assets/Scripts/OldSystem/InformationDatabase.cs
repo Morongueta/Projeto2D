@@ -19,7 +19,7 @@ public class InformationDatabase : MonoBehaviour
     public string[] masculineNames;
     public string[] feminineNames;
 
-    public string[] exp = new string[] { "Baixo", "Moderado", "Avançado" };
+    public string[] exp = new string[] { "Baixo", "Moderado", "Avanï¿½ado" };
     public string[] rel = new string[] { "Solteiro", "Casado", "Divorciado", "Viuvo" };
     public Trait[] traits;
 
@@ -52,15 +52,35 @@ public class InformationDatabase : MonoBehaviour
             vacancyList.Add(v);
         }
     }
+
+    public Trait[] GetRandomTraits(int length, TraitType traitType)
+    {
+        List<Trait> result = new List<Trait>();
+
+        while(result.Count < length)
+        {
+            int randomTrait = Random.Range(0, traits.Length);
+
+            if(!result.Contains(traits[randomTrait]) && traits[randomTrait].type == traitType) result.Add(traits[randomTrait]);
+        }
+
+        return result.ToArray();
+    }
 }
 
+public enum TraitType
+{
+    POSITIVE,
+    NEGATIVE
+}
 [System.Serializable]
-public struct Trait
+public class Trait
 {
     public string name;
-    [Range(0f, 1f)] public float depressiveAndHappiness;
-    [Range(0f, 1f)] public float aggressiveAndPassive;
-    [Range(0f, 1f)] public float lazyAndActive;
-    [Range(0f, 1f)] public float awayChance;
+    public TraitType type;
+    [Range(0f, 1f)] public float depressiveAndHappiness = 0.5f;
+    [Range(0f, 1f)] public float aggressiveAndPassive = 0.5f;
+    [Range(0f, 1f)] public float lazyAndActive = 0.5f;
+    [Range(0f, 1f)] public float awayChance = 0f;
        
 }

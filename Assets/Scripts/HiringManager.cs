@@ -87,6 +87,8 @@ public class HiringManager : MonoBehaviour
         
         selectionHiringButton.gameObject.LeanMove(buttonHiddenPos, .25f);
     }
+    
+    #region Interview Area
     private void InterviewPhase()
     {
         if(setupInterview == false)
@@ -109,8 +111,10 @@ public class HiringManager : MonoBehaviour
             startedInterview = true;
             return;
         }
-        
     }
+
+    #endregion
+
     private void ShowBox(params PaperBox[] box)
     {
         for (int i = 0; i < box.Length; i++)

@@ -9,11 +9,7 @@ public class EraserTool : MonoBehaviour
     private Vector2 mousePos;
     private Vector2 startMousePos;
 
-    private Vector2 lastPos;
-
-    private GameObject drawingOn;
-    private LineRenderer curLine;
-
+    private Drawable paperDraw;
 
     private void Update() 
     {
@@ -103,6 +99,8 @@ public class EraserTool : MonoBehaviour
                             
                             if(line.positionCount < 1)
                             {
+                                paperDraw = line.GetComponentInParent<Drawable>();
+                                if(paperDraw != null) paperDraw.RemoveLineFromList(line);
                                 Destroy(line.gameObject);
                                 i = 0;
                                 return;
@@ -133,6 +131,8 @@ public class EraserTool : MonoBehaviour
 
                             if(line.positionCount < 1)
                             {
+                                paperDraw = line.GetComponentInParent<Drawable>();
+                                if(paperDraw != null) paperDraw.RemoveLineFromList(line);
                                 Destroy(line.gameObject);
                                 i = 0;
                                 return;
@@ -143,7 +143,8 @@ public class EraserTool : MonoBehaviour
                         
                         GameObject cloneLineObj = Instantiate(line.gameObject, line.gameObject.transform.parent);
                         LineRenderer cloneLine = cloneLineObj.GetComponent<LineRenderer>();
-                        
+                        paperDraw = line.GetComponentInParent<Drawable>();
+                        if(paperDraw != null) paperDraw.AddLineToList(cloneLine);
 
                         line.positionCount = closeIndex - 1;
 
@@ -178,6 +179,7 @@ public class EraserTool : MonoBehaviour
 
                         if(line.positionCount < 1)
                         {
+                            if(paperDraw != null) paperDraw.RemoveLineFromList(line);
                             Destroy(line.gameObject);
                             i = 0;
                             return;
@@ -185,6 +187,7 @@ public class EraserTool : MonoBehaviour
 
                         if(cloneLine.positionCount < 1)
                         {
+                            if(paperDraw != null) paperDraw.RemoveLineFromList(cloneLine);
                             Destroy(cloneLine.gameObject);
                             i = 0;
                             return;

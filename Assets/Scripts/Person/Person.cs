@@ -12,6 +12,13 @@ public class Person : MonoBehaviour
     public UnityEvent inFrontUnityEvent;
     public UnityEvent goingAwayUnityEvent;
 
+    protected PersonInfo info;
+
+    private void Awake()
+    {
+        info = GetComponent<PersonInfo>();
+    }
+
     private void Start()
     {
         SetupEvent();

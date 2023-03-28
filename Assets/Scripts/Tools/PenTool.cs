@@ -100,7 +100,12 @@ public class PenTool : MonoBehaviour
         }
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
-            if(curLine != null)if(curLine.positionCount < 2) Destroy(curLine.gameObject);
+            if(curLine != null)drawingOn.GetComponent<Drawable>().AddLineToList(curLine);
+            if(curLine != null)if(curLine.positionCount < 2)
+            {
+                drawingOn.GetComponent<Drawable>().RemoveLineFromList(curLine);
+                Destroy(curLine.gameObject);
+            }
             curLine = null;
             drawingOn = null;
             edgeCol = null;

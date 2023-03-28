@@ -43,8 +43,10 @@ public class WorldButton : MonoBehaviour
             );
 
             
-            OnClickAction?.Invoke();
+            
         }
+        
+        OnClickAction?.Invoke();
 
         Debug.Log("Clicked");
     }

@@ -22,7 +22,7 @@ public class QueueManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            AddPerson();
+            AddPerson(null);
         }
 
         if(Input.GetKeyDown(KeyCode.O))
@@ -44,7 +44,7 @@ public class QueueManager : MonoBehaviour
         }
         for (int i = 0; i < papers.Length; i++)
         {
-            AddPerson();
+            AddPerson(papers[i].GetComponent<Curriculum>());
         }
     }
 
@@ -53,17 +53,21 @@ public class QueueManager : MonoBehaviour
         int i = 0;
         while(i < papers.Length)
         {
-            AddPerson();
+            AddPerson(papers[i].GetComponent<Curriculum>());
             yield return new WaitForSeconds(delay);
             i++;
         }
     }
 
-    private void AddPerson()
+    private void AddPerson(Curriculum c)
     {
         GameObject newPerson = Instantiate(basePerson, new Vector2((-queueSpacing * queue.Count) - 15f, basePerson.transform.position.y), Quaternion.identity);
         queue.Add(newPerson.GetComponent<Person>());
         UpdateQueue();
+        
+        if(c == null) return;
+        PersonInfo info = newPerson.GetComponent<PersonInfo>();
+        if(info != null)info.SetPerson(c);
     }
 
     private void UpdateQueue()

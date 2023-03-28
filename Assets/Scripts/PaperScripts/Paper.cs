@@ -26,13 +26,17 @@ public class Paper : MonoBehaviour
     private Vector3 paperScale;
     private Vector3 miniScale;
 
+    private float lineSize;
+
     private Rigidbody2D rb;
     private SpriteRenderer render;
+    private Drawable draw = null;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         render = GetComponentInChildren<SpriteRenderer>();
+        draw = GetComponent<Drawable>();
     }
 
     private void Start()
@@ -59,17 +63,30 @@ public class Paper : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1f,Vector2.zero,1f, boxLayer);
 
+        if(draw != null)
+            if(lineSize == 0)
+            {
+                LineRenderer l = GetComponentInChildren<LineRenderer>();
+                if(l != null) lineSize = l.startWidth;
+            } 
+
         if(hit.collider != null)
         {
-            if(GetComponent<Draggable>().holding) transform.localScale = miniScale;
+            if(GetComponent<Draggable>().holding)
+            {
+                transform.localScale = miniScale;
+                ChangeLineSize(lineSize / 2f);
+            }
         }else{
             transform.localScale = paperScale;
+            ChangeLineSize(lineSize);
         }
     }
 
     public void ResetSize()
     {
         transform.localScale = paperScale;
+        ChangeLineSize(lineSize);
     }
 
     public void ReleasePaper()
@@ -98,6 +115,21 @@ public class Paper : MonoBehaviour
     public void LockGravity(bool to)
     {
         lockGravity = to;
+    }
+
+    private void ChangeLineSize(float size)
+    {
+        if(draw == null) return;
+
+        LineRenderer[] lines = draw.GetLines();
+
+        if(lines.Length == 0) return;
+
+        for(int i = 0; i < lines.Length; i++)
+        {
+            lines[i].startWidth = size;
+            lines[i].endWidth = size;
+        }
     }
 
     private void OnDrawGizmos()
