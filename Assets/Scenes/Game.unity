@@ -5190,71 +5190,125 @@ MonoBehaviour:
   - Divorciado
   - Viuvo
   traits:
-  - name: Pro-Ativo
+  - name: Pro Ativo
+    ID: 0
+    BlackListID: 04000000
     type: 0
-    depressiveAndHappiness: 0.5
-    aggressiveAndPassive: 0.5
-    lazyAndActive: 0.5
+    performance: 0.5
+    agressiveness: 0
+    disastrous: 0
+    responsability: 0.15
+    stayFactor: 0
+    awayChance: 0
+  - name: Calmo
+    ID: 1
+    BlackListID: 05000000
+    type: 0
+    performance: 0
+    agressiveness: -0.5
+    disastrous: 0
+    responsability: 0
+    stayFactor: 0
+    awayChance: 0
+  - name: Comprometido
+    ID: 2
+    BlackListID: 06000000
+    type: 0
+    performance: 0.05
+    agressiveness: 0
+    disastrous: 0
+    responsability: 0.5
+    stayFactor: 0.1
+    awayChance: 0
+  - name: Otimista
+    ID: 3
+    BlackListID: 07000000
+    type: 0
+    performance: 0
+    agressiveness: -0.1
+    disastrous: 0
+    responsability: 0
+    stayFactor: 0.5
     awayChance: 0
   - name: "Pregui\xE7oso"
+    ID: 4
+    BlackListID: 00000000
     type: 1
-    depressiveAndHappiness: 0.5
-    aggressiveAndPassive: 0.5
-    lazyAndActive: 0.152
+    performance: -0.5
+    agressiveness: 0
+    disastrous: 0
+    responsability: -0.15
+    stayFactor: 0
+    awayChance: 0.05
+  - name: Pavio Curto
+    ID: 5
+    BlackListID: 01000000
+    type: 1
+    performance: 0
+    agressiveness: 0.5
+    disastrous: 0
+    responsability: 0
+    stayFactor: 0
+    awayChance: 0
+  - name: "Irrespons\xE1vel"
+    ID: 6
+    BlackListID: 02000000
+    type: 1
+    performance: 0
+    agressiveness: 0
+    disastrous: 0
+    responsability: -0.5
+    stayFactor: 0
+    awayChance: 0.05
+  - name: Pessimista
+    ID: 7
+    BlackListID: 03000000
+    type: 1
+    performance: 0
+    agressiveness: 0
+    disastrous: 0
+    responsability: 0
+    stayFactor: -0.5
     awayChance: 0.1
-  - name: Depressivo
+  - name: Desastrado
+    ID: 8
+    BlackListID: 09000000
     type: 1
-    depressiveAndHappiness: 0.169
-    aggressiveAndPassive: 0.5
-    lazyAndActive: 0.5
+    performance: -0.15
+    agressiveness: 0
+    disastrous: 0.5
+    responsability: 0
+    stayFactor: -0.05
     awayChance: 0.1
-  - name: Otimista
+  - name: Cauteloso
+    ID: 9
+    BlackListID: 08000000
     type: 0
-    depressiveAndHappiness: 0.897
-    aggressiveAndPassive: 0.571
-    lazyAndActive: 0.65
+    performance: 0
+    agressiveness: 0
+    disastrous: -0.5
+    responsability: 0
+    stayFactor: 0.05
     awayChance: 0
-  - name: Agressivo
-    type: 1
-    depressiveAndHappiness: 0.5
-    aggressiveAndPassive: 0.16
-    lazyAndActive: 0.5
-    awayChance: 0
-  - name: Chato
-    type: 1
-    depressiveAndHappiness: 0.5
-    aggressiveAndPassive: 0.5
-    lazyAndActive: 0.5
-    awayChance: 0
-  - name: "\xC1gil"
+  - name: PlaceHolderPositive
+    ID: 10
+    BlackListID: 0b000000
     type: 0
-    depressiveAndHappiness: 0.5
-    aggressiveAndPassive: 0.5
-    lazyAndActive: 0.5
+    performance: 0
+    agressiveness: 0
+    disastrous: -0.5
+    responsability: 0
+    stayFactor: 0.05
     awayChance: 0
-  - name: Cavalo
-    type: 0
-    depressiveAndHappiness: 0
-    aggressiveAndPassive: 0
-    lazyAndActive: 0
-    awayChance: 1
-  - name: Sabonete
-    type: 0
-    depressiveAndHappiness: 0.66
-    aggressiveAndPassive: 0.328
-    lazyAndActive: 0.715
-    awayChance: 0.288
-  - name: Cachorro
+  - name: PlaceHolderNegative
+    ID: 11
+    BlackListID: 08000000
     type: 1
-    depressiveAndHappiness: 0
-    aggressiveAndPassive: 1
-    lazyAndActive: 1
-    awayChance: 0.043
-  - name: "M\xE3e de Pet"
-    type: 1
-    depressiveAndHappiness: 0
-    aggressiveAndPassive: 0
-    lazyAndActive: 0
+    performance: 0
+    agressiveness: 0
+    disastrous: -0.5
+    responsability: 0
+    stayFactor: 0.05
     awayChance: 0
 --- !u!1 &1705766981
 GameObject:

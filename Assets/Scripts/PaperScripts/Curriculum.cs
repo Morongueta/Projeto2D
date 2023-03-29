@@ -32,8 +32,17 @@ public class Curriculum : MonoBehaviour
 
         hasFamily = ((Random.value * 100) < 50f);
 
-        positiveTraits = InformationDatabase.i.GetRandomTraits(3,TraitType.POSITIVE);
-        negativeTraits = InformationDatabase.i.GetRandomTraits(3,TraitType.NEGATIVE);
+        if((Random.value * 100f) < 50f)
+        {
+            positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, this);
+            negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, this);
+        }
+        else
+        {
+            negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, this);
+            positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, this);
+        }
+        
     }
 
 }
