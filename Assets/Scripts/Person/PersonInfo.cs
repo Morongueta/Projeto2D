@@ -8,24 +8,29 @@ public class PersonInfo : MonoBehaviour
     public Trait[] positiveTraits;
     public Trait[] negativeTraits;
     public bool hasFamily;
-    #region Family variables
     public int sonsQtd;
-    public int dogsQtd;
-    public int catsQtd; //So pa zua
-    #endregion
+    public int contributionTime;
+
+    public Curriculum c;
 
     public void SetPerson(Curriculum c)
     {
-        personName = c.nameText.text;
+        personName = c.personName;
         positiveTraits = c.positiveTraits;
         negativeTraits = c.negativeTraits;
         hasFamily = c.hasFamily;
+        contributionTime = c.contributionTime;
 
-        if(hasFamily)
-        {
-            sonsQtd = Random.Range(1,5);
-            dogsQtd = Random.Range(0,3);
-            catsQtd = Random.Range(0,4);
-        }
+        sonsQtd = c.sonsQtd;
+
+        this.c = c;
+    }
+
+    public Trait[] GetAllTraits()
+    {
+        List<Trait> traits = new List<Trait>();
+        traits.AddRange(negativeTraits);
+        traits.AddRange(positiveTraits);
+        return traits.ToArray();
     }
 }

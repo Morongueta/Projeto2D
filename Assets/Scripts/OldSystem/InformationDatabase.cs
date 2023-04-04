@@ -101,6 +101,26 @@ public class InformationDatabase : MonoBehaviour
 
         return result.ToArray();
     }
+
+
+    public Trait[] GetRandomTraits(int length, TraitType traitType, Trait[] lastTraits)
+    {
+        List<Trait> result = new List<Trait>();
+
+        List<int> recordTraits = new List<int>();
+        for (int i = 0; i < lastTraits.Length; i++)
+        {
+            recordTraits.Add(lastTraits[i].ID);
+        }
+
+        while (result.Count < length)
+        {
+            int randomTrait = Random.Range(0, traits.Length);
+            if (!result.Contains(traits[randomTrait]) && traits[randomTrait].type == traitType && !recordTraits.Contains(traits[randomTrait].ID)) result.Add(traits[randomTrait]);
+        }
+
+        return result.ToArray();
+    }
 }
 
 public enum TraitType
@@ -128,6 +148,12 @@ public class Trait
     [Range(-1f, 1f), Tooltip("Esse atributo aumenta ou diminui o tempo que aquela pessoa ficará na empresa")] public float stayFactor = 0f;
 
     [Range(0f, 1f)] public float awayChance = 0f;
+    [Range(-5,5)] public int contributionTime = 0;
+
+    [Header("Responses")]
+    public string[] traitDetail;
+    public string[] contributionExplanation;
+
        
 }
 

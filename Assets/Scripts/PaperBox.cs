@@ -84,14 +84,20 @@ public class PaperBox : MonoBehaviour
         }
     }
 
-    public void DestroyFromBoxAll()
+    public void DestroyFromBoxAll(float timed = 0f)
     {
         for (int i = 0; i < paperInside.Count; i++)
         {
             GameObject paper = paperInside[i];
-            Destroy(paper);
+            paper.GetComponent<Paper>().canGet = false;
+            Destroy(paper,timed);
         }
         paperInside.Clear();
+    }
+
+    public GameObject[] GetPapers()
+    {
+        return paperInside.ToArray();
     }
 
     public int GetPaperCount()

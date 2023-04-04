@@ -7,6 +7,7 @@ public class InformationEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
+        
 
         InformationDatabase info = (InformationDatabase)target;
 

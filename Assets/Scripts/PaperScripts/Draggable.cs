@@ -74,28 +74,32 @@ public class Draggable : MonoBehaviour
         if (!canMoveLayer) return;
         for (int y = 0; y < allDraggables.Count; y++)
         {
-            if (allDraggables[y].active && allDraggables[y].canMoveLayer)
+            if(allDraggables[y] != null)
             {
-                SpriteRenderer[] rends = allDraggables[y].GetComponentsInChildren<SpriteRenderer>();
-                TextMeshPro[] texts = allDraggables[y].GetComponentsInChildren<TextMeshPro>();
-                LineRenderer[] lines = allDraggables[y].GetComponentsInChildren<LineRenderer>();
-
-                Debug.Log("GoBackwards " + allDraggables[y].name);
-
-                for (int i = 0; i < rends.Length; i++)
+                if (allDraggables[y].active && allDraggables[y].canMoveLayer)
                 {
-                    rends[i].sortingOrder--;
-                }
+                    SpriteRenderer[] rends = allDraggables[y].GetComponentsInChildren<SpriteRenderer>();
+                    TextMeshPro[] texts = allDraggables[y].GetComponentsInChildren<TextMeshPro>();
+                    LineRenderer[] lines = allDraggables[y].GetComponentsInChildren<LineRenderer>();
 
-                for (int i = 0; i < texts.Length; i++)
-                {
-                    texts[i].sortingOrder--;
-                }
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    lines[i].sortingOrder--;
+                    Debug.Log("GoBackwards " + allDraggables[y].name);
+
+                    for (int i = 0; i < rends.Length; i++)
+                    {
+                        rends[i].sortingOrder--;
+                    }
+
+                    for (int i = 0; i < texts.Length; i++)
+                    {
+                        texts[i].sortingOrder--;
+                    }
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        lines[i].sortingOrder--;
+                    }
                 }
             }
+
         }
     }
 

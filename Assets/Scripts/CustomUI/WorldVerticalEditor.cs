@@ -7,6 +7,7 @@ using UnityEditor;
 [CustomEditor(typeof(WorldVerticalGroup))]
 public class WorldVerticalEditor : Editor {
     public override void OnInspectorGUI() {
+        
         base.OnInspectorGUI();
         if(GUILayout.Button("Draw"))
         {

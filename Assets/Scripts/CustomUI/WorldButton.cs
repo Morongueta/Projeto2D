@@ -11,8 +11,12 @@ public class WorldButton : MonoBehaviour
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color hoverColor;
     [SerializeField] private Color clickedColor;
+    [SerializeField] private Color disabledColor;
 
     [SerializeField] private float colorChangeTime;
+
+    public bool interactable = true;
+    private bool lastInteractable = false;
 
     private bool changingColor;
 
@@ -23,15 +27,46 @@ public class WorldButton : MonoBehaviour
 
     private void Awake()
     {
-        if(render != null)render = GetComponent<SpriteRenderer>();
-        if(renderText != null)renderText = GetComponent<TextMeshPro>();
+        if(render == null)render = GetComponent<SpriteRenderer>();
+        if(renderText == null)renderText = GetComponent<TextMeshPro>();
 
         OnClickAction += () => OnClick?.Invoke();
+    }
+
+    private void Update()
+    {
+        if(!interactable)
+        {
+            if (!changingColor && render.color != disabledColor)
+            {
+                changingColor = true;
+                gameObject.LeanColor(disabledColor, colorChangeTime).setOnComplete(() =>
+                {
+                    changingColor = false;
+                    lastInteractable = interactable;
+                });
+            }
+            
+        }else{
+            if(lastInteractable != interactable)
+            {
+                if (!changingColor && render.color != defaultColor)
+                {
+                    changingColor = true;
+                    gameObject.LeanColor(defaultColor, colorChangeTime).setOnComplete(() =>
+                    {
+                        changingColor = false;
+                        lastInteractable = interactable;
+                    });
+                }
+            }
+        }
     }
 
 
     public void OnMouseDown()
     {
+        if(!interactable) return;
         if (!changingColor)
         {
             changingColor = true;
@@ -40,10 +75,7 @@ public class WorldButton : MonoBehaviour
                 changingColor = false;
                 OnMouseEnter();
             }
-            );
-
-            
-            
+            );  
         }
         
         OnClickAction?.Invoke();
@@ -52,6 +84,7 @@ public class WorldButton : MonoBehaviour
     }
     public void OnMouseEnter()
     {
+        if(!interactable) return;
         if (!changingColor)
         {
             changingColor = true;
@@ -61,6 +94,7 @@ public class WorldButton : MonoBehaviour
     }
     public void OnMouseExit()
     {  
+        if(!interactable) return;
         changingColor = true;
         LeanTween.value(gameObject, 10,10,1f);
         gameObject.LeanColor(defaultColor, colorChangeTime).setOnComplete(() => changingColor = false);

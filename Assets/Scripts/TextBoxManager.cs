@@ -8,11 +8,15 @@ public class TextBoxManager : MonoBehaviour
 {
     [SerializeField]private GameObject textBoxHUD;
     [Space]
+    [SerializeField]private TextMeshPro interviewMoneyText;
     [SerializeField]private GameObject interviewObj;
+    [SerializeField]private GameObject interviewQuestionObj;
     [Space]
     [SerializeField]private GameObject questionObj;
     [SerializeField]private GameObject reportObj;
     [SerializeField]private TextMeshPro reportText;
+
+    [SerializeField]private WorldButton goAwayButton;
 
     public static TextBoxManager i;
 
@@ -21,20 +25,47 @@ public class TextBoxManager : MonoBehaviour
         i = this;
     }
 
+    private void Start()
+    {
+        goAwayButton.OnClickAction += () => {
+            QueueManager.i.RemoveFromQueue(0);
+        };
+    }
+
     public void ShowInterview(params Action[] buttonActions)
     {
         interviewObj.SetActive(true);
         textBoxHUD.SetActive(true);
 
-        WorldButton[] worldButtons = interviewObj.GetComponentsInChildren<WorldButton>();
+        WorldButton[] worldButtons = interviewQuestionObj.GetComponentsInChildren<WorldButton>();
         if(worldButtons.Length == 0) return;
 
         for (int i = 0; i < worldButtons.Length; i++)
         {
             if(buttonActions.Length <= i) return;
-
+            worldButtons[i].OnClickAction -= worldButtons[i].OnClickAction;
             worldButtons[i].OnClickAction += buttonActions[i];
         }
+    }
+
+    public void ShowInterview(params bool[] activity)
+    {
+        interviewObj.SetActive(true);
+        textBoxHUD.SetActive(true);
+
+        WorldButton[] worldButtons = interviewQuestionObj.GetComponentsInChildren<WorldButton>();
+        if(worldButtons.Length == 0) return;
+
+        for (int i = 0; i < worldButtons.Length; i++)
+        {
+            if(activity.Length <= i) return;
+            worldButtons[i].interactable = activity[i];
+        }
+    }
+
+    public void ShowInterviewMoney(string text)
+    {
+        interviewMoneyText.text = text;
     }
 
     public void SetReportText(string text)
@@ -58,6 +89,7 @@ public class TextBoxManager : MonoBehaviour
         {
             if(buttonActions.Length <= i) return;
 
+            worldButtons[i].OnClickAction -= worldButtons[i].OnClickAction;
             worldButtons[i].OnClickAction += buttonActions[i];
         }
     }

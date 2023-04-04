@@ -13,6 +13,9 @@ public class Paper : MonoBehaviour
 {
     public PaperType type;
     [SerializeField] private LayerMask boxLayer;
+    private bool inBox;
+    [SerializeField] private LayerMask paperDestroyerLayer;
+    private bool inDestroyer;
     [SerializeField] private Vector2 minPaperSpace;
     [SerializeField] private Vector2 maxPaperSpace;
 
@@ -32,6 +35,8 @@ public class Paper : MonoBehaviour
     private SpriteRenderer render;
     private Drawable draw = null;
 
+    public bool canGet = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +53,7 @@ public class Paper : MonoBehaviour
     private void Update()
     {
         BoxInteraction();
+        DestroyerInteraction();
 
         if (lockGravity)
         {
@@ -59,9 +65,18 @@ public class Paper : MonoBehaviour
         }
     }
 
+    private void DestroyerInteraction()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1f,Vector2.zero,1f, paperDestroyerLayer);
+
+        inDestroyer = (hit.collider != null);
+    }
+
     private void BoxInteraction()
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1f,Vector2.zero,1f, boxLayer);
+
+        inBox = (hit.collider != null);
 
         if(draw != null)
             if(lineSize == 0)
@@ -70,7 +85,7 @@ public class Paper : MonoBehaviour
                 if(l != null) lineSize = l.startWidth;
             } 
 
-        if(hit.collider != null)
+        if(inBox)
         {
             if(GetComponent<Draggable>().holding)
             {
@@ -91,6 +106,12 @@ public class Paper : MonoBehaviour
 
     public void ReleasePaper()
     {
+        if(inDestroyer)
+        {
+            QueueManager.i.RemoveFromQueueCurriculum(GetComponent<Curriculum>());
+            Destroy(this.gameObject);
+        }
+
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1f,Vector2.zero,1f, boxLayer);
         if(hit.collider != null)
         {
