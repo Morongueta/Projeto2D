@@ -29,7 +29,7 @@ public class HiringManager : MonoBehaviour
     private Vector2 selectPos;
 
     [Header("Interview")]
-    private int maxInterviewMoney = 5;
+    private int maxInterviewMoney = 6;
     private int interviewMoney = 0;
 
     private void Awake()

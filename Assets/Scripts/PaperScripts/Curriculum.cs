@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEngine.ParticleSystem;
 
 public class Curriculum : MonoBehaviour
 {
@@ -137,5 +138,27 @@ public class CurriculumData
         hasFamily = c.hasFamily;
         sonsQtd = c.sonsQtd;
         contributionTime = c.contributionTime;
+    }
+
+    public Trait[] GetAllTraits()
+    {
+        List<Trait> traits = new List<Trait>();
+        traits.AddRange(positiveTraits);
+        traits.AddRange(negativeTraits);
+        return traits.ToArray();
+    }
+
+    public void AddTrait(Trait trait)
+    {
+        List<Trait> traits = new List<Trait>();
+        if (trait.type == TraitType.POSITIVE)
+        {
+            traits.AddRange(positiveTraits);
+
+        }
+        else
+        {
+
+        }
     }
 }

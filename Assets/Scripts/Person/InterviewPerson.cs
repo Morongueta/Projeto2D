@@ -20,7 +20,7 @@ public class InterviewPerson : Person
         int money = HiringManager.i.GetInverviewMoney();
 
         TextBoxManager.i.ShowInterviewMoney(money.ToString());
-        TextBoxManager.i.ShowInterview((money >= 1),(money >= 3),(money >= 1),(money >= 2),(money >= 5));
+        TextBoxManager.i.ShowInterview((money >= 1),(money >= 2),(money >= 1),(money >= 3),(money >= 5));
         TextBoxManager.i.ShowInterview(()=>ShowName(),()=>ShowAboutYou(),()=>ShowFamily(),()=>ShowContribution(),() => ShowTraits());
     }
 

@@ -121,6 +121,19 @@ public class InformationDatabase : MonoBehaviour
 
         return result.ToArray();
     }
+
+
+    public Trait[] GetTraits(TraitType traitType)
+    {
+        List<Trait> result = new List<Trait>();
+
+        for (int i = 0; i < traits.Length; i++)
+        {
+            if (traits[i].type == traitType) result.Add(traits[i]);
+        }
+
+        return result.ToArray();
+    }
 }
 
 public enum TraitType

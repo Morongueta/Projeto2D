@@ -1701,7 +1701,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.609, y: 2.884}
+  m_AnchoredPosition: {x: -1.609, y: 2.99}
   m_SizeDelta: {x: 3.6353, y: 0.6998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &333791881
@@ -3710,7 +3710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.33, y: 2.87}
+  m_AnchoredPosition: {x: 2.33, y: 2.96}
   m_SizeDelta: {x: 2.0113, y: 0.5028}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1144894556
@@ -5422,7 +5422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0383, y: -0.0264}
+  m_AnchoredPosition: {x: -0.0383, y: 0.16}
   m_SizeDelta: {x: 7.0325, y: 6.7393}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1646814179
@@ -5972,7 +5972,7 @@ MonoBehaviour:
     responsability: 0.15
     stayFactor: 0
     awayChance: 0
-    contributionTime: 3
+    contributionTime: 2
     traitDetail:
     - gosto muito de aprender coisas novas
     contributionExplanation:
@@ -7106,7 +7106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978981012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.742485, y: 0.91336936, z: -0.38598326}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

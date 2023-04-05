@@ -148,6 +148,7 @@ public class Paper : MonoBehaviour
 
         for(int i = 0; i < lines.Length; i++)
         {
+            if (lines[i] == null) return;
             lines[i].startWidth = size;
             lines[i].endWidth = size;
         }
