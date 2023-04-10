@@ -34,6 +34,11 @@ public class InformationDatabase : MonoBehaviour
 
     private void Start()
     {
+        GetTexts();
+    }
+
+    private void GetTexts()
+    {
         TextAsset txt = Resources.Load("NomesFemininos") as TextAsset;
         feminineNames = txt.ToString().Replace("Srta. ", "").Replace("Sra. ", "").Replace("Dra. ", "").Split("\n");
         txt = Resources.Load("NomesMasculinos") as TextAsset;
@@ -53,6 +58,43 @@ public class InformationDatabase : MonoBehaviour
             v.variance = float.Parse(vaga[4]) / 100f;
             vacancyList.Add(v);
         }
+    }
+
+    public PersonData GeneratePerson()
+    {
+        GetTexts();
+        float gender = (UnityEngine.Random.value * 100);
+        string ownerName = (gender < 50f) ? feminineNames[UnityEngine.Random.Range(0, feminineNames.Length)] : masculineNames[UnityEngine.Random.Range(0, masculineNames.Length)];
+        int age = UnityEngine.Random.Range(14, 60);
+        string cellphone = "("+ UnityEngine.Random.Range(10,99)+")" + UnityEngine.Random.Range(0, 9999999).ToString("D7");
+        string genderN = (gender < 50f) ? "Mulher" : "Homem" ;
+        string relr = (rel[UnityEngine.Random.Range(0, rel.Length)]);
+        string civil = (gender < 50f) ? relr.Remove(relr.Length - 1, 1) + "a" : relr;
+
+        Vacancy v = vacancyList[UnityEngine.Random.Range(0, vacancyList.Count)];
+
+        int experience = UnityEngine.Random.Range(0, exp.Length);
+        string salary = (100 * (int)Mathf.Round((UnityEngine.Random.Range(v.min, v.max) + ((experience + 1) * 550) - 550) / 100.0f)).ToString();
+
+        string removed = v.name.Replace("(a)", "");
+
+        string femaleSimple = removed + "a";
+        string femaleComplex = removed.Remove(removed.Length - 1, 1) + "a";
+
+        string correct = removed;
+        if(v.name.Contains("(a)") && gender < 50f)
+        {
+            if(removed[removed.Length - 1] == 'o')
+            {
+                correct = femaleComplex;
+            }else{
+                correct = femaleSimple;
+            }   
+        }
+
+        string vaga = correct;
+
+        return new PersonData(ownerName, genderN, vaga, cellphone, age.ToString("D2"), relr, civil, salary, FindObjectOfType<InformationDatabase>().exp[experience]);
     }
 
     public Trait[] GetRandomTraits(int length, TraitType traitType, Curriculum curriculum)
@@ -134,6 +176,17 @@ public class InformationDatabase : MonoBehaviour
 
         return result.ToArray();
     }
+
+    public Trait[] GetTraits()
+    {
+        return traits;
+    }
+
+    public Trait GetTrait(int index)
+    {
+        if(index >= traits.Length || index < 0) return null;
+        return traits[index];
+    }
 }
 
 public enum TraitType
@@ -170,4 +223,35 @@ public class Trait
        
 }
 
+public struct PersonData
+{
+    public string name;
+    public string gender;
+    public string vaga;
+    public string cellphone;
+    public string age;
+    public string relationship;
+    public string civil;
+    public string salary;
+    public string experience;
 
+    public PersonData(string name,string gender, string vaga, string cellphone, string age, string relationship, string civil, string salary, string experience)
+    {
+        this.name = name;
+        this.vaga = vaga;
+        this.gender = gender;
+        this.cellphone = cellphone;
+        this.age = age;
+        this.relationship = relationship;
+        this.civil = civil;
+        this.salary = salary;
+        this.experience = experience;
+    }
+
+    public CurriculumData Convert()
+    {
+        CurriculumData data = new CurriculumData();
+        data.Store(this);
+        return data;
+    }
+}

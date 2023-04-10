@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QueueManager : MonoBehaviour
 {
-    [SerializeField]private GameObject basePerson, interviewPerson;
+    [SerializeField]private GameObject basePerson, interviewPerson, questionPerson;
     [SerializeField]private float queueSpacing;
 
     [SerializeField]private List<Person> queue = new List<Person>();
@@ -48,6 +48,23 @@ public class QueueManager : MonoBehaviour
         }
     }
 
+    public void AddQuestionPerson(string question, string confirm, string decline, System.Action confirmAction = null, System.Action declineAction = null)
+    {
+        GameObject person = AddPerson(questionPerson);
+
+        PersonQuestion personQuestion = person.GetComponent<PersonQuestion>();
+
+        if(personQuestion != null)
+        {
+            personQuestion.question = question;
+            personQuestion.confirm = confirm;
+            personQuestion.decline = decline;
+
+            personQuestion.confirmAction += confirmAction;
+            personQuestion.declineAction += declineAction;
+        }
+    }
+
     private IEnumerator EAddHiringPerson(GameObject[] papers, float delay)
     {
         int i = 0;
@@ -71,6 +88,11 @@ public class QueueManager : MonoBehaviour
         if(info != null)info.SetPerson(c);
 
         return newPerson;
+    }
+
+    private GameObject AddPerson(GameObject person)
+    {
+        return AddPerson(null, person);
     }
 
     private void UpdateQueue(bool ignoreTheFirst = false)

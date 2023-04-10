@@ -139,6 +139,21 @@ public class CurriculumData
         sonsQtd = c.sonsQtd;
         contributionTime = c.contributionTime;
     }
+    public void Store(PersonData data)
+    {
+        personName = data.name;
+        gender = data.gender;
+        age = data.age;
+        cell = data.cellphone;
+        civil = data.civil;
+        vaga = data.vaga;
+        exp = data.experience;
+        salary = data.salary;
+
+        hasFamily = ((Random.value * 100) < 50f);
+        if(hasFamily) sonsQtd = Random.Range(1,5);
+
+    }
 
     public Trait[] GetAllTraits()
     {
@@ -151,14 +166,20 @@ public class CurriculumData
     public void AddTrait(Trait trait)
     {
         List<Trait> traits = new List<Trait>();
+        traits.Add(trait);
+
         if (trait.type == TraitType.POSITIVE)
         {
-            traits.AddRange(positiveTraits);
-
+            if(positiveTraits == null) traits.AddRange(positiveTraits);
+            positiveTraits = traits.ToArray();
         }
         else
         {
-
+            if(negativeTraits == null) traits.AddRange(negativeTraits);
+            negativeTraits = traits.ToArray();
         }
+        
+
+
     }
 }

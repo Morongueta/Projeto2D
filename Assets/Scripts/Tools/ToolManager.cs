@@ -19,6 +19,8 @@ public class ToolManager : MonoBehaviour
 
     private ToolButton lastTool;
 
+    private PenTool penTool;
+
     public static ToolManager i;
 
     public Tool GetTool()
@@ -29,6 +31,7 @@ public class ToolManager : MonoBehaviour
     private void Awake()
     {
         i = this;
+        penTool = GetComponent<PenTool>();
     }
 
     private void Update()
@@ -50,14 +53,28 @@ public class ToolManager : MonoBehaviour
                 ToolButton btn = hit.collider.GetComponent<ToolButton>();
                 if(btn != null)
                 {
+
                     if(curTool == btn.tool)
                     {
-                        btn.SetColor(Color.white);
-                        curTool = Tool.HAND;
+                        if(penTool.GetPen().penObject != btn.pen.penObject && curTool == Tool.PEN)
+                        {
+                            if(lastTool != null) lastTool.SetColor(Color.white);
+                            btn.SetColor(new Color(1f,1f,1f,.5f));
+                            curTool = btn.tool;
+                        }else{
+                            btn.SetColor(Color.white);
+                            curTool = Tool.HAND;
+                        }
+                        
                     }else{
                         if(lastTool != null) lastTool.SetColor(Color.white);
                         btn.SetColor(new Color(1f,1f,1f,.5f));
                         curTool = btn.tool;
+                    }
+                    
+                    if(curTool == Tool.PEN)
+                    {
+                        penTool.SetPen(btn.pen);
                     }
 
                     lastTool = btn;

@@ -5,6 +5,8 @@ using UnityEngine;
 public class ToolButton : MonoBehaviour
 {
     public Tool tool;
+    [Header("Pen")]
+    public PenProperties pen;
 
     private SpriteRenderer render;
 
@@ -17,4 +19,11 @@ public class ToolButton : MonoBehaviour
     {
         render.color = col;
     }
+}
+
+[System.Serializable]
+public struct PenProperties
+{
+    public GameObject penObject;
+    public bool isErasable;
 }

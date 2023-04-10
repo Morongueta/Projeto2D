@@ -13,8 +13,16 @@ public class PenTool : MonoBehaviour
     private LineRenderer curLine;
     private EdgeCollider2D edgeCol;
 
-    [SerializeField]private GameObject defaultPen;
+    private PenProperties pen;
 
+    public void SetPen(PenProperties pen)
+    {
+        this.pen = pen;
+    }
+    public PenProperties GetPen()
+    {
+        return pen;
+    }
 
     private void Update() 
     {
@@ -64,17 +72,22 @@ public class PenTool : MonoBehaviour
                                 curLine.positionCount++;
                                 curLine.SetPosition(curLine.positionCount - 1, mousePos - (Vector2)drawingOn.transform.position);
                                 lastPos = mousePos;
-                                List<Vector2> p = new List<Vector2>();
-                                for (int i = 0; i < curLine.positionCount; i++)
+                                if(pen.isErasable)
                                 {
-                                    p.Add(curLine.GetPosition(i));
+                                    List<Vector2> p = new List<Vector2>();
+                                    for (int i = 0; i < curLine.positionCount; i++)
+                                    {
+                                        p.Add(curLine.GetPosition(i));
+                                    }
+                                    edgeCol.SetPoints(p);
+                                }else{
+                                    edgeCol.enabled = false;
                                 }
-                                edgeCol.SetPoints(p);
                             }
                         }
                     }else{
                         drawingOn = draw.gameObject;
-                        GameObject line = Instantiate(defaultPen, mousePos, Quaternion.identity);
+                        GameObject line = Instantiate(pen.penObject, mousePos, Quaternion.identity);
                         line.transform.localScale = Vector3.one * .95f;
                         line.transform.parent = drawingOn.transform;
                         line.transform.localPosition = Vector2.zero;
@@ -85,12 +98,17 @@ public class PenTool : MonoBehaviour
                         curLine.positionCount = 0;
                         curLine.positionCount++;
                         curLine.SetPosition(0, mousePos - (Vector2)drawingOn.transform.position);
-                        List<Vector2> p = new List<Vector2>();
-                        for (int i = 0; i < curLine.positionCount; i++)
+                        if(pen.isErasable)
                         {
-                            p.Add(curLine.GetPosition(i));
+                            List<Vector2> p = new List<Vector2>();
+                            for (int i = 0; i < curLine.positionCount; i++)
+                            {
+                                p.Add(curLine.GetPosition(i));
+                            }
+                            edgeCol.SetPoints(p);
+                        }else{
+                            edgeCol.enabled = false;
                         }
-                        edgeCol.SetPoints(p);
                     }
                 }else
                 {

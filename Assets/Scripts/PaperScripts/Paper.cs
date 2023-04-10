@@ -29,7 +29,7 @@ public class Paper : MonoBehaviour
     private Vector3 paperScale;
     private Vector3 miniScale;
 
-    private float lineSize;
+    private List<float> lineSize = new List<float>();
 
     private Rigidbody2D rb;
     private SpriteRenderer render;
@@ -79,29 +79,42 @@ public class Paper : MonoBehaviour
         inBox = (hit.collider != null);
 
         if(draw != null)
-            if(lineSize == 0)
+        {
+            LineRenderer[] lines = draw.GetLines();
+            if(lineSize.Count != lines.Length)
             {
-                LineRenderer l = GetComponentInChildren<LineRenderer>();
-                if(l != null) lineSize = l.startWidth;
+                lineSize.Clear();
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if(lines[i] == null)
+                    {
+                        lineSize.Add(0f);
+                    }else{
+                        lineSize.Add(lines[i].startWidth);
+                    }
+                    
+                }
             } 
+        }
 
         if(inBox)
         {
             if(GetComponent<Draggable>().holding)
             {
                 transform.localScale = miniScale;
-                ChangeLineSize(lineSize / 2f);
+
+                ChangeLineSize(lineSize.ToArray());
             }
         }else{
             transform.localScale = paperScale;
-            ChangeLineSize(lineSize);
+            ChangeLineSize(lineSize.ToArray());
         }
     }
 
     public void ResetSize()
     {
         transform.localScale = paperScale;
-        ChangeLineSize(lineSize);
+        ChangeLineSize(lineSize.ToArray());
     }
 
     public void ReleasePaper()
@@ -138,7 +151,7 @@ public class Paper : MonoBehaviour
         lockGravity = to;
     }
 
-    private void ChangeLineSize(float size)
+    private void ChangeLineSize(float[] sizes)
     {
         if(draw == null) return;
 
@@ -149,8 +162,8 @@ public class Paper : MonoBehaviour
         for(int i = 0; i < lines.Length; i++)
         {
             if (lines[i] == null) return;
-            lines[i].startWidth = size;
-            lines[i].endWidth = size;
+            lines[i].startWidth = sizes[i];
+            lines[i].endWidth = sizes[i];
         }
     }
 

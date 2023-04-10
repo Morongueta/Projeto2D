@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InterviewPerson : Person
 {
-    
     private string[] startContribution = new string[] {"Na minha ultima empresa ", "No meu ultimo emprego ", "Bom, na empresa que eu trabalhei "};
     public override void SetupEvent()
     {

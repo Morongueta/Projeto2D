@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
 using TMPro;
@@ -13,6 +14,14 @@ public class TextBoxManager : MonoBehaviour
     [SerializeField]private GameObject interviewQuestionObj;
     [Space]
     [SerializeField]private GameObject questionObj;
+    [SerializeField]private TextMeshPro questionText;
+    [SerializeField]private TextMeshPro confirmText;
+    [SerializeField]private TextMeshPro declineText;
+    [SerializeField]private WorldButton confirmButton;
+    [SerializeField]private WorldButton declineButton;
+
+
+    [Space]
     [SerializeField]private GameObject reportObj;
     [SerializeField]private TextMeshPro reportText;
 
@@ -72,8 +81,18 @@ public class TextBoxManager : MonoBehaviour
     {
         reportText.text = text;
     }
-    public void ShowQuestion()
+    public void ShowQuestion(string question, string confirm, string decline, Action confirmAction, Action declineAction)
     {
+        questionText.text = question;
+        confirmText.text = confirm;
+        declineText.text = decline;
+
+        confirmButton.OnClickAction -= confirmButton.OnClickAction;
+        declineButton.OnClickAction -= declineButton.OnClickAction;
+
+        confirmButton.OnClickAction += ()=>confirmAction?.Invoke();
+        declineButton.OnClickAction += ()=>declineAction?.Invoke();
+
         questionObj.SetActive(true);
         textBoxHUD.SetActive(true);
     }
@@ -93,8 +112,6 @@ public class TextBoxManager : MonoBehaviour
             worldButtons[i].OnClickAction += buttonActions[i];
         }
     }
-
-
     public void HideTextBox()
     {
         interviewObj.SetActive(false);

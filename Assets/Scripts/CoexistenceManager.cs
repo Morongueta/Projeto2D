@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CoexistenceManager : MonoBehaviour
 {
+    
     [SerializeField]private List<CurriculumData> personInCompany;
 
     public static CoexistenceManager i;
@@ -14,30 +15,57 @@ public class CoexistenceManager : MonoBehaviour
     }
 
 
+
+    #region Person
+
     public void AddPerson(Curriculum cur)
     {
         CurriculumData data = cur.Convert();
 
-        personInCompany.Add(data);
+        AddPerson(data);
     }
 
-    public void AddTrait(int personID, int traitID, TraitType type)
+    public void AddPerson(CurriculumData cur)
     {
-        for (int i = 0; i < personInCompany.Count; i++)
-        {
-            if(i == personID)
-            {
-                Trait[] traits = InformationDatabase.i.GetTraits(type);
+        personInCompany.Add(cur);
 
-                for (int y = 0; y < traits.Length; y++)
-                {
-                    if (traits[y].ID == traitID)
-                    {
-                        personInCompany[i].AddTrait(traits[y]);
-                    }
-                }
-            }
-            
+        if(EventController.i != null) EventController.i.UpdateValue();
+    }
+
+
+    public void AddPerson()
+    {
+        CurriculumData data = FindObjectOfType<InformationDatabase>().GeneratePerson().Convert();
+        AddPerson(data);
+    }
+
+    public void AddPerson(int length)
+    {
+        if(length <= 0) length = 1;
+
+        for (int i = 0; i < length; i++)
+        {
+            AddPerson();
         }
     }
+
+    public CurriculumData[] GetPersons()
+    {
+        return personInCompany.ToArray();
+    }
+
+    public CurriculumData GetPerson(int index)
+    {
+        if(index >= personInCompany.Count || index < 0) return null;
+        return personInCompany[index];
+    }
+
+    public void AddTrait(int personID, int traitID)
+    {
+        personInCompany[personID].AddTrait(FindObjectOfType<InformationDatabase>().GetTrait(traitID));
+
+        if(EventController.i != null) EventController.i.UpdateValue();
+    }
+
+    #endregion
 }

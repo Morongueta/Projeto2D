@@ -55,17 +55,18 @@ public class HiringManager : MonoBehaviour
         };
     }
 
+    public void StartHiring()
+    {
+        hirePapers = PaperManager.i.GetHiringPapers(6);
+        hireState = HireState.SELECTING;
+        ShowBox(negateBox);
+    }
+
 
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            hirePapers = PaperManager.i.GetHiringPapers(6);
-            hireState = HireState.SELECTING;
-            ShowBox(negateBox);
-        }
-        
+
         switch (hireState)
         {
             case HireState.SELECTING:
