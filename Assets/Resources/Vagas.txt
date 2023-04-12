@@ -1,9 +1,9 @@
-1,Faxineiro(a),1000,2000,80
-2,Atendente,1000,2000,80
-3,Segurança,1500,3500,65
+1,Designer,1000,2000,80
+2,Programador(a),1000,2000,80
+3,Sonoplasta,1500,3500,65
 4,Contador(a),3000,5000,50
-5,Secretário(a),2000,3000,70
-6,Cozinheiro(a),1000,3000,65
-7,Comunicador(a),4000,5999,50
-8,Administrador(a),2000,4000,60
+5,Mercadólogo(a),2000,3000,70
+6,Faxineiro(a),1000,3000,65
+7,Modelador(a),4000,5999,50
+8,Roteirista,2000,4000,60
 9,Gerente,5000,10000,40

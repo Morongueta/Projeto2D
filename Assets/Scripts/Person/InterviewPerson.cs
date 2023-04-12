@@ -5,6 +5,9 @@ using UnityEngine;
 public class InterviewPerson : Person
 {
     private string[] startContribution = new string[] {"Na minha ultima empresa ", "No meu ultimo emprego ", "Bom, na empresa que eu trabalhei "};
+    private string[] startAboutYou = new string[] {"Bem, ", "Acredito que, ", "Bom, "};
+
+    private bool aboutYou = false, contribution = false, quality = false, family = false;
     public override void SetupEvent()
     {
         inFrontEvent += () => {HiringManager.i.ResetInterviewMoney();};
@@ -19,7 +22,7 @@ public class InterviewPerson : Person
         int money = HiringManager.i.GetInverviewMoney();
 
         TextBoxManager.i.ShowInterviewMoney(money.ToString());
-        TextBoxManager.i.ShowInterview((money >= 1),(money >= 2),(money >= 1),(money >= 3),(money >= 5));
+        TextBoxManager.i.ShowInterview((money >= 1),(money >= 2 && !aboutYou),(money >= 1 && !family),(money >= 3 && !contribution),(money >= 5 && !quality));
         TextBoxManager.i.ShowInterview(()=>ShowName(),()=>ShowAboutYou(),()=>ShowFamily(),()=>ShowContribution(),() => ShowTraits());
     }
 
@@ -35,33 +38,48 @@ public class InterviewPerson : Person
 
     public void ShowAboutYou()
     {
-        HiringManager.i.SpendInterviewMoney(3);
+        HiringManager.i.SpendInterviewMoney(2);
         TextBoxManager.i.HideTextBox();
 
-        string aboutYouText = "";
+        string aboutYouText = startAboutYou[Random.Range(0,startAboutYou.Length)];
+
+        int hideInfoAmount = 3;
+
+        int hideInfo = 0;
         
         for (int i = 0; i < info.GetAllTraits().Length; i++)
         {
-            aboutYouText += "\n-";
-            if((Random.value * 100f) <= 25f) //lie
+            //aboutYouText += "\n-";
+            if(hideInfo < hideInfoAmount)
             {
-                Trait falseTrait = InformationDatabase.i.GetRandomTraits(1,(Random.value * 100f < 30f) ? TraitType.NEGATIVE : TraitType.POSITIVE, info.GetAllTraits())[0];
-                aboutYouText += falseTrait.traitDetail[Random.Range(0,falseTrait.traitDetail.Length)];
-            }else
-            {
-                aboutYouText += info.GetAllTraits()[i].traitDetail[Random.Range(0,info.GetAllTraits()[i].traitDetail.Length)];
+                if((Random.value * 100f) <= 12f)
+                {
+                    hideInfo++;
+                    
+                }else{
+                    if((Random.value * 100f) <= 25f) //lie
+                    {
+                        Trait falseTrait = InformationDatabase.i.GetRandomTraits(1,(Random.value * 100f < 30f) ? TraitType.NEGATIVE : TraitType.POSITIVE, info.GetAllTraits())[0];
+                        aboutYouText += falseTrait.traitDetail[Random.Range(0,falseTrait.traitDetail.Length)];
+                    }else
+                    {
+                        aboutYouText += info.GetAllTraits()[i].traitDetail[Random.Range(0,info.GetAllTraits()[i].traitDetail.Length)];
+                    }
+                    if(i < info.GetAllTraits().Length - 1)aboutYouText += ",";
+                }
             }
-            aboutYouText += ".";
+
         }
 
         TextBoxManager.i.SetReportText(aboutYouText);
         TextBoxManager.i.ShowReport(()=>{TextBoxManager.i.HideTextBox(); SetInterviewBox();});
 
+        aboutYou = true;
     }
 
     public void ShowContribution()
     {
-        HiringManager.i.SpendInterviewMoney(2);
+        HiringManager.i.SpendInterviewMoney(3);
         TextBoxManager.i.HideTextBox();
 
         string contributionText = startContribution[Random.Range(0,startContribution.Length)] + "eu fiquei por " + info.contributionTime + " meses.\n";
@@ -82,16 +100,18 @@ public class InterviewPerson : Person
         TextBoxManager.i.SetReportText(contributionText);
         TextBoxManager.i.ShowReport(()=>{TextBoxManager.i.HideTextBox(); SetInterviewBox();});
 
+        contribution = true;
     }
 
     public void ShowFamily()
     {
-        HiringManager.i.SpendInterviewMoney(2);
+        HiringManager.i.SpendInterviewMoney(1);
         TextBoxManager.i.HideTextBox();
 
         TextBoxManager.i.SetReportText(info.hasFamily ? ("Sim, " + "Eu tenho " + info.sonsQtd.ToString() + (info.sonsQtd == 1 ? " Filho." : " Filhos.")) : "Não");
         TextBoxManager.i.ShowReport(()=>{TextBoxManager.i.HideTextBox(); SetInterviewBox();});
-
+        
+        family = true;
     }
 
 
@@ -125,6 +145,8 @@ public class InterviewPerson : Person
 
         TextBoxManager.i.SetReportText(traitsText);
         TextBoxManager.i.ShowReport(()=>{TextBoxManager.i.HideTextBox(); SetInterviewBox();});
+
+        quality = true;
     }
 
     

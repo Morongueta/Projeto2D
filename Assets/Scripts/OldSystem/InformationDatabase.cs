@@ -39,6 +39,9 @@ public class InformationDatabase : MonoBehaviour
 
     private void GetTexts()
     {
+        feminineNames = new string[0];
+        masculineNames = new string[0];
+        vacancyList = new List<Vacancy>();
         TextAsset txt = Resources.Load("NomesFemininos") as TextAsset;
         feminineNames = txt.ToString().Replace("Srta. ", "").Replace("Sra. ", "").Replace("Dra. ", "").Split("\n");
         txt = Resources.Load("NomesMasculinos") as TextAsset;
