@@ -14,8 +14,6 @@ public class CoexistenceManager : MonoBehaviour
         i = this;
     }
 
-
-
     #region Person
 
     public void AddPerson(Curriculum cur)
@@ -58,6 +56,11 @@ public class CoexistenceManager : MonoBehaviour
     {
         if(index >= personInCompany.Count || index < 0) return null;
         return personInCompany[index];
+    }
+
+    public CurriculumData GetRandomPerson()
+    {
+        return personInCompany[Random.Range(0, personInCompany.Count)];
     }
 
     public void AddTrait(int personID, int traitID)

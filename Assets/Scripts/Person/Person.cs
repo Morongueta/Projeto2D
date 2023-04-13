@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum Personality
+{
+    CALM,
+    AGGRESSIVE
+}
+
 public class Person : MonoBehaviour
 {
     public Action inFrontEvent;
@@ -13,6 +19,8 @@ public class Person : MonoBehaviour
     public UnityEvent goingAwayUnityEvent;
 
     protected PersonInfo info;
+
+    protected Personality personality;
 
     private void Awake()
     {
