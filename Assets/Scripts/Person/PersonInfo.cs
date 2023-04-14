@@ -23,6 +23,8 @@ public class PersonInfo : MonoBehaviour
 
         sonsQtd = c.sonsQtd;
 
+        
+
         this.c = c;
     }
 
