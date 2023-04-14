@@ -54,7 +54,7 @@ public class CoexistenceManager : MonoBehaviour
 
     public CurriculumData GetPerson(int index)
     {
-        if(index >= personInCompany.Count || index < 0) return null;
+        if(index >= personInCompany.Count || index < 0) return default(CurriculumData);
         return personInCompany[index];
     }
 

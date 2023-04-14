@@ -25,6 +25,9 @@ public class InformationDatabase : MonoBehaviour
     public string[] rel = new string[] { "Solteiro", "Casado", "Divorciado", "Viuvo" };
     public Trait[] traits;
 
+    public Sprite[] masculineBodies;
+    public Sprite[] feminineBodies;
+
     public static InformationDatabase i;
 
     private void Awake()
@@ -97,15 +100,23 @@ public class InformationDatabase : MonoBehaviour
 
         string vaga = correct;
 
-        return new PersonData(ownerName, genderN, vaga, cellphone, age.ToString("D2"), relr, civil, salary, FindObjectOfType<InformationDatabase>().exp[experience]);
+        //Apparence Generator
+        int height = Random.Range(-30,90);
+        int bodyType = (gender < 50f) ? Random.Range(0,feminineBodies.Length) : Random.Range(0,masculineBodies.Length) ;
+
+        PersonData data = new PersonData(ownerName, genderN, vaga, cellphone, age.ToString("D2"), relr, civil, salary, exp[experience],bodyType,0,0,0,height);
+        data.c.positiveTraits = new Trait[0];
+        data.c.negativeTraits = new Trait[0];
+        return data;
     }
 
-    public Trait[] GetRandomTraits(int length, TraitType traitType, Curriculum curriculum)
+    public Trait[] GetRandomTraits(int length, TraitType traitType, CurriculumData curriculum)
     {
         List<Trait> result = new List<Trait>();
         List<int> traitsID = new List<int>(); 
         Trait[] traitsGot = ((traitType == TraitType.POSITIVE) ? curriculum.negativeTraits : curriculum.positiveTraits);
 
+        
         for (int i = 0; i < traitsGot.Length; i++)
         {
             traitsID.Add(traitsGot[i].ID);
@@ -143,6 +154,8 @@ public class InformationDatabase : MonoBehaviour
             
             
         }
+
+        
 
         return result.ToArray();
     }
@@ -228,33 +241,32 @@ public class Trait
 
 public struct PersonData
 {
-    public string name;
-    public string gender;
-    public string vaga;
-    public string cellphone;
-    public string age;
-    public string relationship;
-    public string civil;
-    public string salary;
-    public string experience;
+    public CurriculumData c;
 
-    public PersonData(string name,string gender, string vaga, string cellphone, string age, string relationship, string civil, string salary, string experience)
+
+    public PersonData(string name,string gender, string vaga, string cellphone, string age, string relationship, string civil, string salary, string experience, int bodyType, int hairType, int faceType, int clothesType, int height)
     {
-        this.name = name;
-        this.vaga = vaga;
-        this.gender = gender;
-        this.cellphone = cellphone;
-        this.age = age;
-        this.relationship = relationship;
-        this.civil = civil;
-        this.salary = salary;
-        this.experience = experience;
+        c = new CurriculumData();
+
+        c.personName = name;
+        c.vaga = vaga;
+        c.gender = gender;
+        c.cell = cellphone;
+        c.age = age;
+        c.civil = civil;
+        c.salary = salary;
+        c.exp = experience;
+
+        c.height = height;
+
+        c.bodyType = bodyType;
+        c.hairType = hairType;
+        c.faceType = faceType;
+        c.clothesType = clothesType;
     }
 
     public CurriculumData Convert()
     {
-        CurriculumData data = new CurriculumData();
-        data.Store(this);
-        return data;
+        return c;
     }
 }

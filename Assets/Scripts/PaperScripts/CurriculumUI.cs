@@ -15,15 +15,15 @@ public class CurriculumUI : MonoBehaviour
     public TextMeshPro salaryText;
 
 
-    public void Set(string name, string gender, string age, string cell, string civil, string vaga, string exp, string salary)
+    public void Set(CurriculumData data)
     {
-        nameText.text = name;
-        genderText.text = gender;
-        ageText.text = age;
-        cellText.text = cell;
-        civilText.text = civil;
-        vagasText.text = vaga;
-        expText.text = exp;
-        salaryText.text = salary;
+        nameText.text = data.personName;
+        genderText.text = data.gender;
+        ageText.text = data.age;
+        cellText.text = data.cell;
+        civilText.text = data.civil;
+        vagasText.text = data.vaga;
+        expText.text = data.exp;
+        salaryText.text = data.salary;
     }
 }

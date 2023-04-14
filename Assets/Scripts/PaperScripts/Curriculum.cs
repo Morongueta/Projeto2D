@@ -6,88 +6,126 @@ using static UnityEngine.ParticleSystem;
 
 public class Curriculum : MonoBehaviour
 {
-    public string personName;
-    public string gender;
-    public string age;
-    public string cell;
-    public string civil;
-    public string vaga;
-    public string exp;
-    public string salary;
+    public CurriculumData curriculumData = new CurriculumData();
 
-
-    public Trait[] positiveTraits;
-    public Trait[] negativeTraits;
-
-    public bool hasFamily;
-
-    public int sonsQtd;
-
-    public int contributionTime;
-
-    public void Set(string name, string gender, string age, string cell, string civil, string vaga, string exp, string salary)
+    public void Generate(string name, string gender, string age, string cell, string civil, string vaga, string exp, string salary)
     {
-        personName = name;
-        this.gender = gender;
-        this.age = age;
-        this.cell = cell;
-        this.civil = civil;
-        this.vaga = vaga;
-        this.exp = exp;
-        this.salary = salary;
+        curriculumData = new CurriculumData();
 
-        hasFamily = ((Random.value * 100) < 50f);
-        if(hasFamily) sonsQtd = Random.Range(1,5);
+        curriculumData.personName = name;
+        curriculumData.gender = gender;
+        curriculumData.age = age;
+        curriculumData.cell = cell;
+        curriculumData.civil = civil;
+        curriculumData.vaga = vaga;
+        curriculumData.exp = exp;
+        curriculumData.salary = salary;
+
+        curriculumData.hasFamily = ((Random.value * 100) < 50f);
+        if(curriculumData.hasFamily) curriculumData.sonsQtd = Random.Range(1,5);
 
         if((Random.value * 100f) < 50f)
         {
-            positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, this);
-            negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, this);
+            curriculumData.positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, curriculumData);
+            curriculumData.negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, curriculumData);
         }
         else
         {
-            negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, this);
-            positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, this);
+            curriculumData.negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, curriculumData);
+            curriculumData.positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, curriculumData);
         }
         List<Trait> traits = new List<Trait>();
-        traits.AddRange(negativeTraits);
-        traits.AddRange(positiveTraits);
+        traits.AddRange(curriculumData.negativeTraits);
+        traits.AddRange(curriculumData.positiveTraits);
         for (int i = 0; i < traits.Count; i++)
         {
-            contributionTime += traits[i].contributionTime;
+            curriculumData.contributionTime += traits[i].contributionTime;
         }
 
-        contributionTime += Random.Range(5,10);
+        curriculumData.contributionTime += Random.Range(5,10);
+
+        curriculumData.height = Random.Range(50,90);
 
         if(GetComponent<CurriculumUI>() != null)
         {
-            GetComponent<CurriculumUI>().Set(name,gender,age,cell,civil,vaga,exp,salary);
+            GetComponent<CurriculumUI>().Set(curriculumData);
         }
         
     }
 
-    public void Set(CurriculumData data)
+    public void Generate(PersonData data)
     {
-        personName = data.personName;
-        this.gender = data.gender;
-        this.age = data.age;
-        this.cell = data.cell;
-        this.civil = data.civil;
-        this.vaga = data.vaga;
-        this.exp = data.exp;
-        this.salary = data.salary;
+        curriculumData = new CurriculumData();
 
-        hasFamily = data.hasFamily;
-        sonsQtd = data.sonsQtd;
+        curriculumData.personName = data.c.personName;
+        curriculumData.gender = data.c.gender;
+        curriculumData.age = data.c.age;
+        curriculumData.cell = data.c.cell;
+        curriculumData.civil = data.c.civil;
+        curriculumData.vaga = data.c.vaga;
+        curriculumData.exp = data.c.exp;
+        curriculumData.salary = data.c.salary;
 
-        positiveTraits = data.positiveTraits;
-        negativeTraits = data.negativeTraits;
+        curriculumData.hasFamily = ((Random.value * 100) < 50f);
+        if(curriculumData.hasFamily) curriculumData.sonsQtd = Random.Range(1,5);
 
-        contributionTime = data.contributionTime;
+        curriculumData.positiveTraits = new Trait[0];
+        curriculumData.negativeTraits = new Trait[0];
+
+        if((Random.value * 100f) < 50f)
+        {
+            curriculumData.positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, curriculumData);
+            curriculumData.negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, curriculumData);
+        }
+        else
+        {
+            curriculumData.negativeTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.NEGATIVE, curriculumData);
+            curriculumData.positiveTraits = InformationDatabase.i.GetRandomTraits(3, TraitType.POSITIVE, curriculumData);
+        }
+        List<Trait> traits = new List<Trait>();
+        traits.AddRange(curriculumData.negativeTraits);
+        traits.AddRange(curriculumData.positiveTraits);
+        for (int i = 0; i < traits.Count; i++)
+        {
+            curriculumData.contributionTime += traits[i].contributionTime;
+        }
+
+        curriculumData.contributionTime += Random.Range(5,10);
+
+        curriculumData.height = Random.Range(50,90);
 
         if(GetComponent<CurriculumUI>() != null)
         {
-            GetComponent<CurriculumUI>().Set(name,gender,age,cell,civil,vaga,exp,salary);
+            GetComponent<CurriculumUI>().Set(curriculumData);
+        }
+        
+    }
+
+
+    public void Set(CurriculumData data)
+    {
+        curriculumData = new CurriculumData();
+
+        curriculumData.personName = data.personName;
+        curriculumData.gender = data.gender;
+        curriculumData.age = data.age;
+        curriculumData.cell = data.cell;
+        curriculumData.civil = data.civil;
+        curriculumData.vaga = data.vaga;
+        curriculumData.exp = data.exp;
+        curriculumData.salary = data.salary;
+
+        curriculumData.hasFamily = data.hasFamily;
+        curriculumData.sonsQtd = data.sonsQtd;
+
+        curriculumData.positiveTraits = data.positiveTraits;
+        curriculumData.negativeTraits = data.negativeTraits;
+
+        curriculumData.contributionTime = data.contributionTime;
+
+        if(GetComponent<CurriculumUI>() != null)
+        {
+            GetComponent<CurriculumUI>().Set(curriculumData);
         }
     }
 
@@ -103,7 +141,7 @@ public class Curriculum : MonoBehaviour
 }
 
 [System.Serializable]
-public class CurriculumData
+public struct CurriculumData
 {
     public string personName;
     public string gender;
@@ -114,6 +152,8 @@ public class CurriculumData
     public string exp;
     public string salary;
 
+    public string relationship;
+
     public Trait[] positiveTraits;
     public Trait[] negativeTraits;
 
@@ -121,34 +161,59 @@ public class CurriculumData
     public int sonsQtd;
     public int contributionTime;
 
+    [Header("Appearence")]
+
+    public float height;
+    public int bodyType;
+    public int hairType;
+    public int faceType;
+    public int clothesType;
+
     public void Store(Curriculum c)
     {
-        personName = c.personName;
-        gender = c.gender;
-        age = c.age;
-        cell = c.cell;
-        civil = c.civil;
-        vaga = c.vaga;
-        exp = c.exp;
-        salary = c.salary;
+        personName = c.curriculumData.personName;
+        gender = c.curriculumData.gender;
+        age = c.curriculumData.age;
+        cell = c.curriculumData.cell;
+        civil = c.curriculumData.civil;
+        vaga = c.curriculumData.vaga;
+        exp = c.curriculumData.exp;
+        salary = c.curriculumData.salary;
 
-        positiveTraits = c.positiveTraits;
-        negativeTraits = c.negativeTraits;
+        positiveTraits = c.curriculumData.positiveTraits;
+        negativeTraits = c.curriculumData.negativeTraits;
 
-        hasFamily = c.hasFamily;
-        sonsQtd = c.sonsQtd;
-        contributionTime = c.contributionTime;
+        hasFamily = c.curriculumData.hasFamily;
+        sonsQtd = c.curriculumData.sonsQtd;
+        contributionTime = c.curriculumData.contributionTime;
+
+        height = c.curriculumData.height;
+
+        bodyType    = c.curriculumData.bodyType;
+        hairType    = c.curriculumData.hairType;
+        faceType    = c.curriculumData.faceType;
+        clothesType = c.curriculumData.clothesType;
     }
     public void Store(PersonData data)
     {
-        personName = data.name;
-        gender = data.gender;
-        age = data.age;
-        cell = data.cellphone;
-        civil = data.civil;
-        vaga = data.vaga;
-        exp = data.experience;
-        salary = data.salary;
+        negativeTraits = data.c.negativeTraits;
+        positiveTraits = data.c.positiveTraits;
+
+        personName = data.c.personName;
+        gender = data.c.gender;
+        age = data.c.age;
+        cell = data.c.cell;
+        civil = data.c.civil;
+        vaga = data.c.vaga;
+        exp = data.c.exp;
+        salary = data.c.salary;
+
+        height = data.c.height;
+
+        bodyType    = data.c.bodyType;
+        hairType    = data.c.hairType;
+        faceType    = data.c.faceType;
+        clothesType = data.c.clothesType;
 
         hasFamily = ((Random.value * 100) < 50f);
         if(hasFamily) sonsQtd = Random.Range(1,5);

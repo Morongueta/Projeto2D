@@ -31,7 +31,7 @@ public class InterviewPerson : Person
         HiringManager.i.SpendInterviewMoney(1);
         TextBoxManager.i.HideTextBox();
 
-        TextBoxManager.i.SetReportText("Meu nome é " + info.personName);
+        TextBoxManager.i.SetReportText("Meu nome é " + info.c.personName);
         TextBoxManager.i.ShowReport(()=>{TextBoxManager.i.HideTextBox(); SetInterviewBox();});
 
     }
@@ -82,7 +82,7 @@ public class InterviewPerson : Person
         HiringManager.i.SpendInterviewMoney(3);
         TextBoxManager.i.HideTextBox();
 
-        string contributionText = startContribution[Random.Range(0,startContribution.Length)] + "eu fiquei por " + info.contributionTime + " meses.\n";
+        string contributionText = startContribution[Random.Range(0,startContribution.Length)] + "eu fiquei por " + info.c.contributionTime + " meses.\n";
         
         int highest = -100;
         int index = 0;
@@ -108,7 +108,7 @@ public class InterviewPerson : Person
         HiringManager.i.SpendInterviewMoney(1);
         TextBoxManager.i.HideTextBox();
 
-        TextBoxManager.i.SetReportText(info.hasFamily ? ("Sim, " + "Eu tenho " + info.sonsQtd.ToString() + (info.sonsQtd == 1 ? " Filho." : " Filhos.")) : "Não");
+        TextBoxManager.i.SetReportText(info.c.hasFamily ? ("Sim, " + "Eu tenho " + info.c.sonsQtd.ToString() + (info.c.sonsQtd == 1 ? " Filho." : " Filhos.")) : "Não");
         TextBoxManager.i.ShowReport(()=>{TextBoxManager.i.HideTextBox(); SetInterviewBox();});
         
         family = true;
@@ -123,21 +123,21 @@ public class InterviewPerson : Person
         string traitsText = "";
         traitsText += "<color=#FFFFFF>Positivos:\n<color=#00C119>";
 
-        for (int i = 0; i < info.positiveTraits.Length; i++)
+        for (int i = 0; i < info.c.positiveTraits.Length; i++)
         {
-            if(i == info.positiveTraits.Length - 1)traitsText += " e ";
-            traitsText += info.positiveTraits[i].name;
-            if(i < info.positiveTraits.Length - 2) traitsText += ", ";
+            if(i == info.c.positiveTraits.Length - 1)traitsText += " e ";
+            traitsText += info.c.positiveTraits[i].name;
+            if(i < info.c.positiveTraits.Length - 2) traitsText += ", ";
         }
 
         traitsText += "\n";
         traitsText += "<color=#FFFFFF>Negativos:\n<color=#EA1A23>";
 
-        for (int i = 0; i < info.negativeTraits.Length; i++)
+        for (int i = 0; i < info.c.negativeTraits.Length; i++)
         {
-            if(i == info.negativeTraits.Length - 1)traitsText += " e ";
-            traitsText += info.negativeTraits[i].name;
-            if(i < info.negativeTraits.Length - 2) traitsText += ", ";
+            if(i == info.c.negativeTraits.Length - 1)traitsText += " e ";
+            traitsText += info.c.negativeTraits[i].name;
+            if(i < info.c.negativeTraits.Length - 2) traitsText += ", ";
         }
 
         traitsText += "\n";

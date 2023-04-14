@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7133444830488528874}
   - component: {fileID: 4490947123912990285}
   - component: {fileID: 2082240046784531286}
+  - component: {fileID: 7687280610599067772}
   m_Layer: 0
   m_Name: PersonQuestion
   m_TagString: Untagged
@@ -98,13 +99,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f67dddb7e8f98d4b966bfbbda812f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  personName: 
-  positiveTraits: []
-  negativeTraits: []
-  hasFamily: 0
-  sonsQtd: 0
-  contributionTime: 0
-  c: {fileID: 0}
+  c:
+    personName: 
+    gender: 
+    age: 
+    cell: 
+    civil: 
+    vaga: 
+    exp: 
+    salary: 
+    relationship: 
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 0
+    sonsQtd: 0
+    contributionTime: 0
+    height: 0
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
 --- !u!114 &2082240046784531286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,3 +140,16 @@ MonoBehaviour:
   question: 
   confirm: 
   decline: 
+--- !u!114 &7687280610599067772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7133444830488528869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed51f87495348744a2764ba2c8feaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 7133444830488528874}

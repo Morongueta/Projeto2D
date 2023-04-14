@@ -82,7 +82,7 @@ public class ContractManager : MonoBehaviour
 
             string vaga = correct;
 
-            obj.GetComponent<Curriculum>().Set(cont.ownerName, cont.gender.ToString(), cont.age.ToString("D2"), cont.cellphone, cont.civil, "Vaga: " + vaga, InformationDatabase.i.exp[experience], "R$" + salary);
+            obj.GetComponent<Curriculum>().Generate(cont.ownerName, cont.gender.ToString(), cont.age.ToString("D2"), cont.cellphone, cont.civil, "Vaga: " + vaga, InformationDatabase.i.exp[experience], "R$" + salary);
             contractObjects.Add(obj);
         }
 

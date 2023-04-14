@@ -121,7 +121,7 @@ public class Paper : MonoBehaviour
     {
         if(inDestroyer)
         {
-            QueueManager.i.RemoveFromQueueCurriculum(GetComponent<Curriculum>());
+            QueueManager.i.RemoveFromQueueCurriculum(GetComponent<Curriculum>().curriculumData);
             Destroy(this.gameObject);
         }
 

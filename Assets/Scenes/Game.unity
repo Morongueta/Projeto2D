@@ -8098,6 +8098,10 @@ MonoBehaviour:
     - curto um narga
     contributionExplanation:
     - "\xE9 s\xF3 um placeholder cara"
+  masculineBodies:
+  - {fileID: 21300000, guid: 5881b690a2afeba41ae744fcb57b5a25, type: 3}
+  feminineBodies:
+  - {fileID: 21300000, guid: 4a6c97ed22d3b7e4889274315a400b4d, type: 3}
 --- !u!1 &1705766981
 GameObject:
   m_ObjectHideFlags: 0
@@ -9203,6 +9207,11 @@ MonoBehaviour:
     hasFamily: 0
     sonsQtd: 0
     contributionTime: 0
+    height: 0
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
   - personName: "Ana Luiza Dias\r"
     gender: Mulher
     age: 34
@@ -9216,6 +9225,11 @@ MonoBehaviour:
     hasFamily: 1
     sonsQtd: 2
     contributionTime: 0
+    height: 0
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
   - personName: "Lav\xEDnia Alves\r"
     gender: Mulher
     age: 51
@@ -9229,6 +9243,11 @@ MonoBehaviour:
     hasFamily: 1
     sonsQtd: 4
     contributionTime: 0
+    height: 0
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
   - personName: "Raquel Teixeira\r"
     gender: Mulher
     age: 18
@@ -9242,6 +9261,11 @@ MonoBehaviour:
     hasFamily: 0
     sonsQtd: 0
     contributionTime: 0
+    height: 0
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
   - personName: "Jo\xE3o Lucas Melo\r"
     gender: Homem
     age: 34
@@ -9255,6 +9279,11 @@ MonoBehaviour:
     hasFamily: 0
     sonsQtd: 0
     contributionTime: 0
+    height: 0
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
 --- !u!4 &1978981014
 Transform:
   m_ObjectHideFlags: 0
@@ -9656,6 +9685,8 @@ MonoBehaviour:
   - Divorciado
   - Viuvo
   traits: []
+  masculineBodies: []
+  feminineBodies: []
 --- !u!1 &2110944287
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,35 +4,27 @@ using UnityEngine;
 
 public class PersonInfo : MonoBehaviour
 {
-    public string personName;
-    public Trait[] positiveTraits;
-    public Trait[] negativeTraits;
-    public bool hasFamily;
-    public int sonsQtd;
-    public int contributionTime;
+    public CurriculumData c;
 
-    public Curriculum c;
+    private PersonAppearance appearance;
 
-    public void SetPerson(Curriculum c)
+    private void Awake()
     {
-        personName = c.personName;
-        positiveTraits = c.positiveTraits;
-        negativeTraits = c.negativeTraits;
-        hasFamily = c.hasFamily;
-        contributionTime = c.contributionTime;
+        appearance = GetComponent<PersonAppearance>();
+    }
 
-        sonsQtd = c.sonsQtd;
-
-        
-
+    public void SetPerson(CurriculumData c)
+    {
         this.c = c;
+
+        appearance.SetAppearance(this);
     }
 
     public Trait[] GetAllTraits()
     {
         List<Trait> traits = new List<Trait>();
-        traits.AddRange(negativeTraits);
-        traits.AddRange(positiveTraits);
+        traits.AddRange(c.negativeTraits);
+        traits.AddRange(c.positiveTraits);
         return traits.ToArray();
     }
 }

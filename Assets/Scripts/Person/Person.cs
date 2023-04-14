@@ -19,7 +19,7 @@ public class Person : MonoBehaviour
     public UnityEvent goingAwayUnityEvent;
 
     protected PersonInfo info;
-
+    
     protected Personality personality;
 
     private void Awake()
@@ -29,7 +29,13 @@ public class Person : MonoBehaviour
 
     private void Start()
     {
+        
         SetupEvent();
+    }
+
+    public PersonInfo GetInfo()
+    {
+        return info;
     }
 
     public virtual void SetupEvent()

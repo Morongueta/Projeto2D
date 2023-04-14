@@ -32,7 +32,7 @@ public class PaperManager : MonoBehaviour
     private void FillHirePaperRandomly(GameObject paper)
     {
         PersonData data = InformationDatabase.i.GeneratePerson();
-        paper.GetComponent<Curriculum>().Set(data.name, data.gender, data.age, data.cellphone, data.civil, "Vaga: " + data.vaga, data.experience, "R$" + data.salary);
+        paper.GetComponent<Curriculum>().Generate(data);
     }
 
     private void OnDrawGizmos()

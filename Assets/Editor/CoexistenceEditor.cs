@@ -24,13 +24,13 @@ public class CoexistenceEditor : Editor
         Trait trait = FindObjectOfType<InformationDatabase>().GetTrait(traitID);
 
         personID = EditorGUILayout.IntSlider("Person ID",personID, 0, Mathf.Max(co.GetPersons().Length - 1, 0));
-        EditorGUILayout.LabelField((cur != null) ? cur.personName : "Null");
+        EditorGUILayout.LabelField((cur.personName != string.Empty) ? cur.personName : "Null");
         traitID = EditorGUILayout.IntSlider("Trait ID",traitID, 0, FindObjectOfType<InformationDatabase>().GetTraits().Length - 1);
         EditorGUILayout.LabelField((trait != null) ? trait.name : "Null");
 
         if(GUILayout.Button("Add Trait"))
         {
-            if(cur != null && trait != null) co.AddTrait(personID, traitID);
+            if(cur.personName != string.Empty && trait != null) co.AddTrait(personID, traitID);
         }
     }
 }
