@@ -8,12 +8,12 @@ public class WorldButton : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer render;
     [SerializeField] private TextMeshPro renderText;
-    [SerializeField] private Color defaultColor;
-    [SerializeField] private Color hoverColor;
-    [SerializeField] private Color clickedColor;
-    [SerializeField] private Color disabledColor;
+    [SerializeField] private Color defaultColor = Color.white;
+    [SerializeField] private Color hoverColor = Color.white;
+    [SerializeField] private Color clickedColor = Color.white;
+    [SerializeField] private Color disabledColor = Color.white;
 
-    [SerializeField] private float colorChangeTime;
+    [SerializeField] private float colorChangeTime = 0.15f;
 
     public bool interactable = true;
     private bool lastInteractable = false;
@@ -60,6 +60,14 @@ public class WorldButton : MonoBehaviour
                     });
                 }
             }
+        }
+    }
+
+    public void SetSprite(Sprite spr)
+    {
+        if(render != null)
+        {
+            render.sprite = spr;
         }
     }
 

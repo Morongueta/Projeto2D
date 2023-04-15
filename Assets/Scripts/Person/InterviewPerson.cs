@@ -10,11 +10,30 @@ public class InterviewPerson : Person
     private bool aboutYou = false, contribution = false, quality = false, family = false;
     public override void SetupEvent()
     {
-        inFrontEvent += () => {HiringManager.i.ResetInterviewMoney();};
-        inFrontEvent += () => {SetInterviewBox();};
+        SetupChatButton();
+        inFrontEvent += () => {
+            chatButton.gameObject.SetActive(true);
+            HiringManager.i.ResetInterviewMoney();
+        };
+
         goingAwayEvent += () => {TextBoxManager.i.HideTextBox();};
 
         base.SetupEvent();
+    }
+
+    public override void SetupChatButton()
+    {
+        chatButton.OnClickAction += () => {
+
+            if(!TextBoxManager.i.showingTextBox)
+            {
+                SetInterviewBox();
+                chatButton.SetSprite(closeSprite);
+            }else{
+                TextBoxManager.i.HideTextBox();
+                chatButton.SetSprite(defaultSprite);
+            } 
+        };
     }
 
     public void SetInterviewBox()

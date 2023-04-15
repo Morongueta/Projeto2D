@@ -28,6 +28,12 @@ public class Person : MonoBehaviour
 
     protected float walkTimer;
 
+    [Header("Chat Button")]
+    [SerializeField]protected Vector3 buttonPosition;
+    [SerializeField]protected WorldButton chatButton;
+    [SerializeField]protected Sprite defaultSprite;
+    [SerializeField]protected Sprite closeSprite;
+
     private void Awake()
     {
         info = GetComponent<PersonInfo>();
@@ -35,6 +41,9 @@ public class Person : MonoBehaviour
 
     private void Start()
     {
+        
+        chatButton.SetSprite(defaultSprite);
+        chatButton.gameObject.SetActive(false);
         height = transform.position.y;
         walkTimer = UnityEngine.Random.Range(0f, 10f);
         SetupEvent();
@@ -42,6 +51,8 @@ public class Person : MonoBehaviour
 
     private void Update()
     {
+        chatButton.transform.position = buttonPosition;
+
         if(walking)
         {
             walkTimer += Time.deltaTime;
@@ -61,7 +72,22 @@ public class Person : MonoBehaviour
     public virtual void SetupEvent()
     {
         inFrontEvent += () => {inFrontUnityEvent?.Invoke();};
-        goingAwayEvent += () => {goingAwayUnityEvent?.Invoke();};
+        goingAwayEvent += () => {goingAwayUnityEvent?.Invoke(); chatButton.gameObject.SetActive(false); };
+
+        
+    }
+
+    public virtual void SetupChatButton()
+    {
+        chatButton.OnClickAction += () => {
+
+            if(!TextBoxManager.i.showingTextBox)
+            {
+                chatButton.SetSprite(closeSprite);
+            }else{
+                chatButton.SetSprite(defaultSprite);
+            } 
+        };
     }
 
     public virtual void CallInFrontEvent()

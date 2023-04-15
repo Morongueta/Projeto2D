@@ -16,10 +16,28 @@ public class PersonQuestion : Person
 
     public override void SetupEvent()
     {
-        inFrontEvent += () => {ShowQuestion();};
+        SetupChatButton();
+        inFrontEvent += () => {chatButton.gameObject.SetActive(true);};
         goingAwayEvent += () => {TextBoxManager.i.HideTextBox();};
 
         base.SetupEvent();
+    }
+
+    public override void SetupChatButton()
+    {
+        chatButton.OnClickAction += () => {
+            
+            if(!TextBoxManager.i.showingTextBox)
+            {
+                Debug.Log("Ativado");
+                ShowQuestion();
+                chatButton.SetSprite(closeSprite);
+            }else{
+                Debug.Log("Desativado");
+                TextBoxManager.i.HideTextBox();
+                chatButton.SetSprite(defaultSprite);
+            } 
+        };
     }
 
     public void ShowQuestion()

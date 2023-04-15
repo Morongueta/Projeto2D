@@ -27,6 +27,9 @@ public class TextBoxManager : MonoBehaviour
 
     [SerializeField]private WorldButton goAwayButton;
 
+
+    public bool showingTextBox;
+
     public static TextBoxManager i;
 
     private void Awake()
@@ -43,6 +46,7 @@ public class TextBoxManager : MonoBehaviour
 
     public void ShowInterview(params Action[] buttonActions)
     {
+        showingTextBox = true;
         interviewObj.SetActive(true);
         textBoxHUD.SetActive(true);
 
@@ -59,6 +63,7 @@ public class TextBoxManager : MonoBehaviour
 
     public void ShowInterview(params bool[] activity)
     {
+        showingTextBox = true;
         interviewObj.SetActive(true);
         textBoxHUD.SetActive(true);
 
@@ -83,6 +88,8 @@ public class TextBoxManager : MonoBehaviour
     }
     public void ShowQuestion(string question, string confirm, string decline, Action confirmAction, Action declineAction)
     {
+        showingTextBox = true;
+
         questionText.text = question;
         confirmText.text = confirm;
         declineText.text = decline;
@@ -98,6 +105,7 @@ public class TextBoxManager : MonoBehaviour
     }
     public void ShowReport(params Action[] buttonActions)
     {
+        showingTextBox = true;
         reportObj.SetActive(true);
         textBoxHUD.SetActive(true);
 
@@ -114,6 +122,7 @@ public class TextBoxManager : MonoBehaviour
     }
     public void HideTextBox()
     {
+        showingTextBox = false;
         interviewObj.SetActive(false);
         questionObj.SetActive(false);
         reportObj.SetActive(false);

@@ -9868,6 +9868,7 @@ MonoBehaviour:
   reportObj: {fileID: 2048982105}
   reportText: {fileID: 1757355981}
   goAwayButton: {fileID: 787853343}
+  showingTextBox: 0
 --- !u!4 &2044835205
 Transform:
   m_ObjectHideFlags: 0
