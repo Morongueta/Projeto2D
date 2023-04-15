@@ -18,23 +18,6 @@ public class QueueManager : MonoBehaviour
         i = this;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            AddPerson(null, basePerson);
-        }
-
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            RemoveFromQueue(0);
-        }
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            RemoveFromQueue(Random.Range(0, queue.Count));
-        }
-    }
-
     public void AddHiringPerson(GameObject[] papers, bool delayed = false, float timeBtwPerson = .15f)
     {
         if(delayed)
@@ -112,22 +95,31 @@ public class QueueManager : MonoBehaviour
         {
             if(ignoreTheFirst && i == 0) return;
 
+            int index = i;
+
             LeanTween.cancel(queue[i].gameObject);
             Person p = queue[i];
             float distance = Vector2.Distance(queue[i].gameObject.transform.position, new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y));
             //queue[i].gameObject.LeanMove(new Vector2(0f - queueSpacing * i, queue[i].gameObject.transform.position.y), (.25f * Mathf.FloorToInt(distance / 5)));
-            
-            if(i == 0)
+
+            p.walking = true;
+
+            if (i == 0)
             {
-                queue[i].gameObject.LeanMoveX(0f - queueSpacing * i, (.075f * Mathf.FloorToInt(distance))).setOnComplete(()=>{
-                    if(personInFront != queue[0])
+                queue[i].gameObject.LeanMoveX(0f - queueSpacing * i, (.075f * Mathf.FloorToInt(distance))).setOnComplete(() =>
+                {
+                    p.walking = false;
+                    if (personInFront != queue[0])
                     {
                         queue[0].CallInFrontEvent();
                         personInFront = queue[0];
                     }
                 });
             }
-            else queue[i].gameObject.LeanMoveX(0f - queueSpacing * i, (.075f * Mathf.FloorToInt(distance)));
+            else queue[i].gameObject.LeanMoveX(0f - queueSpacing * i, (.075f * Mathf.FloorToInt(distance))).setOnComplete(() =>
+            {
+                p.walking = false;
+            }) ;
         }
     }
 
@@ -138,6 +130,7 @@ public class QueueManager : MonoBehaviour
         LeanTween.cancel(queue[who].gameObject);
         float distance = Vector2.Distance(queue[who].gameObject.transform.position, new Vector2(15f, queue[who].gameObject.transform.position.y));
         Person save = this.queue[who];
+        save.walking = true;
         save.gameObject.LeanMoveX(15f, 1 + (.25f * Mathf.FloorToInt(distance / 5)) ).setOnComplete(()=>Destroy(save.gameObject));
         queue.RemoveAt(who);
         save.CallGoingAwayEvent();
@@ -149,23 +142,15 @@ public class QueueManager : MonoBehaviour
         if(queue.Count <= 0) return;
         //Remover e mover a pessoa da fila
         List<Person> removes = new List<Person>();
-        foreach(Person q in queue)
+
+        for (int i = 0; i < queue.Count; i++)
         {
-            if(q.GetComponent<InterviewPerson>() != null)
+            Person save = this.queue[i];
+            if (save.GetComponent<InterviewPerson>() != null)
             {
-                LeanTween.cancel(q.gameObject);
-                float distance = Vector2.Distance(q.gameObject.transform.position, new Vector2(15f, q.gameObject.transform.position.y));
-                Person save = q;
-                save.gameObject.LeanMoveX(15f, 1 + (.25f * Mathf.FloorToInt(distance / 5)) ).setOnComplete(()=>Destroy(save.gameObject));
-                removes.Add(save);
-                save.CallGoingAwayEvent();
+                RemoveFromQueue(i);
             }
         }
-
-        for (int i = 0; i < removes.Count; i++) queue.Remove(removes[i]);
-
-        UpdateQueue();
-        
     }
 
     public void RemoveFromQueueCurriculum(CurriculumData cur)
@@ -181,6 +166,7 @@ public class QueueManager : MonoBehaviour
                     LeanTween.cancel(queue[i].gameObject);
                     float distance = Vector2.Distance(queue[i].gameObject.transform.position, new Vector2(15f, queue[i].gameObject.transform.position.y));
                     Person save = queue[i];
+                    save.walking = true;
                     save.gameObject.LeanMoveX(15f, 1 + (.25f * Mathf.FloorToInt(distance / 5)) ).setOnComplete(()=>Destroy(save.gameObject));
                     if(i == 0)save.CallGoingAwayEvent();
                     queue.Remove(save);

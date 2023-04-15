@@ -22,6 +22,12 @@ public class Person : MonoBehaviour
     
     protected Personality personality;
 
+    private float height;
+
+    [HideInInspector]public bool walking = false;
+
+    protected float walkTimer;
+
     private void Awake()
     {
         info = GetComponent<PersonInfo>();
@@ -29,8 +35,22 @@ public class Person : MonoBehaviour
 
     private void Start()
     {
-        
+        height = transform.position.y;
+        walkTimer = UnityEngine.Random.Range(0f, 10f);
         SetupEvent();
+    }
+
+    private void Update()
+    {
+        if(walking)
+        {
+            walkTimer += Time.deltaTime;
+            transform.position = new Vector2(transform.position.x, height + Mathf.Sin(walkTimer * 20f) / 4f);
+        }
+        else
+        {
+            transform.position = new Vector2(transform.position.x,height);
+        }
     }
 
     public PersonInfo GetInfo()

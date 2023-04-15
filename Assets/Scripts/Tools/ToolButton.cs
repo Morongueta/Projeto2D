@@ -17,7 +17,7 @@ public class ToolButton : MonoBehaviour
 
     public void SetColor(Color col)
     {
-        render.color = col;
+        render.color = new Color(render.color.r,render.color.g,render.color.b, col.a);
     }
 }
 
@@ -25,5 +25,6 @@ public class ToolButton : MonoBehaviour
 public struct PenProperties
 {
     public GameObject penObject;
+    public Sprite penMouseSprite;
     public bool isErasable;
 }

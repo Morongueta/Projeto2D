@@ -38,7 +38,7 @@ public class ToolManager : MonoBehaviour
     {
         if(!UsingHand)
         {
-            UsingTool = Input.GetKey(KeyCode.Mouse0);
+            UsingTool = (Input.GetKey(KeyCode.Mouse0));
         }
 
 
@@ -75,6 +75,7 @@ public class ToolManager : MonoBehaviour
                     if(curTool == Tool.PEN)
                     {
                         penTool.SetPen(btn.pen);
+                        CustomMouse.i.SetPenMouseSprite(btn.pen.penMouseSprite);
                     }
 
                     lastTool = btn;

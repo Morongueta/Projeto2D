@@ -57,4 +57,9 @@ public class CustomMouse : MonoBehaviour
 
         render.sprite = handSprite;
     }
+
+    public void SetPenMouseSprite(Sprite spr)
+    {
+        penHand = spr;
+    }
 }
