@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class CoexistenceManager : MonoBehaviour
 {
+    [Header("Drawer")]
     [SerializeField]private GameObject drawerObject;
+    [SerializeField]private Transform curriculumArea;
+    [SerializeField]private GameObject curriculumUIObject;
+
+    private List<GameObject> curriculumUIList = new List<GameObject>();
+
+    [Header("Persons")]
     [SerializeField]private List<CurriculumData> personInCompany;
 
     public static CoexistenceManager i;
@@ -16,11 +23,26 @@ public class CoexistenceManager : MonoBehaviour
 
     public void OpenDrawer()
     {
+        curriculumUIList = new List<GameObject>();
+        for (int i = 0; i < personInCompany.Count; i++)
+        {
+            GameObject cur = Instantiate(curriculumUIObject, curriculumArea);
+
+            curriculumUIList.Add(cur);
+        }
+
+
         drawerObject.SetActive(true);
     }
 
     public void CloseDrawer()
     {
+        for (int i = 0; i < curriculumUIList.Count; i++)
+        {
+            Destroy(curriculumUIList[i]);
+        }
+        curriculumUIList.Clear();
+
         drawerObject.SetActive(false);
     }
 
