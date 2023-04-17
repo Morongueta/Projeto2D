@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 3196055405294245260}
   - component: {fileID: 8304543770439929051}
   - component: {fileID: 768580446384159774}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ChatButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoexistenceManager : MonoBehaviour
 {
-    
+    [SerializeField]private GameObject drawerObject;
     [SerializeField]private List<CurriculumData> personInCompany;
 
     public static CoexistenceManager i;
@@ -12,6 +12,16 @@ public class CoexistenceManager : MonoBehaviour
     private void Awake()
     {
         i = this;
+    }
+
+    public void OpenDrawer()
+    {
+        drawerObject.SetActive(true);
+    }
+
+    public void CloseDrawer()
+    {
+        drawerObject.SetActive(false);
     }
 
     #region Person
