@@ -5244,7 +5244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paperBase: {fileID: 5418390981231508917, guid: 76f2128d5ceb72846a22f368cd415ebf, type: 3}
   paperCurriculum: {fileID: 5418390981231508917, guid: 76f2128d5ceb72846a22f368cd415ebf, type: 3}
-  paperContract: {fileID: 0}
+  paperContract: {fileID: 5087966292337293767, guid: c66f465840c9cab4daaffd20afbe8a1f, type: 3}
   paperSpawnPos: {x: 0, y: 16.85, z: 0}
 --- !u!1 &1369843673
 GameObject:
