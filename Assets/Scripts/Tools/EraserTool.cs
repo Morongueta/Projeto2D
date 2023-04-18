@@ -15,14 +15,14 @@ public class EraserTool : MonoBehaviour
     {
         if(ToolManager.i.GetTool() != Tool.ERASER) return;
 
-        mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(Input.mousePosition) : Vector2.zero;
+        mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition) : Vector2.zero;
 
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0"))
         {
-            startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            startMousePos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
         }
-        if(Input.GetKey(KeyCode.Mouse0))
+        if(Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0"))
         {
             RaycastHit2D[] hit = Physics2D.CircleCastAll(mousePos, eraserSize, Vector2.zero, eraserSize, lineLayer);
             RaycastHit2D[] hitPaper = Physics2D.RaycastAll(mousePos, Vector2.zero, 1f, paperLayer);
@@ -197,9 +197,7 @@ public class EraserTool : MonoBehaviour
             }
             
         }
-        if(Input.GetKeyUp(KeyCode.Mouse0))
-        {
-        }
+
     }
 
     private void OnDrawGizmos()

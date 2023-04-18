@@ -28,14 +28,14 @@ public class PenTool : MonoBehaviour
     {
         if(ToolManager.i.GetTool() != Tool.PEN) return;
 
-        mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(Input.mousePosition) : Vector2.zero;
+        mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition) : Vector2.zero;
 
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0"))
         {
-            startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            startMousePos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
         }
-        if(Input.GetKey(KeyCode.Mouse0))
+        if(Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0"))
         {
             RaycastHit2D[] hit = Physics2D.RaycastAll(mousePos, Vector2.zero, 1f);
             if(hit.Length == 0)
@@ -116,7 +116,7 @@ public class PenTool : MonoBehaviour
                 }
             }
         }
-        if(Input.GetKeyUp(KeyCode.Mouse0))
+        if(Input.GetKeyUp(KeyCode.Mouse0) || Input.GetButtonUp("VERDE0"))
         {
             if(curLine != null)drawingOn.GetComponent<Drawable>().AddLineToList(curLine);
             if(curLine != null)if(curLine.positionCount < 2)

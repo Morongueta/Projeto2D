@@ -6511,7 +6511,7 @@ MonoBehaviour:
   tool: 1
   pen:
     penObject: {fileID: 8696066612057102960, guid: 7656194a1ce370146a893148f44be489, type: 3}
-    penMouseSprite: {fileID: 21300000, guid: 4a6c97ed22d3b7e4889274315a400b4d, type: 3}
+    penMouseSprite: {fileID: 21300000, guid: beaa1a6d6aee92b4faee165d87e5cf57, type: 3}
     isErasable: 1
 --- !u!1 &1646814179
 GameObject:
@@ -9001,7 +9001,7 @@ MonoBehaviour:
   tool: 1
   pen:
     penObject: {fileID: 5042573432286185267, guid: bde1bd7454522364d9bddf1adf24502b, type: 3}
-    penMouseSprite: {fileID: 21300000, guid: cb48549bee4c8e04bb4093a9c58f7b88, type: 3}
+    penMouseSprite: {fileID: 570829849, guid: d6e93318e6eab10499246bc72d55190c, type: 3}
     isErasable: 0
 --- !u!1 &1739197615
 GameObject:
@@ -10621,6 +10621,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2593426886027252608, guid: c66f465840c9cab4daaffd20afbe8a1f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d348f25a8ab80964ea820be2bd1782f7, type: 3}
     - target: {fileID: 5087966292337293767, guid: c66f465840c9cab4daaffd20afbe8a1f, type: 3}
       propertyPath: m_Name
       value: PaperContract
@@ -10690,6 +10694,10 @@ PrefabInstance:
       propertyPath: UIMouse
       value: 
       objectReference: {fileID: 444024990}
+    - target: {fileID: 3410754782314852045, guid: ea517cb424883274ba83419293324ab4, type: 3}
+      propertyPath: mouseSpeed
+      value: 650
+      objectReference: {fileID: 0}
     - target: {fileID: 3410754782314852045, guid: ea517cb424883274ba83419293324ab4, type: 3}
       propertyPath: simulatedMouse
       value: 1
