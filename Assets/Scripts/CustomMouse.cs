@@ -73,6 +73,11 @@ public class CustomMouse : MonoBehaviour
             mousePosition = mousePositionSimulated;
 
             HandleMouseInteractions();
+        }else{
+            RaycastHit2D hitWorld = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(mousePosition), .05f, Vector2.zero, .15f, customUILayer);
+            RaycastHit2D hitCurriculumUI = Physics2D.CircleCast(mousePosition, .1f, Vector2.zero, .15f, curriculumUILayer);
+            pointing = hitWorld.collider != null;
+            pointingUI = hitCurriculumUI.collider != null;
         }
 
         
@@ -131,6 +136,13 @@ public class CustomMouse : MonoBehaviour
         transform.position = pos;
 
         Sprite handSprite = null;
+
+        if(ToolManager.i == null)
+        {
+            Cursor.visible = false;
+            render.sprite = defaultHand;
+            return;
+        }
 
         switch (ToolManager.i.GetTool())
         {

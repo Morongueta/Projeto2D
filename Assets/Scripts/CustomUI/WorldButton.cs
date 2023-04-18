@@ -38,6 +38,11 @@ public class WorldButton : MonoBehaviour
         OnClickAction += () => OnClick?.Invoke();
     }
 
+    private void Start()
+    {
+        GetObjectOver();
+    }
+
     private void Update()
     {
         //GetObjectOver();
@@ -93,7 +98,7 @@ public class WorldButton : MonoBehaviour
             }
             );  
         }
-        
+        Debug.Log("Clicked");
         OnClickAction?.Invoke();
     }
     public void OnMouseEnter()
@@ -128,12 +133,73 @@ public class WorldButton : MonoBehaviour
         float height = boxCol.size.y;
 
 
-        Collider2D hit = Physics2D.OverlapBox(transform.position, new Vector2(width, height), 0f);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero, 1f);
+
+        List<RaycastHit2D> organizedHits = new List<RaycastHit2D>();
         
-        if(hit != null)
+        organizedHits.AddRange(hits);
+
+        if(organizedHits.Count == 0) return true;
+        
+        for (int i = 1; i < organizedHits.Count; i++)
         {
-            Debug.Log("Size of " + hit.name + "   " + boxCol.size);
-            if(hit.gameObject != this.gameObject)
+            SpriteRenderer renderer = organizedHits[i].collider.GetComponent<SpriteRenderer>();
+
+            if(renderer != null)
+            {
+                SpriteRenderer rendererLast = organizedHits[i - 1].collider.GetComponent<SpriteRenderer>();
+                if(rendererLast != null)
+                {
+                    int lastID = SortingLayer.GetLayerValueFromID(rendererLast.sortingLayerID);
+                    int curID = SortingLayer.GetLayerValueFromID(renderer.sortingLayerID);
+                    if(lastID < curID)
+                    {
+                        RaycastHit2D last = organizedHits[i - 1];
+                        RaycastHit2D current = organizedHits[i];
+
+                        organizedHits[i] = last;
+                        organizedHits[i - 1] = current;
+                        i = 0;
+                    }
+                }
+            }
+        }
+
+        for (int i = 1; i < organizedHits.Count; i++)
+        {
+            SpriteRenderer renderer = organizedHits[i].collider.GetComponent<SpriteRenderer>();
+
+            if(renderer != null)
+            {
+                SpriteRenderer rendererLast = organizedHits[i - 1].collider.GetComponent<SpriteRenderer>();
+                if(rendererLast != null)
+                {
+                    if(rendererLast.sortingLayerID == renderer.sortingLayerID)
+                    {
+                        if(rendererLast.sortingOrder < renderer.sortingOrder)
+                        {
+                            RaycastHit2D last = organizedHits[i - 1];
+                            RaycastHit2D current = organizedHits[i];
+
+                            organizedHits[i] = last;
+                            organizedHits[i - 1] = current;
+                            i = 0;
+                        }
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < organizedHits.Count; i++)
+        {
+            SpriteRenderer renderer = organizedHits[i].collider.GetComponent<SpriteRenderer>();
+            int id = SortingLayer.GetLayerValueFromID(renderer.sortingLayerID);
+            Debug.Log("The object named: " + renderer.name + " is on layer: " + id + " at order: " + renderer.sortingOrder);
+        }
+
+        if(organizedHits[0].collider != null)
+        {
+            if(organizedHits[0].collider.gameObject != this.gameObject)
             {
                 result = false;
             }

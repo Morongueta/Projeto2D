@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CoexistenceManager : MonoBehaviour
 {
@@ -27,11 +28,17 @@ public class CoexistenceManager : MonoBehaviour
         curriculumUIList = new List<GameObject>();
         for (int i = 0; i < personInCompany.Count; i++)
         {
+            int storedIndex = i;
+
             GameObject cur = Instantiate(curriculumUIObject, curriculumArea);
 
             cur.transform.Find("NameText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].personName;
             cur.transform.Find("JobText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].vaga;
             cur.transform.Find("SalaryText").GetComponent<TextMeshProUGUI>().text = "R$" + personInCompany[i].salary;
+
+            cur.GetComponent<Button>().onClick.AddListener(()=>{
+                PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
+            });
 
             curriculumUIList.Add(cur);
         }

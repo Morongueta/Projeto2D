@@ -53,18 +53,18 @@ public class Curriculum : MonoBehaviour
         
     }
 
-    public void Generate(PersonData data)
+    public void Generate(CurriculumData data)
     {
         curriculumData = new CurriculumData();
 
-        curriculumData.personName = data.c.personName;
-        curriculumData.gender = data.c.gender;
-        curriculumData.age = data.c.age;
-        curriculumData.cell = data.c.cell;
-        curriculumData.civil = data.c.civil;
-        curriculumData.vaga = data.c.vaga;
-        curriculumData.exp = data.c.exp;
-        curriculumData.salary = data.c.salary;
+        curriculumData.personName = data.personName;
+        curriculumData.gender = data.gender;
+        curriculumData.age = data.age;
+        curriculumData.cell = data.cell;
+        curriculumData.civil = data.civil;
+        curriculumData.vaga = data.vaga;
+        curriculumData.exp = data.exp;
+        curriculumData.salary = data.salary;
 
         curriculumData.hasFamily = ((Random.value * 100) < 50f);
         if(curriculumData.hasFamily) curriculumData.sonsQtd = Random.Range(1,5);
@@ -218,6 +218,13 @@ public struct CurriculumData
         hasFamily = ((Random.value * 100) < 50f);
         if(hasFamily) sonsQtd = Random.Range(1,5);
 
+    }
+
+    public PersonData Convert()
+    {
+        PersonData person = new PersonData();
+
+        return person;
     }
 
     public Trait[] GetAllTraits()

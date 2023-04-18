@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PersonQuestion : Person
+public class PersonReport : Person
 {
-    public string question;
-    public string confirm;
-    public string decline;
-
+    public string reportText;
+    public string reportConfirm;
 
     public Action confirmAction;
-    public Action declineAction;
 
 
     public override void SetupEvent()
@@ -40,18 +37,12 @@ public class PersonQuestion : Person
 
     public void ShowQuestion()
     {
-        TextBoxManager.i.ShowQuestion(question,confirm,decline,()=>
+        TextBoxManager.i.SetReportText(reportText, reportConfirm);
+        TextBoxManager.i.ShowReport(()=>
         {
             //Confirm Action
             confirmAction?.Invoke();
             QueueManager.i.RemoveFromQueue(0);
-        },
-        ()=>
-        {
-            //DeclineAction
-            declineAction?.Invoke();
-            QueueManager.i.RemoveFromQueue(0);
-        }
-        );
+        });
     }
 }

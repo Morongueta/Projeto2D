@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gatto.Utils;
 
 public class EventController : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class EventController : MonoBehaviour
     private List<BaseEvent> breakEvents = new List<BaseEvent>();
     private List<BaseEvent> randomEvents = new List<BaseEvent>();
 
-
+    private List<TemporaryStats> temporaryStats = new List<TemporaryStats>();
 
     public static EventController i;
 
@@ -64,7 +65,9 @@ public class EventController : MonoBehaviour
         #region Conflict Event
         AddEvent(conflictEvents, ()=>
         {
-            QueueManager.i.AddQuestionPerson("Rapaziada ta se storano no murro", "Deixa lá", "Manda embora");
+            QueueManager.i.AddQuestionPerson("Rapaziada ta se storano no murro", "Deixa lá", "Manda embora", ()=>{
+                AddTemporaryStats(.3f,0f,120f);
+            });
         });
         #endregion
 
@@ -72,6 +75,7 @@ public class EventController : MonoBehaviour
         AddEvent(breakEvents, ()=>
         {
             QueueManager.i.AddQuestionPerson("Quebrarão o pc do jorgin", "fodac", "compra oto");
+            UpdateValue();
         });
         #endregion
 
@@ -81,9 +85,32 @@ public class EventController : MonoBehaviour
             QueueManager.i.AddQuestionPerson("Contrata um cara ai", "Ta", "Nao",()=>{
                 HiringManager.i.StartHiring();
             });
-            
+            UpdateValue();
+        });
+
+        AddEvent(randomEvents, ()=>
+        {
+            QueueManager.i.AddReportPerson("Arruma 1 e 50 ai parça", "Ok",()=>{
+                PaperManager.i.AddContractPaper();
+            });
+            UpdateValue();
         });
         #endregion
+    }
+
+    private void AddTemporaryStats(float conflict, float breakc, float timer)
+    {
+        TemporaryStats temp = new TemporaryStats();
+        temp.chanceToBreak = breakc;
+        temp.chanceToConflict = conflict;
+
+        temporaryStats.Add(temp);
+
+        PeriodTimer.Timer(timer, ()=>{
+            temporaryStats.Remove(temp);
+            UpdateValue();
+        });
+        UpdateValue();
     }
 
     private void AddEvent(List<BaseEvent> listEvent,System.Action addon)
@@ -144,6 +171,12 @@ public class EventController : MonoBehaviour
             
         }
 
+        for (int i = 0; i < temporaryStats.Count; i++)
+        {
+            conflictChance += temporaryStats[i].chanceToConflict;
+            breakChance += temporaryStats[i].chanceToBreak;
+        }
+
         chanceToRandom = ClampValue(chanceToRandom_base);
         tickMultiplier = ClampValue(tickMultiplier_base + tickMult, 0.5f, 1.5f);
         chanceToBreak = ClampValue(chanceToBreak_base + breakChance);
@@ -169,5 +202,13 @@ public class BaseEvent
     {
         this.onCall += onCall;
     }
+}
+
+
+public struct TemporaryStats
+{
+    public float chanceToBreak;
+    public float chanceToConflict;
+    public float chanceToRandom;
 }
 

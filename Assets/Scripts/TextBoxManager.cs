@@ -24,6 +24,7 @@ public class TextBoxManager : MonoBehaviour
     [Space]
     [SerializeField]private GameObject reportObj;
     [SerializeField]private TextMeshPro reportText;
+    [SerializeField]private TextMeshPro reportConfirmText;
 
     [SerializeField]private WorldButton goAwayButton;
 
@@ -82,9 +83,10 @@ public class TextBoxManager : MonoBehaviour
         interviewMoneyText.text = text;
     }
 
-    public void SetReportText(string text)
+    public void SetReportText(string text, string confirmText = "Ok")
     {
         reportText.text = text;
+        reportConfirmText.text = confirmText;
     }
     public void ShowQuestion(string question, string confirm, string decline, Action confirmAction, Action declineAction)
     {
