@@ -25,18 +25,22 @@ public class WorldButton : MonoBehaviour
 
     public System.Action OnClickAction;
 
+    private BoxCollider2D boxCol;
+
 
     private void Awake()
     {
         if(render == null)render = GetComponent<SpriteRenderer>();
         if(renderText == null)renderText = GetComponent<TextMeshPro>();
 
+        boxCol = GetComponent<BoxCollider2D>();
+
         OnClickAction += () => OnClick?.Invoke();
     }
 
     private void Update()
     {
-        GetObjectOver();
+        //GetObjectOver();
         if(!interactable)
         {
             if (!changingColor && render.color != disabledColor)
@@ -76,7 +80,8 @@ public class WorldButton : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if(EventSystem.current.IsPointerOverGameObject() == true && !GetObjectOver() && canOverObject == false) return;
+        if(!GetObjectOver() && canOverObject == false) return;
+        if(EventSystem.current.IsPointerOverGameObject() == true && canOverObject == false) return;
         if(!interactable) return;
         if (!changingColor)
         {
@@ -90,19 +95,18 @@ public class WorldButton : MonoBehaviour
         }
         
         OnClickAction?.Invoke();
-
-        Debug.Log("Clicked");
     }
     public void OnMouseEnter()
     {
-        if(EventSystem.current.IsPointerOverGameObject() == true && !GetObjectOver() && canOverObject == false) return;
+        if(!GetObjectOver() && canOverObject == false) return;
+        if(EventSystem.current.IsPointerOverGameObject() == true && canOverObject == false) return;
+
         if(!interactable) return;
         if (!changingColor)
         {
             changingColor = true;
             gameObject.LeanColor(hoverColor, colorChangeTime).setOnComplete(() => changingColor = false);
         }
-        Debug.Log("Mouse Enter");
     }
     public void OnMouseExit()
     {  
@@ -111,20 +115,25 @@ public class WorldButton : MonoBehaviour
         changingColor = true;
         LeanTween.value(gameObject, 10,10,1f);
         gameObject.LeanColor(defaultColor, colorChangeTime).setOnComplete(() => changingColor = false);
-    
-        Debug.Log("Mouse Exit");
     }
 
     public bool GetObjectOver()
     {
+        
         bool result = true;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector3(mousePos.x,mousePos.y,10), Vector3.forward, 10f);
         
-        if(hit.collider != null)
+        float width  = boxCol.size.x;
+
+        float height = boxCol.size.y;
+
+
+        Collider2D hit = Physics2D.OverlapBox(transform.position, new Vector2(width, height), 0f);
+        
+        if(hit != null)
         {
-            Debug.Log(hit.collider.name);
-            if(hit.collider.gameObject != this.gameObject)
+            Debug.Log("Size of " + hit.name + "   " + boxCol.size);
+            if(hit.gameObject != this.gameObject)
             {
                 result = false;
             }
