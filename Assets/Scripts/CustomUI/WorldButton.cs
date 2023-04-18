@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class WorldButton : MonoBehaviour
@@ -14,7 +15,7 @@ public class WorldButton : MonoBehaviour
     [SerializeField] private Color disabledColor = Color.white;
 
     [SerializeField] private float colorChangeTime = 0.15f;
-
+    public bool canOverObject = false;
     public bool interactable = true;
     private bool lastInteractable = false;
 
@@ -35,6 +36,7 @@ public class WorldButton : MonoBehaviour
 
     private void Update()
     {
+        GetObjectOver();
         if(!interactable)
         {
             if (!changingColor && render.color != disabledColor)
@@ -74,6 +76,7 @@ public class WorldButton : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if(EventSystem.current.IsPointerOverGameObject() == true && !GetObjectOver() && canOverObject == false) return;
         if(!interactable) return;
         if (!changingColor)
         {
@@ -92,6 +95,7 @@ public class WorldButton : MonoBehaviour
     }
     public void OnMouseEnter()
     {
+        if(EventSystem.current.IsPointerOverGameObject() == true && !GetObjectOver() && canOverObject == false) return;
         if(!interactable) return;
         if (!changingColor)
         {
@@ -102,11 +106,29 @@ public class WorldButton : MonoBehaviour
     }
     public void OnMouseExit()
     {  
+        if(EventSystem.current.IsPointerOverGameObject() == true && canOverObject == false) return;
         if(!interactable) return;
         changingColor = true;
         LeanTween.value(gameObject, 10,10,1f);
         gameObject.LeanColor(defaultColor, colorChangeTime).setOnComplete(() => changingColor = false);
     
         Debug.Log("Mouse Exit");
+    }
+
+    public bool GetObjectOver()
+    {
+        bool result = true;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(mousePos.x,mousePos.y,10), Vector3.forward, 10f);
+        
+        if(hit.collider != null)
+        {
+            Debug.Log(hit.collider.name);
+            if(hit.collider.gameObject != this.gameObject)
+            {
+                result = false;
+            }
+        }
+        return result;
     }
 }

@@ -11,6 +11,7 @@ public class CustomMouse : MonoBehaviour
 
     [SerializeField] private Canvas canvas;
     private Vector2 mousePositionSimulated;
+    [SerializeField]private float mouseSpeed;
 
     [Header("UI Mouse")]
     [SerializeField] private Image UIMouse;
@@ -64,7 +65,7 @@ public class CustomMouse : MonoBehaviour
 
             moveAxis.Normalize();
 
-            mousePositionSimulated += moveAxis; 
+            mousePositionSimulated += moveAxis * mouseSpeed * Time.deltaTime; 
 
             mousePositionSimulated.x = Mathf.Clamp(mousePositionSimulated.x, 0, canvas.renderingDisplaySize.x);
             mousePositionSimulated.y = Mathf.Clamp(mousePositionSimulated.y, 0, canvas.renderingDisplaySize.y);

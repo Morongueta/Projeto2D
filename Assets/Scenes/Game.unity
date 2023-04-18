@@ -187,6 +187,7 @@ MonoBehaviour:
   clickedColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
   disabledColor: {r: 0, g: 0, b: 0, a: 0}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -604,6 +605,7 @@ MonoBehaviour:
   clickedColor: {r: 0.03529412, g: 0.03137255, b: 0.07058824, a: 1}
   disabledColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -1157,6 +1159,7 @@ MonoBehaviour:
   clickedColor: {r: 0.6901961, g: 0.58333766, b: 0.09411764, a: 1}
   disabledColor: {r: 0, g: 0, b: 0, a: 0}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -2208,6 +2211,7 @@ MonoBehaviour:
   clickedColor: {r: 0.03529412, g: 0.03137255, b: 0.07058824, a: 1}
   disabledColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -2427,6 +2431,7 @@ MonoBehaviour:
   clickedColor: {r: 0.03529412, g: 0.03137255, b: 0.07058824, a: 1}
   disabledColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -2715,9 +2720,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &587298568
 MonoBehaviour:
@@ -3264,6 +3269,7 @@ MonoBehaviour:
   clickedColor: {r: 0.03529412, g: 0.03137255, b: 0.07058824, a: 1}
   disabledColor: {r: 0, g: 0, b: 0, a: 0}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -3626,6 +3632,7 @@ MonoBehaviour:
   clickedColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
   disabledColor: {r: 1, g: 1, b: 1, a: 1}
   colorChangeTime: 0.15
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -4388,6 +4395,7 @@ MonoBehaviour:
   clickedColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
   disabledColor: {r: 0, g: 0, b: 0, a: 0}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -4638,29 +4646,32 @@ Transform:
   m_Father: {fileID: 64090732}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1214005431
-MonoBehaviour:
+--- !u!61 &1214005431
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214005428}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8484b6bd979566643a02abb112a77f6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  render: {fileID: 0}
-  renderText: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  hoverColor: {r: 1, g: 1, b: 1, a: 1}
-  clickedColor: {r: 1, g: 1, b: 1, a: 1}
-  disabledColor: {r: 1, g: 1, b: 1, a: 1}
-  colorChangeTime: 0.15
-  interactable: 1
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000047683716, y: 0.01399374}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 7.22, y: 6.93}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 1
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.1687555, y: 6.924594}
+  m_EdgeRadius: 0
 --- !u!1 &1236421924
 GameObject:
   m_ObjectHideFlags: 0
@@ -4751,6 +4762,7 @@ MonoBehaviour:
   clickedColor: {r: 0.03529412, g: 0.03137255, b: 0.07058824, a: 1}
   disabledColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -4947,8 +4959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa786ccf048df6f44ad1e6ef91a62247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulatedMouse: 1
+  simulatedMouse: 0
   canvas: {fileID: 616135126}
+  mouseSpeed: 300
   UIMouse: {fileID: 444024990}
   defaultMouse: {fileID: -1498069614, guid: 0a89b933201348342a17805ff9b635b1, type: 3}
   copyMouse: {fileID: -721871811, guid: 0a89b933201348342a17805ff9b635b1, type: 3}
@@ -5116,6 +5129,7 @@ MonoBehaviour:
   clickedColor: {r: 0.24849035, g: 0.6901961, b: 0.09411764, a: 1}
   disabledColor: {r: 0, g: 0, b: 0, a: 0}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -5187,7 +5201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1323123372
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6288,8 +6302,8 @@ RectTransform:
   m_Father: {fileID: 1236421925}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.471995}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7120,6 +7134,7 @@ MonoBehaviour:
   clickedColor: {r: 0.6886792, g: 0.09420614, b: 0.09420614, a: 1}
   disabledColor: {r: 0, g: 0, b: 0, a: 0}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -9620,7 +9635,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1585067463}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.528005
+  m_Size: 0.52800506
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9840,6 +9855,7 @@ MonoBehaviour:
   clickedColor: {r: 0.03529412, g: 0.03137255, b: 0.07058824, a: 1}
   disabledColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   colorChangeTime: 0.1
+  canOverObject: 0
   interactable: 1
   OnClick:
     m_PersistentCalls:
@@ -10052,6 +10068,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawerObject: {fileID: 1323123371}
+  curriculumArea: {fileID: 752526175}
+  curriculumUIObject: {fileID: 5653812678564342427, guid: bceadeafa668cc44c85bfcf037a9c0f9, type: 3}
   personInCompany:
   - personName: "Ana Beatriz da Costa\r"
     gender: Mulher
@@ -10560,48 +10578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aba7b6972d02974a945756a22c38701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceBtwCurriculum: 0.45
-  contractObject: {fileID: 5418390981231508917, guid: 76f2128d5ceb72846a22f368cd415ebf, type: 3}
-  contractPlacement: {fileID: 319671997}
-  interviewContainer: {fileID: 0}
-  contracts:
-  - ownerName: Laele
-    age: 0
-    cellphone: 
-    gender: 
-    civil: 
-  - ownerName: 
-    age: 0
-    cellphone: 
-    gender: 
-    civil: 
-  - ownerName: 
-    age: 0
-    cellphone: 
-    gender: 
-    civil: 
-  - ownerName: 
-    age: 0
-    cellphone: 
-    gender: 
-    civil: 
-  - ownerName: 
-    age: 0
-    cellphone: 
-    gender: 
-    civil: 
-  - ownerName: 
-    age: 0
-    cellphone: 
-    gender: 
-    civil: 
-  curState: 0
-  selected: 
-  maxSelected: 4
-  contractObjects: []
-  timer: 0
-  curIndex: 0
-  canInteract: 0
 --- !u!114 &2061405925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10614,33 +10590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde90944f056c1e4895b5a386972ae38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startEmployees:
-  - name: 
-    cargo: 
-    cargoID: 0
-    experience: 2
-    salary: 4000
-  - name: 
-    cargo: 
-    cargoID: 0
-    experience: 2
-    salary: 2000
-  - name: 
-    cargo: 
-    cargoID: 0
-    experience: 2
-    salary: 6000
-  - name: 
-    cargo: 
-    cargoID: 0
-    experience: 1
-    salary: 1500
-  - name: 
-    cargo: 
-    cargoID: 0
-    experience: 1
-    salary: 1500
-  employees: []
 --- !u!114 &2061405926
 MonoBehaviour:
   m_ObjectHideFlags: 0

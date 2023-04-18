@@ -28,15 +28,13 @@ public class HandTool : MonoBehaviour
     {
         if(ToolManager.i.GetTool() != Tool.HAND) return;
 
-        mousePos = Input.mousePresent ? Input.mousePosition : Vector2.zero;
+        mousePos = Input.mousePresent ? CustomMouse.i.mousePosition : Vector2.zero;
 
         Vector3 mouse = Camera.main.ScreenToWorldPoint(mousePos);
 
-        ToolManager.i.UsingHand = Input.GetKey(KeyCode.Mouse0);
-
-        if (Input.GetKeyDown(KeyCode.Mouse0)) //Mouse click
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0")) //Mouse click
         {
-            cameraOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            cameraOffset = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
             RaycastHit2D[] hit = Physics2D.RaycastAll(mouse, Vector2.zero, 1f,dragLayer);
             if(hit.Length == 0) return;
             RaycastHit2D closest = hit[0];
@@ -67,7 +65,7 @@ public class HandTool : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) && objectDown != null)
+        if ((Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0")) && objectDown != null)
         {
             
             pos = (mouse - (Vector3)cameraOffset) + (Vector3)objectPos;
@@ -76,7 +74,7 @@ public class HandTool : MonoBehaviour
 
         }
 
-        if(Input.GetKeyUp(KeyCode.Mouse0) && objectDown != null) 
+        if((Input.GetKeyUp(KeyCode.Mouse0) || Input.GetButtonUp("VERDE0")) && objectDown != null) 
         {
             UpFuction();
         }
@@ -94,8 +92,8 @@ public class HandTool : MonoBehaviour
 
     public void TransferObject(GameObject to)
     {
-        to.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        cameraOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        to.transform.position = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
+        cameraOffset = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
         objectDown.GetComponent<Draggable>().holding = false;
         objectPos = to.transform.position;
         objectDown = to;

@@ -38,13 +38,15 @@ public class ToolManager : MonoBehaviour
     {
         if(!UsingHand)
         {
-            UsingTool = (Input.GetKey(KeyCode.Mouse0));
+            UsingTool = (Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0"));
         }
 
+        UsingHand = Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0");
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+
+        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0"))
         {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 pos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
 
             RaycastHit2D hit = Physics2D.CircleCast(pos, .25f, Vector2.zero, .25f, toolLayer);
 
