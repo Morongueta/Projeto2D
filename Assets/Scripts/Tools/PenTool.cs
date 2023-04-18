@@ -73,17 +73,14 @@ public class PenTool : MonoBehaviour
                                 curLine.positionCount++;
                                 curLine.SetPosition(curLine.positionCount - 1, mousePos - (Vector2)drawingOn.transform.position);
                                 lastPos = mousePos;
-                                if(pen.isErasable)
+                                
+                                List<Vector2> p = new List<Vector2>();
+                                for (int i = 0; i < curLine.positionCount; i++)
                                 {
-                                    List<Vector2> p = new List<Vector2>();
-                                    for (int i = 0; i < curLine.positionCount; i++)
-                                    {
-                                        p.Add(curLine.GetPosition(i));
-                                    }
-                                    edgeCol.SetPoints(p);
-                                }else{
-                                    edgeCol.enabled = false;
+                                    p.Add(curLine.GetPosition(i));
                                 }
+                                edgeCol.SetPoints(p);
+                                
                             }
                         }
                     }else{
@@ -99,17 +96,14 @@ public class PenTool : MonoBehaviour
                         curLine.positionCount = 0;
                         curLine.positionCount++;
                         curLine.SetPosition(0, mousePos - (Vector2)drawingOn.transform.position);
-                        if(pen.isErasable)
+                        
+                        List<Vector2> p = new List<Vector2>();
+                        for (int i = 0; i < curLine.positionCount; i++)
                         {
-                            List<Vector2> p = new List<Vector2>();
-                            for (int i = 0; i < curLine.positionCount; i++)
-                            {
-                                p.Add(curLine.GetPosition(i));
-                            }
-                            edgeCol.SetPoints(p);
-                        }else{
-                            edgeCol.enabled = false;
+                            p.Add(curLine.GetPosition(i));
                         }
+                        edgeCol.SetPoints(p);
+                       
                     }
                 }else
                 {

@@ -9754,7 +9754,7 @@ GameObject:
   - component: {fileID: 1855849141}
   - component: {fileID: 1855849144}
   - component: {fileID: 1855849145}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: ToolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
