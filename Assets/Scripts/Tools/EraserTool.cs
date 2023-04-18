@@ -13,7 +13,8 @@ public class EraserTool : MonoBehaviour
 
     private void Update() 
     {
-        if(ToolManager.i.GetTool() != Tool.ERASER) return;
+        if (ToolManager.i == null) return;
+        if (ToolManager.i.GetTool() != Tool.ERASER) return;
 
         mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition) : Vector2.zero;
 

@@ -31,6 +31,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        if (CustomMouse.i == null) return;
         //if(ToolManager.i.UsingHand || ToolManager.i.UsingTool) return;
         Vector3 mousePos = cam.ScreenToWorldPoint(CustomMouse.i.mousePosition);
         if(Mathf.Abs(cam.transform.position.y - mousePos.y) <= mouseThreshold)

@@ -10699,6 +10699,10 @@ PrefabInstance:
       value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 3410754782314852045, guid: ea517cb424883274ba83419293324ab4, type: 3}
+      propertyPath: UILayer.m_Bits
+      value: 2080
+      objectReference: {fileID: 0}
+    - target: {fileID: 3410754782314852045, guid: ea517cb424883274ba83419293324ab4, type: 3}
       propertyPath: simulatedMouse
       value: 1
       objectReference: {fileID: 0}

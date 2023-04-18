@@ -26,7 +26,8 @@ public class HandTool : MonoBehaviour
     }
     private void Update()
     {
-        if(ToolManager.i.GetTool() != Tool.HAND) return;
+        if (ToolManager.i == null) return;
+        if (ToolManager.i.GetTool() != Tool.HAND) return;
 
         mousePos = Input.mousePresent ? CustomMouse.i.mousePosition : Vector2.zero;
 

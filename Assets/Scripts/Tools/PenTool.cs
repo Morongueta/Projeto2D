@@ -26,6 +26,7 @@ public class PenTool : MonoBehaviour
 
     private void Update() 
     {
+        if (ToolManager.i == null) return;
         if(ToolManager.i.GetTool() != Tool.PEN) return;
 
         mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition) : Vector2.zero;

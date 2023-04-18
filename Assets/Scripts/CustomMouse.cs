@@ -119,9 +119,9 @@ public class CustomMouse : MonoBehaviour
             if(worldButton != null && Input.GetButtonDown("VERDE0")) worldButton.OnMouseDown();
         }
 
-        if(hitCurriculumUI.collider != null)
+        if(hitUI.collider != null)
         {
-            button = hitCurriculumUI.collider.GetComponent<Button>();
+            button = hitUI.collider.GetComponent<Button>();
 
             if(button != null && Input.GetButtonDown("VERDE0")) button.onClick?.Invoke();
         }
