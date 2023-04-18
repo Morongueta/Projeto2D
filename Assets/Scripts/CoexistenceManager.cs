@@ -25,7 +25,13 @@ public class CoexistenceManager : MonoBehaviour
 
     public void OpenDrawer()
     {
-        curriculumUIList = new List<GameObject>();
+        for (int i = 0; i < curriculumUIList.Count; i++)
+        {
+            Destroy(curriculumUIList[i]);
+        }
+        curriculumUIList.Clear();
+
+
         for (int i = 0; i < personInCompany.Count; i++)
         {
             int storedIndex = i;
