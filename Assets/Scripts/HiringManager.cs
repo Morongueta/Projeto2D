@@ -77,8 +77,14 @@ public class HiringManager : MonoBehaviour
             break;
         }
     }
+
     private void SelectionPhase()
     {
+        if(AllPapersAreNull())
+        {
+            FinishSelections();
+        }
+
         if(hireState == HireState.SELECTING)
         {
             if (selectPos != buttonVisiblePos)
@@ -112,6 +118,11 @@ public class HiringManager : MonoBehaviour
     #region Interview Area
     private void InterviewPhase()
     {
+        if(AllPapersAreNull())
+        {
+            FinishInterview();
+        }
+
         if(setupInterview == false)
         {
             List<GameObject> papersRef = new List<GameObject>();
