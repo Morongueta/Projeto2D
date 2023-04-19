@@ -63,6 +63,11 @@ public class QueueManager : MonoBehaviour
         }
     }
 
+    public void AddThisPerson(GameObject person)
+    {
+        GameObject p = AddPerson(person);
+    }
+
     private IEnumerator EAddHiringPerson(GameObject[] papers, float delay)
     {
         int i = 0;

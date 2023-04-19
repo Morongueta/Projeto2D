@@ -111,6 +111,9 @@ public class TextBoxManager : MonoBehaviour
         reportObj.SetActive(true);
         textBoxHUD.SetActive(true);
 
+        if(buttonActions == null) return;
+        if(buttonActions.Length == 0) return;
+
         WorldButton[] worldButtons = reportObj.GetComponentsInChildren<WorldButton>();
         if(worldButtons.Length == 0) return;
 
