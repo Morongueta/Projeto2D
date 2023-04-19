@@ -44,7 +44,10 @@ public class Contract : MonoBehaviour
             {
 		        Debug.Log("Sent Input");
                 GetComponent<Draggable>().active = false;
-                transform.LeanMoveX(transform.position.x + 10f, 1f);
+                transform.LeanMoveX(transform.position.x + 10f, 1f).setOnComplete(() =>
+                {
+                    Destroy(this.gameObject);
+                });
                 switch (state) { 
                 
                     case ContractState.CONFIRM:

@@ -79,7 +79,7 @@ public class HiringManager : MonoBehaviour
     }
     private void SelectionPhase()
     {
-        if(negateBox.GetIsFull() && hireState == HireState.SELECTING)
+        if(hireState == HireState.SELECTING)
         {
             if (selectPos != buttonVisiblePos)
             {

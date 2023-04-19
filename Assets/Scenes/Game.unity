@@ -1561,7 +1561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cae252b226308d449f32b2fd744c264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventTick: 20
+  eventTick: 1
   tickMultiplier_base: 0.5
   chanceToBreak_base: 0.25
   chanceToConflict_base: 0.25

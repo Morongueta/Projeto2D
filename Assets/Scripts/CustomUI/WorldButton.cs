@@ -38,11 +38,6 @@ public class WorldButton : MonoBehaviour
         OnClickAction += () => OnClick?.Invoke();
     }
 
-    private void Start()
-    {
-        GetObjectOver();
-    }
-
     private void Update()
     {
         //GetObjectOver();
@@ -85,7 +80,8 @@ public class WorldButton : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if(!GetObjectOver() && canOverObject == false) return;
+        Debug.Log("Clicked");
+        if (!GetObjectOver() && canOverObject == false) return;
         if(EventSystem.current.IsPointerOverGameObject() == true && canOverObject == false) return;
         if(!interactable) return;
         if (!changingColor)
@@ -98,7 +94,6 @@ public class WorldButton : MonoBehaviour
             }
             );  
         }
-        Debug.Log("Clicked");
         OnClickAction?.Invoke();
     }
     public void OnMouseEnter()
@@ -140,7 +135,7 @@ public class WorldButton : MonoBehaviour
         organizedHits.AddRange(hits);
 
         if(organizedHits.Count == 0) return true;
-        
+
         for (int i = 1; i < organizedHits.Count; i++)
         {
             SpriteRenderer renderer = organizedHits[i].collider.GetComponent<SpriteRenderer>();
