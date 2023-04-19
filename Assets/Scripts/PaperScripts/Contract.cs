@@ -30,15 +30,18 @@ public class Contract : MonoBehaviour
         bool decline = Physics2D.OverlapBox(negatePosition + (Vector2)transform.position, Vector2.one * checkBoxSize, 0f, penLayer) != null;
 
 
-        if(confirm || decline && state == ContractState.NONE)
+        if(state == ContractState.NONE)
         {
+		Debug.Log("Waiting Input");
             if (confirm) { state = ContractState.CONFIRM; }
 
             if (decline) { state = ContractState.DECLINE; }
         }else if(state != ContractState.NONE)
         {
+		Debug.Log("Got Input");
             if(Input.GetButton("VERDE0") == false)
             {
+		Debug.Log("Sent Input");
                 GetComponent<Draggable>().active = false;
                 transform.LeanMoveX(transform.position.x + 10f, 1f);
                 switch (state) { 

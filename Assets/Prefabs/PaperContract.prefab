@@ -325,6 +325,9 @@ MonoBehaviour:
   negatePosition: {x: -0.59, y: -0.9}
   confirmPosition: {x: 0.59, y: -0.9}
   checkBoxSize: 0.5
+  penLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &6386324610946842722
 GameObject:
   m_ObjectHideFlags: 0
