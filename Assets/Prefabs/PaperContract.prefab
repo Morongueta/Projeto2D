@@ -328,6 +328,7 @@ MonoBehaviour:
   penLayer:
     serializedVersion: 2
     m_Bits: 4096
+  contractText: {fileID: 7620152224019719053}
 --- !u!1 &6386324610946842722
 GameObject:
   m_ObjectHideFlags: 0

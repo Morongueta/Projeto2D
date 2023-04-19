@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public enum ContractState
 {
@@ -18,7 +19,7 @@ public class Contract : MonoBehaviour
     [SerializeField] private float checkBoxSize;
 
     [SerializeField] private LayerMask penLayer;
-
+    [SerializeField] private TextMeshPro contractText;
     public Action confirmAction;
     public Action declineAction;
 
@@ -32,16 +33,16 @@ public class Contract : MonoBehaviour
 
         if(state == ContractState.NONE)
         {
-		Debug.Log("Waiting Input");
+		        Debug.Log("Waiting Input");
             if (confirm) { state = ContractState.CONFIRM; }
 
             if (decline) { state = ContractState.DECLINE; }
         }else if(state != ContractState.NONE)
         {
-		Debug.Log("Got Input");
-            if(Input.GetButton("VERDE0") == false)
+		        Debug.Log("Got Input");
+            if(Input.GetButton("VERDE0") == false && Input.GetKey(KeyCode.Mouse0) == false)
             {
-		Debug.Log("Sent Input");
+		        Debug.Log("Sent Input");
                 GetComponent<Draggable>().active = false;
                 transform.LeanMoveX(transform.position.x + 10f, 1f);
                 switch (state) { 
@@ -56,6 +57,11 @@ public class Contract : MonoBehaviour
                 }  
             }
         }
+    }
+
+    public void SetContractText(string text)
+    {
+        contractText.text = text;
     }
 
     private void OnDrawGizmos()
