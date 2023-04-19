@@ -11,6 +11,10 @@ public class TutorialManager : MonoBehaviour
 
     private void Start() 
     {
-        QueueManager.i.AddThisPerson(tutorialStepOne);
+        SpawnOne();
+    }
+
+    private void SpawnOne() {
+        QueueManager.i.AddThisPerson(tutorialStepOne);  
     }
 }
