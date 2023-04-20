@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gatto.Utils;
 
 public enum HireState
 {
@@ -20,7 +21,10 @@ public class HiringManager : MonoBehaviour
     [SerializeField] private Vector2 hiddenBoxPos;
     [SerializeField] private Vector2 buttonVisiblePos;
     [SerializeField] private Vector2 buttonHiddenPos;
-    [SerializeField] private HireState hireState;
+
+    private int timerID = 939;
+    private _PeriodTimer timer;
+    public HireState hireState;
 
     [Header("Hire - Interview")]
     private bool setupInterview;
@@ -55,14 +59,25 @@ public class HiringManager : MonoBehaviour
         };
     }
 
+    public bool CanHire()
+    {
+        bool result = false;
+
+        if(timer == null)
+        {
+            if(hireState == HireState.NONE) result = true;
+        } 
+        else result = false;
+
+        return result;
+    }
+
     public void StartHiring()
     {
         hirePapers = PaperManager.i.GetHiringPapers(6);
         hireState = HireState.SELECTING;
         ShowBox(negateBox);
     }
-
-
 
     private void Update()
     {
@@ -188,15 +203,16 @@ public class HiringManager : MonoBehaviour
 
     public void FinishInterview()
     {
+        QueueManager.i.RemoveFromQueueInterview();
         HideBox(confirmBox);
         LeanTween.cancel(contractButton.gameObject);
         //negateBox.DestroyFromBoxAll();
         if(confirmBox.GetPapers().Length > 0)CoexistenceManager.i.AddPerson(confirmBox.GetPapers()[0].GetComponent<Curriculum>());
         hireState = HireState.NONE;
-        confirmBox.DestroyFromBoxAll(.25f);
+        confirmBox.DestroyFromBoxAll(.35f);
         contractButton.gameObject.LeanMove(buttonHiddenPos, .25f);
         
-        QueueManager.i.RemoveFromQueueInterview();
+        timer = PeriodTimer.Timer(200f, null);
     }
 
     public void ResetInterviewMoney()

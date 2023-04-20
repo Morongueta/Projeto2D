@@ -66,6 +66,14 @@ public class CoexistenceManager : MonoBehaviour
 
     #region Person
 
+    public void RemoveTutorial()
+    {
+        if(personInCompany.Count > 5)
+        {
+            personInCompany.RemoveAt(5);
+        }
+    }
+
     public void AddPerson(Curriculum cur)
     {
         CurriculumData data = cur.Convert();

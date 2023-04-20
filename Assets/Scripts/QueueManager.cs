@@ -63,9 +63,9 @@ public class QueueManager : MonoBehaviour
         }
     }
 
-    public void AddThisPerson(GameObject person)
+    public void AddThisPerson(GameObject person, Curriculum c = null)
     {
-        GameObject p = AddPerson(person);
+        GameObject p = AddPerson(c, person);
     }
 
     private IEnumerator EAddHiringPerson(GameObject[] papers, float delay)
@@ -143,7 +143,7 @@ public class QueueManager : MonoBehaviour
         }
     }
 
-    public void RemoveFromQueue(int who)
+    public void RemoveFromQueue(int who, bool autoUpdate = true)
     {
         if(queue.Count <= 0) return;
         //Remover e mover a pessoa da fila
@@ -154,23 +154,25 @@ public class QueueManager : MonoBehaviour
         save.gameObject.LeanMoveX(15f, 1 + (.25f * Mathf.FloorToInt(distance / 5)) ).setOnComplete(()=>Destroy(save.gameObject));
         queue.RemoveAt(who);
         save.CallGoingAwayEvent();
-        UpdateQueue();
+        if(autoUpdate)UpdateQueue();
     }
 
     public void RemoveFromQueueInterview()
     {
-        if(queue.Count <= 0) return;
         //Remover e mover a pessoa da fila
         List<Person> removes = new List<Person>();
 
-        for (int i = 0; i < queue.Count; i++)
+        for (int i = 0; i < queue.Count; )
         {
             Person save = this.queue[i];
             if (save.GetComponent<InterviewPerson>() != null)
             {
-                RemoveFromQueue(i);
+                RemoveFromQueue(i, false);
+            }else{
+                i++;
             }
         }
+        UpdateQueue();
     }
 
     public void RemoveFromQueueCurriculum(CurriculumData cur)

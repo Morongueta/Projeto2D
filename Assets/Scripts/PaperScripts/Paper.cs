@@ -76,7 +76,6 @@ public class Paper : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1f,Vector2.zero,1f, boxLayer);
 
-        inBox = (hit.collider != null);
 
         if(draw != null)
         {
@@ -95,6 +94,25 @@ public class Paper : MonoBehaviour
                     
                 }
             } 
+        }
+
+        if(hit.collider != null)
+        {
+            PaperBox box = hit.collider.GetComponent<PaperBox>();
+            if(box != null)
+            {
+                if(box.GetPaperType() != type)
+                {
+                    inBox = false;
+                }else{
+                    inBox = true;
+                }
+
+                if(box.GetIsFull()) inBox = false;
+                if(box.GetPaperIsInside(this.gameObject)) inBox = true;
+            }
+        }else{
+            inBox = false;
         }
 
         if(inBox)

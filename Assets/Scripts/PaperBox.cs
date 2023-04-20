@@ -100,6 +100,11 @@ public class PaperBox : MonoBehaviour
         return paperInside.ToArray();
     }
 
+     public bool GetPaperIsInside(GameObject paper)
+    {
+        return paperInside.Contains(paper);
+    }
+
     public int GetPaperCount()
     {
         return paperInside.Count;
@@ -108,6 +113,11 @@ public class PaperBox : MonoBehaviour
     public bool GetIsFull()
     {
         return paperInside.Count >= maxPapers;
+    }
+
+    public PaperType GetPaperType()
+    {
+        return acceptPaperOfType;
     }
 
     private void OnDrawGizmos()

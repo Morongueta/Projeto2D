@@ -80,7 +80,7 @@ public class TextBoxManager : MonoBehaviour
 
     public void ShowInterviewMoney(string text)
     {
-        interviewMoneyText.text = text;
+        interviewMoneyText.text = "P$" + text;
     }
 
     public void SetReportText(string text, string confirmText = "Ok")

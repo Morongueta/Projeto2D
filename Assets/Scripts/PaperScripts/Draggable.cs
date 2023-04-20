@@ -7,6 +7,7 @@ using UnityEngine;
 public class Draggable : MonoBehaviour
 {
     public bool active = true;
+
     [SerializeField] private bool lockIn = false;
     [SerializeField] private Vector2 minPaperSize;
     [SerializeField] private Vector2 maxPaperSize;

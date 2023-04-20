@@ -24,6 +24,6 @@ public class CurriculumUI : MonoBehaviour
         civilText.text = data.civil;
         vagasText.text = data.vaga;
         expText.text = data.exp;
-        salaryText.text = data.salary;
+        salaryText.text = "R$"+ data.salary;
     }
 }

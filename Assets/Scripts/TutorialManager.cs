@@ -5,16 +5,62 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     [SerializeField]private GameObject tutorialStepOne;
+    [SerializeField]private GameObject tutorialStepTwo;
+
+    [SerializeField]private Curriculum bossCurriculum;
+
     [SerializeField]private bool alwaysRunTutorial;
+
+    private bool waitFirstHiringFinish;
 
     private const string TUTORIAL_KEY = "TUTORIAL_KEY";
 
+    public static TutorialManager i;
+
+    private void Awake()
+    {
+        i = this;
+    }
+
     private void Start() 
     {
+        if(alwaysRunTutorial || PlayerPrefs.GetInt(TUTORIAL_KEY, 0) == 0)
+            SpawnOne();
+    }
+
+    public void SpawnOne() {
+        EventController.i.eventIsOn = false;
+        QueueManager.i.AddThisPerson(tutorialStepOne,bossCurriculum);  
+    }
+
+
+    public void SpawnTwo()
+    {
+        StartCoroutine(ETutorialStepTwo());
+    }
+
+    private IEnumerator ETutorialStepTwo()
+    {
+        while(HiringManager.i.hireState != HireState.NONE)
+        {
+            yield return null;
+        }
+        
+        QueueManager.i.AddThisPerson(tutorialStepTwo,bossCurriculum);  
+
+    }
+
+    public void ResetTutorial()
+    {
+        CoexistenceManager.i.RemoveTutorial();
         SpawnOne();
     }
 
-    private void SpawnOne() {
-        QueueManager.i.AddThisPerson(tutorialStepOne);  
+    public void EndTutorial()
+    {
+        CoexistenceManager.i.RemoveTutorial();
+        PlayerPrefs.SetInt(TUTORIAL_KEY, 1);
+
+        EventController.i.eventIsOn = true;
     }
 }

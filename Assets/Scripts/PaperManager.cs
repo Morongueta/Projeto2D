@@ -15,6 +15,13 @@ public class PaperManager : MonoBehaviour
         i = this;
     }
 
+    public void AddPaper()
+    {
+        GameObject paper = Instantiate(paperBase, paperSpawnPos + new Vector3(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(-1f,1f)), Quaternion.identity);
+        paper.GetComponent<Paper>().type = PaperType.NONE;
+    }
+
+
     public void AddContractPaper(string text, Action confirm = null, Action decline = null)
     {
         GameObject paper = Instantiate(paperContract, paperSpawnPos + new Vector3(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(-1f,1f)), Quaternion.identity);

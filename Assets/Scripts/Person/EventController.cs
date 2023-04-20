@@ -11,7 +11,7 @@ public class EventController : MonoBehaviour
     //-Aleatório
     //-Governamental (Fiscal, imposto, essas coisas)
     //-Necessidades (Ausencia de Faxineiro, Segurança, Gerente)
-
+    public bool eventIsOn = true;
     [SerializeField]private float eventTick;
     [SerializeField, Range(.5f,1.5f)]private float tickMultiplier_base;
 
@@ -29,6 +29,8 @@ public class EventController : MonoBehaviour
     private float chanceToConflict;
     private float chanceToRandom;
 
+    private bool hireGuyIsThere = false;
+    
     [Space]
 
     private List<BaseEvent> conflictEvents = new List<BaseEvent>();
@@ -47,10 +49,14 @@ public class EventController : MonoBehaviour
     {
         UpdateValue();
         SetupEvents();
+
+        tick = eventTick / tickMultiplier;
     }
 
     private void Update()
     {
+        if(!eventIsOn) return;
+        
         if(tick <= 0f)
         {
             tick = eventTick / tickMultiplier;
@@ -82,9 +88,18 @@ public class EventController : MonoBehaviour
         #region Random Event
         AddEvent(randomEvents, ()=>
         {
+            if(!HiringManager.i.CanHire()) return;
+            if(hireGuyIsThere) return;
+
             QueueManager.i.AddQuestionPerson("Contrata um cara ai", "Ta", "Nao",()=>{
                 HiringManager.i.StartHiring();
+                hireGuyIsThere = false;
+            }, ()=>{
+                hireGuyIsThere = false;
             });
+
+            hireGuyIsThere = true;
+
             UpdateValue();
         });
 

@@ -438,7 +438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1- Constituiu fam\xEDlia?"
+  m_text: "P$1 - Constituiu fam\xEDlia?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -755,8 +755,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1561,6 +1561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cae252b226308d449f32b2fd744c264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventIsOn: 1
   eventTick: 1
   tickMultiplier_base: 0.5
   chanceToBreak_base: 0.25
@@ -3382,6 +3383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 905941810}
   - component: {fileID: 905941811}
+  - component: {fileID: 905941812}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -3417,7 +3419,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialStepOne: {fileID: 8753131622139827443, guid: 04159cb21528a724ea00e6c4ea2953d3, type: 3}
+  tutorialStepTwo: {fileID: 4144943976730486510, guid: dd03e69383d68b34082471cc7d98f52a, type: 3}
+  bossCurriculum: {fileID: 905941812}
   alwaysRunTutorial: 1
+--- !u!114 &905941812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905941809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c38f223de41d824e9ad9c7fcde214d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curriculumData:
+    personName: Claudinho e buchecha
+    gender: h
+    age: 6
+    cell: (19)99999999
+    civil: Incel
+    vaga: Dono
+    exp: Filho do Dono
+    salary: Tudo
+    relationship: Coiso
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 1
+    sonsQtd: 10000
+    contributionTime: 10000
+    height: 80
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
 --- !u!1 &937740122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3938,7 +3974,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "3- Tempo de contribui\xE7\xE3o na ultima empresa"
+  m_text: "P$3 - Tempo de contribui\xE7\xE3o na ultima empresa"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5290,7 +5326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paperBase: {fileID: 5418390981231508917, guid: 76f2128d5ceb72846a22f368cd415ebf, type: 3}
-  paperCurriculum: {fileID: 5418390981231508917, guid: 76f2128d5ceb72846a22f368cd415ebf, type: 3}
+  paperCurriculum: {fileID: 8464347572216079283, guid: cfe5ce9e1eac0194aa82f57ab476e8d6, type: 3}
   paperContract: {fileID: 5087966292337293767, guid: c66f465840c9cab4daaffd20afbe8a1f, type: 3}
   paperSpawnPos: {x: 0, y: 16.85, z: 0}
 --- !u!1 &1369843673
@@ -5595,7 +5631,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5- 3 Qualidades e 3 Defeitos
+  m_text: P$5 - 3 Qualidades e 3 Defeitos
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5921,7 +5957,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "2- Me fale um pouco sobre voc\xEA"
+  m_text: "P$2 - Me fale um pouco sobre voc\xEA"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6618,7 +6654,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1- Qual o seu nome?
+  m_text: P$1 - Qual o seu nome?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -294,10 +294,140 @@ MonoBehaviour:
   closeSprite: {fileID: 2120929656, guid: 2017b8fd656b289478ef45ce28865d62, type: 3}
   steps:
   - textBoxType: 1
-    textBox_text: Ola, seja bem vindo a Patolingo company!
+    textBox_text: "Ol\xE1, seja muito bem vindo a Patolingo company!"
     textBox_confirm: Obrigado!
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls: []
     textBox_decline: 
+    declineAction:
+      m_PersistentCalls:
+        m_Calls: []
   - textBoxType: 0
-    textBox_text: vbnvbnvbn
-    textBox_confirm: Obrigado!
-    textBox_decline: bnvn
+    textBox_text: "Precisa de algumas instru\xE7\xF5es de como exercer seu cargo
+      aqui?"
+    textBox_confirm: Sim
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls: []
+    textBox_decline: "N\xE3o"
+    declineAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3672753217274721475}
+          m_TargetAssemblyTypeName: TutorialPerson, Assembly-CSharp
+          m_MethodName: EndTutorial
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - textBoxType: 1
+    textBox_text: "Certo. Aqui na sua mesa temos alguns objetos importantes, como
+      l\xE1pis, borracha, caneta e marcador, eles s\xE3o objetos auxiliares no seu
+      trabalho, a caneta \xE9 o mais importante, com ela voc\xEA pode assinar contratos.
+      Lembre-se que suas decis\xF5es s\xE3o importantes"
+    textBox_confirm: Certo
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3672753217274721475}
+          m_TargetAssemblyTypeName: TutorialPerson, Assembly-CSharp
+          m_MethodName: GiveEmptyPaper
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    textBox_decline: "N\xE3o"
+    declineAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - textBoxType: 1
+    textBox_text: "Aqui um papel vazio, pode se divertir um pouco. Quando tiver terminado
+      voc\xEA pode usar essa maquina na sua esquerda para se livrar do papel"
+    textBox_confirm: Terminei
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls: []
+    textBox_decline: "N\xE3o"
+    declineAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - textBoxType: 1
+    textBox_text: "Bom, agora vamos para uma das partes mais importantes do seu trabalho.
+      Hora de contratar um novo funcion\xE1rio"
+    textBox_confirm: Ok
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3672753217274721475}
+          m_TargetAssemblyTypeName: TutorialPerson, Assembly-CSharp
+          m_MethodName: StartHiringEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    textBox_decline: "N\xE3o"
+    declineAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - textBoxType: 1
+    textBox_text: "Contratar \xE9 bem f\xE1cil. Voc\xEA tem 6 curr\xEDculos e precisamos
+      de apenas 1 funcion\xE1rio novo no final de cada contrata\xE7\xE3o."
+    textBox_confirm: Certo
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls: []
+    textBox_decline: "N\xE3o"
+    declineAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - textBoxType: 1
+    textBox_text: "Nessa caixa vermelha na sua direita voc\xEA pode colocar algumas
+      pessoas que voc\xEA n\xE3o vai querer entrevistar, elas ser\xE3o rejeitadas.
+      Quando terminar a sele\xE7\xE3o voc\xEA pode clicar na seta a direita para
+      ir para a entrevista com o pessoal."
+    textBox_confirm: Certo
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls: []
+    textBox_decline: "N\xE3o"
+    declineAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - textBoxType: 1
+    textBox_text: Vou te deixar livre para entrevistar eles a sua maneira. Boa sorte
+    textBox_confirm: Obrigado
+    confirmAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3672753217274721475}
+          m_TargetAssemblyTypeName: TutorialPerson, Assembly-CSharp
+          m_MethodName: PrepareTutorialTwo
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    textBox_decline: "N\xE3o"
+    declineAction:
+      m_PersistentCalls:
+        m_Calls: []
