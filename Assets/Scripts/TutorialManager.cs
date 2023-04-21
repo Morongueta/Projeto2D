@@ -29,6 +29,7 @@ public class TutorialManager : MonoBehaviour
     }
 
     public void SpawnOne() {
+        TimeManager.i.timeIsRunning = false;
         EventController.i.eventIsOn = false;
         QueueManager.i.AddThisPerson(tutorialStepOne,bossCurriculum);  
     }
@@ -58,6 +59,7 @@ public class TutorialManager : MonoBehaviour
 
     public void EndTutorial()
     {
+        TimeManager.i.timeIsRunning = true;
         CoexistenceManager.i.RemoveTutorial();
         PlayerPrefs.SetInt(TUTORIAL_KEY, 1);
 

@@ -106,10 +106,13 @@ public class EventController : MonoBehaviour
         AddEvent(randomEvents, ()=>
         {
             QueueManager.i.AddReportPerson("Arruma 1 e 50 ai parça", "Ok",()=>{
-                PaperManager.i.AddContractPaper("Arrumar 1 e 50 para o Paulo Kogos?");
+                PaperManager.i.AddContractPaper("Arrumar 1 e 50 para o Paulo Kogos?", ()=>{
+                    EarningSystem.i.ChangeMoney(1, "Paulo Kogos");
+                });
             });
             UpdateValue();
         });
+
         #endregion
     }
 

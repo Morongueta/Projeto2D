@@ -185,17 +185,6 @@ MonoBehaviour:
     textBox_confirm: Certo
     confirmAction:
       m_PersistentCalls:
-        m_Calls: []
-    textBox_decline: 
-    declineAction:
-      m_PersistentCalls:
-        m_Calls: []
-  - textBoxType: 1
-    textBox_text: "Acho que isso \xE9 tudo que eu posso te explicar. Pe\xE7o que
-      marque este contrato caso tenha entendido tudo"
-    textBox_confirm: Certo
-    confirmAction:
-      m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8215884945774429918}
           m_TargetAssemblyTypeName: TutorialPerson, Assembly-CSharp
