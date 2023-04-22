@@ -31,9 +31,9 @@ public class QueueManager : MonoBehaviour
         }
     }
 
-    public void AddQuestionPerson(string question, string confirm, string decline, System.Action confirmAction = null, System.Action declineAction = null)
+    public void AddQuestionPerson(string question, string confirm, string decline, System.Action confirmAction = null, System.Action declineAction = null, Curriculum c = null)
     {
-        GameObject person = AddPerson(questionPerson);
+        GameObject person = AddPerson(c, questionPerson);
 
         PersonQuestion personQuestion = person.GetComponent<PersonQuestion>();
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public enum PaperType
 {
     NONE,
-    WARNING,
+    CURRICULUM,
     CONTRACT,
     HIRE
 }

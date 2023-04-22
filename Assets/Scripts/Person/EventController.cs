@@ -12,6 +12,7 @@ public class EventController : MonoBehaviour
     //-Governamental (Fiscal, imposto, essas coisas)
     //-Necessidades (Ausencia de Faxineiro, Segurança, Gerente)
     public bool eventIsOn = true;
+    [SerializeField]private Curriculum bossCurriculum;
     [SerializeField]private float eventTick;
     [SerializeField, Range(.5f,1.5f)]private float tickMultiplier_base;
 
@@ -86,34 +87,32 @@ public class EventController : MonoBehaviour
         #endregion
 
         #region Random Event
-        AddEvent(randomEvents, ()=>
-        {
-            if(!HiringManager.i.CanHire()) return;
-            if(hireGuyIsThere) return;
-
-            QueueManager.i.AddQuestionPerson("Contrata um cara ai", "Ta", "Nao",()=>{
-                HiringManager.i.StartHiring();
-                hireGuyIsThere = false;
-            }, ()=>{
-                hireGuyIsThere = false;
-            });
-
-            hireGuyIsThere = true;
-
-            UpdateValue();
-        });
 
         AddEvent(randomEvents, ()=>
         {
             QueueManager.i.AddReportPerson("Arruma 1 e 50 ai parça", "Ok",()=>{
                 PaperManager.i.AddContractPaper("Arrumar 1 e 50 para o Paulo Kogos?", ()=>{
-                    EarningSystem.i.ChangeMoney(1, "Paulo Kogos");
+                    EarningSystem.i.ChangeMoney(-1, "Paulo Kogos");
                 });
             });
             UpdateValue();
         });
 
         #endregion
+    }
+
+    public void HireEvent()
+    {
+        QueueManager.i.AddQuestionPerson("Hoje é dia de contratação, acredita que podemos adicionar alguem?", "Sim", "Não",()=>{
+            HiringManager.i.StartHiring();
+        }, null, bossCurriculum);
+    }
+
+    public void FireEvent()
+    {
+        QueueManager.i.AddQuestionPerson("Temos que manter a empresa um local dinamico para todos, tem alguem que precisa sair?", "Sim", "Não",()=>{
+            HiringManager.i.StartFiring();
+        }, null, bossCurriculum);
     }
 
     private void AddTemporaryStats(float conflict, float breakc, float timer)

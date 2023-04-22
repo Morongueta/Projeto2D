@@ -23,6 +23,8 @@ public class Contract : MonoBehaviour
     public Action confirmAction;
     public Action declineAction;
 
+    private bool eventCalled;
+
 
     private void Update()
     {
@@ -48,16 +50,21 @@ public class Contract : MonoBehaviour
                 {
                     Destroy(this.gameObject);
                 });
-                switch (state) { 
-                
-                    case ContractState.CONFIRM:
-                        confirmAction?.Invoke();
-                    break;
-                    case ContractState.DECLINE:
-                        declineAction?.Invoke();
-                    break;
 
-                }  
+                if(!eventCalled)
+                {
+                    switch (state) { 
+                    
+                        case ContractState.CONFIRM:
+                            confirmAction?.Invoke();
+                        break;
+                        case ContractState.DECLINE:
+                            declineAction?.Invoke();
+                        break;
+                    }  
+
+                    eventCalled = true;
+                }
             }
         }
     }

@@ -38,7 +38,7 @@ public class PaperManager : MonoBehaviour
     public void AddPersonPaper(CurriculumData data)
     {
         GameObject paper = Instantiate(paperCurriculum, paperSpawnPos + new Vector3(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(-1f,1f)), Quaternion.identity);
-        paper.GetComponent<Paper>().type = PaperType.NONE;
+        paper.GetComponent<Paper>().type = PaperType.CURRICULUM;
 
         paper.GetComponent<Curriculum>().Generate(data);
     }

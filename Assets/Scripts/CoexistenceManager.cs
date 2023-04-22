@@ -74,6 +74,31 @@ public class CoexistenceManager : MonoBehaviour
         }
     }
 
+    public void RemovePerson(Curriculum cur)
+    {
+        CurriculumData data = cur.Convert();
+
+        RemovePerson(data);
+    }
+
+    public void RemovePerson(CurriculumData cur)
+    {
+        bool found = false;
+        for (int i = 0; i < personInCompany.Count; i++)
+        {
+            CurriculumData data = personInCompany[i];
+            if(data.personName.GetHashCode() == cur.personName.GetHashCode() && data.salary.GetHashCode() == cur.salary.GetHashCode())
+            {
+                personInCompany.RemoveAt(i);
+                found = true;
+                break;
+            }
+        }
+        if(found) return;
+        Debug.LogError("Essa pessoa não está na empresa: " + cur.personName);   
+    }
+
+
     public void AddPerson(Curriculum cur)
     {
         CurriculumData data = cur.Convert();
