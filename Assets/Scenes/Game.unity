@@ -4089,6 +4089,12 @@ MonoBehaviour:
     cell: (19)99999999
     civil: Incel
     vaga: Dono
+    vacancy:
+      name: 
+      id: 0
+      min: 0
+      max: 0
+      variance: 0
     exp: Filho do Dono
     salary: Tudo
     relationship: Coiso
@@ -5829,6 +5835,7 @@ MonoBehaviour:
   - eventName: "Contrata\xE7\xE3o"
     day: 1
     month: 0
+    waitDays: 0
     onDayEvent:
       m_PersistentCalls:
         m_Calls:
@@ -5847,6 +5854,7 @@ MonoBehaviour:
   - eventName: "Demiss\xE3o"
     day: 30
     month: 0
+    waitDays: 0
     onDayEvent:
       m_PersistentCalls:
         m_Calls:
@@ -5862,6 +5870,65 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventName: Imposto
+    day: 1
+    month: 1
+    waitDays: 1
+    onDayEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 338474468}
+          m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+          m_MethodName: TaxesEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventName: Payout
+    day: 1
+    month: 0
+    waitDays: 1
+    onDayEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 338474468}
+          m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+          m_MethodName: SalaryEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventName: Lucro
+    day: 1
+    month: 0
+    waitDays: 1
+    onDayEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 338474468}
+          m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+          m_MethodName: EarnEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  days: 1
+  months: 1
   dayText: {fileID: 1618665379}
 --- !u!1 &1320534158
 GameObject:
@@ -8239,17 +8306,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vacancyList:
-  - name: Faxineiro(a)
+  - name: Designer
     id: 1
     min: 1000
     max: 2000
     variance: 0.8
-  - name: Atendente
+  - name: Programador(a)
     id: 2
     min: 1000
     max: 2000
     variance: 0.8
-  - name: "Seguran\xE7a"
+  - name: Sonoplasta
     id: 3
     min: 1500
     max: 3500
@@ -8259,382 +8326,22 @@ MonoBehaviour:
     min: 3000
     max: 5000
     variance: 0.5
-  - name: "Secret\xE1rio(a)"
+  - name: "Mercad\xF3logo(a)"
     id: 5
     min: 2000
     max: 3000
     variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
   - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
     id: 6
     min: 1000
     max: 3000
     variance: 0.65
-  - name: Comunicador(a)
+  - name: Modelador(a)
     id: 7
     min: 4000
     max: 5999
     variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
-  - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
-  - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
-  - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
-  - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
-  - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
-  - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
-    id: 8
-    min: 2000
-    max: 4000
-    variance: 0.6
-  - name: Gerente
-    id: 9
-    min: 5000
-    max: 10000
-    variance: 0.4
-  - name: Faxineiro(a)
-    id: 1
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: Atendente
-    id: 2
-    min: 1000
-    max: 2000
-    variance: 0.8
-  - name: "Seguran\xE7a"
-    id: 3
-    min: 1500
-    max: 3500
-    variance: 0.65
-  - name: Contador(a)
-    id: 4
-    min: 3000
-    max: 5000
-    variance: 0.5
-  - name: "Secret\xE1rio(a)"
-    id: 5
-    min: 2000
-    max: 3000
-    variance: 0.7
-  - name: Cozinheiro(a)
-    id: 6
-    min: 1000
-    max: 3000
-    variance: 0.65
-  - name: Comunicador(a)
-    id: 7
-    min: 4000
-    max: 5999
-    variance: 0.5
-  - name: Administrador(a)
+  - name: Roteirista
     id: 8
     min: 2000
     max: 4000
@@ -11234,97 +10941,127 @@ MonoBehaviour:
   curriculumArea: {fileID: 752526175}
   curriculumUIObject: {fileID: 5653812678564342427, guid: bceadeafa668cc44c85bfcf037a9c0f9, type: 3}
   personInCompany:
-  - personName: "Ana Beatriz da Costa\r"
-    gender: Mulher
-    age: 40
-    cell: (31)6421807
-    civil: Divorciada
-    vaga: Gerente
-    exp: Moderado
-    salary: 7900
-    relationship: 
-    positiveTraits: []
-    negativeTraits: []
-    hasFamily: 0
-    sonsQtd: 0
-    contributionTime: 0
-    height: 0
-    bodyType: 0
-    hairType: 0
-    faceType: 0
-    clothesType: 0
-  - personName: "Ana Luiza Dias\r"
-    gender: Mulher
-    age: 34
-    cell: (91)0653834
-    civil: Viuva
-    vaga: Cozinheira
-    exp: Moderado
+  - personName: "Luiz Gustavo Moura\r"
+    gender: Homem
+    age: 58
+    cell: (26)4361447
+    civil: Casado
+    vaga: Roteirista
+    vacancy:
+      name: Roteirista
+      id: 8
+      min: 2000
+      max: 4000
+      variance: 0.6
+    exp: Baixo
     salary: 2400
     relationship: 
     positiveTraits: []
     negativeTraits: []
-    hasFamily: 1
-    sonsQtd: 2
-    contributionTime: 0
-    height: 0
-    bodyType: 0
-    hairType: 0
-    faceType: 0
-    clothesType: 0
-  - personName: "Lav\xEDnia Alves\r"
-    gender: Mulher
-    age: 51
-    cell: (64)1180840
-    civil: Viuva
-    vaga: Administradora
-    exp: Baixo
-    salary: 2800
-    relationship: 
-    positiveTraits: []
-    negativeTraits: []
-    hasFamily: 1
-    sonsQtd: 4
-    contributionTime: 0
-    height: 0
-    bodyType: 0
-    hairType: 0
-    faceType: 0
-    clothesType: 0
-  - personName: "Raquel Teixeira\r"
-    gender: Mulher
-    age: 18
-    cell: (29)2540812
-    civil: Divorciada
-    vaga: "Seguran\xE7a"
-    exp: Moderado
-    salary: 3100
-    relationship: 
-    positiveTraits: []
-    negativeTraits: []
     hasFamily: 0
     sonsQtd: 0
     contributionTime: 0
-    height: 0
+    height: -6
     bodyType: 0
     hairType: 0
     faceType: 0
     clothesType: 0
-  - personName: "Jo\xE3o Lucas Melo\r"
+  - personName: "Kaique da Costa\r"
     gender: Homem
-    age: 34
-    cell: (23)9080004
+    age: 45
+    cell: (98)1498185
     civil: Casado
-    vaga: Contador
+    vaga: Faxineiro
+    vacancy:
+      name: Faxineiro(a)
+      id: 6
+      min: 1000
+      max: 3000
+      variance: 0.65
     exp: Baixo
-    salary: 3200
+    salary: 1600
     relationship: 
     positiveTraits: []
     negativeTraits: []
     hasFamily: 0
     sonsQtd: 0
     contributionTime: 0
-    height: 0
+    height: 5
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
+  - personName: "Cec\xEDlia Silva\r"
+    gender: Mulher
+    age: 41
+    cell: (93)8128284
+    civil: Viuva
+    vaga: Designer
+    vacancy:
+      name: Designer
+      id: 1
+      min: 1000
+      max: 2000
+      variance: 0.8
+    exp: "Avan\xE7ado"
+    salary: 2400
+    relationship: 
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 0
+    sonsQtd: 0
+    contributionTime: 0
+    height: 88
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
+  - personName: "Vicente Lima\r"
+    gender: Homem
+    age: 39
+    cell: (44)7262229
+    civil: Divorciado
+    vaga: Roteirista
+    vacancy:
+      name: Roteirista
+      id: 8
+      min: 2000
+      max: 4000
+      variance: 0.6
+    exp: "Avan\xE7ado"
+    salary: 3800
+    relationship: 
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 0
+    sonsQtd: 0
+    contributionTime: 0
+    height: -30
+    bodyType: 0
+    hairType: 0
+    faceType: 0
+    clothesType: 0
+  - personName: "Maria Alice Gon\xE7alves\r"
+    gender: Mulher
+    age: 33
+    cell: (60)1051281
+    civil: Divorciada
+    vaga: Sonoplasta
+    vacancy:
+      name: Sonoplasta
+      id: 3
+      min: 1500
+      max: 3500
+      variance: 0.65
+    exp: Moderado
+    salary: 2300
+    relationship: 
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 0
+    sonsQtd: 0
+    contributionTime: 0
+    height: 3
     bodyType: 0
     hairType: 0
     faceType: 0

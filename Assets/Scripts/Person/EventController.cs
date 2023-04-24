@@ -72,8 +72,15 @@ public class EventController : MonoBehaviour
         #region Conflict Event
         AddEvent(conflictEvents, ()=>
         {
-            QueueManager.i.AddQuestionPerson("Rapaziada ta se storano no murro", "Deixa lá", "Manda embora", ()=>{
-                AddTemporaryStats(.3f,0f,120f);
+            CurriculumData personA = CoexistenceManager.i.GetRandomPerson();
+            CurriculumData personB = CoexistenceManager.i.GetRandomPerson();
+            string personAName = personA.personName + "\n";
+            string personBName = personB.personName + "\n";
+            QueueManager.i.AddQuestionPerson(personAName + " e " + personBName + " estão brigando feio", "Deixa lá", "Manda embora", ()=>{
+                AddTemporaryStats(.15f,0f,30f);
+            },()=>{
+                CoexistenceManager.i.RemovePerson(personA);
+                CoexistenceManager.i.RemovePerson(personB);
             });
         });
         #endregion
@@ -81,23 +88,90 @@ public class EventController : MonoBehaviour
         #region Break Event
         AddEvent(breakEvents, ()=>
         {
-            QueueManager.i.AddQuestionPerson("Quebrarão o pc do jorgin", "fodac", "compra oto");
+            CurriculumData data = CoexistenceManager.i.GetRandomPerson();
+            QueueManager.i.AddQuestionPerson("O Computador do " + data.personName + "\n parece quebrado", "Compra outro", "Deixa assim", ()=>{EarningSystem.i.ChangeMoney(-Random.Range(1500,3000),"Computador");}, ()=>{AddTemporaryStats(0f,0.05f,30f);});
             UpdateValue();
         });
         #endregion
 
         #region Random Event
-
         AddEvent(randomEvents, ()=>
         {
-            QueueManager.i.AddReportPerson("Arruma 1 e 50 ai parça", "Ok",()=>{
-                PaperManager.i.AddContractPaper("Arrumar 1 e 50 para o Paulo Kogos?", ()=>{
-                    EarningSystem.i.ChangeMoney(-1, "Paulo Kogos");
-                });
+            QueueManager.i.AddQuestionPerson("Nossos algorítmos detectaram que um criador de conteúdo produziu um vídeo utilizando um dos nossos projetos, acha que deveríamos agir?", "Sim", "Não", ()=>{
+                EarningSystem.i.ChangeMoney(1500, "Copyright");
+            }, ()=>{
+                EarningSystem.i.ChangeMoney(Random.Range(-1000, 3000), "Fama");
             });
             UpdateValue();
         });
 
+        AddEvent(randomEvents, ()=>
+        {
+            EarningSystem.i.ChangeMoney(Random.Range(100, 500), "Boas avaliações");
+
+            UpdateValue();
+        });
+
+        AddEvent(randomEvents, ()=>
+        {
+            CurriculumData data = CoexistenceManager.i.GetRandomPerson();
+            QueueManager.i.AddQuestionPerson("Um festival de jogos se aproxima e tem um prêmio para o melhor jogo, deveriamos participar? O resultado não é imediato e nem garantido", "Sim", "Não", ()=>{
+                EarningSystem.i.ChangeMoney(-3000, "Festival");
+                PeriodTimer.Timer(60, ()=>{
+                    if(Random.value * 100f < 35f)
+                    {
+                        QueueManager.i.AddReportPerson("Vencemos! Recebemos um bom dinheiro do festival", "Perfeito!", ()=>EarningSystem.i.ChangeMoney(6000, "Festival"));
+                    }else{
+                        QueueManager.i.AddReportPerson("Infelizmente nosso jogo não foi o suficiente. Talvez tenhamos conseguido alguma fama, ou não", "Uma pena");
+                    }
+                }, null, "Festival");
+            }, ()=>{
+                
+            },data.TempCur());
+
+            UpdateValue();
+        });
+
+
+        AddEvent(randomEvents, ()=>
+        {
+            string contractText = "Recebemos um pedido de uma outra desenvolvedora, eles precisam de alguns funcionários, pode dar um bom dinheiro, eles querem:";
+            int amount = Random.Range(1,4);
+            List<CurriculumData> datas = new List<CurriculumData>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                CurriculumData data = CoexistenceManager.i.GetRandomPerson();
+
+                datas.Add(data);
+
+                contractText += "/n- " + data.personName;
+            }
+
+            PaperManager.i.AddContractPaper(contractText, ()=>{
+                for (int i = 0; i < datas.Count; i++)
+                {
+                    CoexistenceManager.i.RemovePerson(datas[i]);
+                }
+
+                PeriodTimer.Timer(100, ()=>{
+                    int moneyGained = 0;
+                    for (int i = 0; i < datas.Count; i++)
+                    {
+                        int index = i;
+                        CoexistenceManager.i.AddPerson(datas[index]);
+
+                        moneyGained += Random.Range(1000, 5000);
+                    }
+
+                    EarningSystem.i.ChangeMoney(moneyGained,"Freelance");
+                },null,"Freelance");
+            });
+
+            UpdateValue();
+        });
+
+        
         #endregion
     }
 
@@ -110,10 +184,57 @@ public class EventController : MonoBehaviour
 
     public void FireEvent()
     {
+        EventController.i.eventIsOn = false;
+        TimeManager.i.timeIsRunning = false;
         QueueManager.i.AddQuestionPerson("Temos que manter a empresa um local dinamico para todos, tem alguem que precisa sair?", "Sim", "Não",()=>{
             HiringManager.i.StartFiring();
+            
         }, null, bossCurriculum);
     }
+    
+    public void TaxesEvent()
+    {
+        CurriculumData[] data = CoexistenceManager.i.GetPersons();
+
+        int taxes = 500;
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            taxes += 100;
+        }
+
+        EarningSystem.i.ChangeMoney(-taxes, "Impostos");
+    }
+
+    public void SalaryEvent()
+    {
+        CurriculumData[] data = CoexistenceManager.i.GetPersons();
+
+        int amount = 0;
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            amount += int.Parse(data[i].salary.Replace("R$", "").Replace(" ", ""));
+        }
+
+        EarningSystem.i.ChangeMoney(-amount, "Pagamento");
+    }
+
+    public void EarnEvent()
+    {
+        CurriculumData[] data = CoexistenceManager.i.GetPersons();
+
+        int amount = 0;
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            float variance = data[i].vacancy.variance;
+            amount += Mathf.RoundToInt((int.Parse(data[i].salary.Replace("R$", "").Replace(" ", ""))) * Random.Range(variance, 1f + variance));
+        }
+
+        EarningSystem.i.ChangeMoney(amount, "Lucro");
+    }
+
 
     private void AddTemporaryStats(float conflict, float breakc, float timer)
     {
@@ -145,7 +266,7 @@ public class EventController : MonoBehaviour
         {
             int eventIndex = Random.Range(0, 4);
 
-            float chance = Random.value * 100f;
+            float chance = Random.value;
 
             if(eventIndex == 0)
             {

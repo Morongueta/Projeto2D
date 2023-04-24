@@ -87,9 +87,7 @@ public class QueueManager : MonoBehaviour
         
         if(c == null)
         {
-            CurriculumData data = new CurriculumData();
-            PersonData randomPerson = InformationDatabase.i.GeneratePerson();
-            data.Store(randomPerson);
+            CurriculumData data = CoexistenceManager.i.GetRandomPerson();
 
             PersonInfo information = newPerson.GetComponent<PersonInfo>();
             if(information != null)information.SetPerson(data);

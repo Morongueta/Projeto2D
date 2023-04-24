@@ -104,7 +104,7 @@ public class InformationDatabase : MonoBehaviour
         int height = Random.Range(-30,90);
         int bodyType = (gender < 50f) ? Random.Range(0,feminineBodies.Length) : Random.Range(0,masculineBodies.Length) ;
 
-        PersonData data = new PersonData(ownerName, genderN, vaga, cellphone, age.ToString("D2"), relr, civil, salary, exp[experience],bodyType,0,0,0,height);
+        PersonData data = new PersonData(ownerName, genderN, vaga,v, cellphone, age.ToString("D2"), relr, civil, salary, exp[experience],bodyType,0,0,0,height);
         data.c.positiveTraits = new Trait[0];
         data.c.negativeTraits = new Trait[0];
         return data;
@@ -244,12 +244,13 @@ public struct PersonData
     public CurriculumData c;
 
 
-    public PersonData(string name,string gender, string vaga, string cellphone, string age, string relationship, string civil, string salary, string experience, int bodyType, int hairType, int faceType, int clothesType, int height)
+    public PersonData(string name,string gender, string vaga, InformationDatabase.Vacancy v, string cellphone, string age, string relationship, string civil, string salary, string experience, int bodyType, int hairType, int faceType, int clothesType, int height)
     {
         c = new CurriculumData();
 
         c.personName = name;
         c.vaga = vaga;
+        c.vacancy = v;
         c.gender = gender;
         c.cell = cellphone;
         c.age = age;

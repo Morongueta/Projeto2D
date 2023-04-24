@@ -8,7 +8,7 @@ public class Curriculum : MonoBehaviour
 {
     public CurriculumData curriculumData = new CurriculumData();
 
-    public void Generate(string name, string gender, string age, string cell, string civil, string vaga, string exp, string salary)
+    public void Generate(string name, string gender, string age, string cell, string civil, string vaga, InformationDatabase.Vacancy vacancy, string exp, string salary)
     {
         curriculumData = new CurriculumData();
 
@@ -18,6 +18,7 @@ public class Curriculum : MonoBehaviour
         curriculumData.cell = cell;
         curriculumData.civil = civil;
         curriculumData.vaga = vaga;
+        curriculumData.vacancy = vacancy;
         curriculumData.exp = exp;
         curriculumData.salary = salary;
 
@@ -63,6 +64,7 @@ public class Curriculum : MonoBehaviour
         curriculumData.cell = data.cell;
         curriculumData.civil = data.civil;
         curriculumData.vaga = data.vaga;
+        curriculumData.vacancy = data.vacancy;
         curriculumData.exp = data.exp;
         curriculumData.salary = data.salary;
 
@@ -112,6 +114,7 @@ public class Curriculum : MonoBehaviour
         curriculumData.cell = data.cell;
         curriculumData.civil = data.civil;
         curriculumData.vaga = data.vaga;
+        curriculumData.vacancy = data.vacancy;
         curriculumData.exp = data.exp;
         curriculumData.salary = data.salary;
 
@@ -149,6 +152,7 @@ public struct CurriculumData
     public string cell;
     public string civil;
     public string vaga;
+    public InformationDatabase.Vacancy vacancy;
     public string exp;
     public string salary;
 
@@ -177,6 +181,7 @@ public struct CurriculumData
         cell = c.curriculumData.cell;
         civil = c.curriculumData.civil;
         vaga = c.curriculumData.vaga;
+        vacancy = c.curriculumData.vacancy;
         exp = c.curriculumData.exp;
         salary = c.curriculumData.salary;
 
@@ -205,6 +210,7 @@ public struct CurriculumData
         cell = data.c.cell;
         civil = data.c.civil;
         vaga = data.c.vaga;
+        vacancy = data.c.vacancy;
         exp = data.c.exp;
         salary = data.c.salary;
 
@@ -225,6 +231,13 @@ public struct CurriculumData
         PersonData person = new PersonData();
 
         return person;
+    }
+
+    public Curriculum TempCur()
+    {
+        Curriculum cur = new Curriculum();
+        cur.curriculumData = this;
+        return cur;
     }
 
     public Trait[] GetAllTraits()

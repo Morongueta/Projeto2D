@@ -10,8 +10,8 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private DayEvent[] events;
 
     private float dayTimer;
-    private int days;
-    private int months;
+    [SerializeField]private int days;
+    [SerializeField]private int months;
     
     private bool canCallEvents;
     [SerializeField]private TextMeshProUGUI dayText;
@@ -24,8 +24,6 @@ public class TimeManager : MonoBehaviour
     private void Start()
     {
         dayTimer = dayDuration;
-        days = 1;
-        months = 1;
         canCallEvents = true;
     }
 
@@ -62,9 +60,14 @@ public class TimeManager : MonoBehaviour
         for (int i = 0; i < events.Length; i++)
         {
             DayEvent e = events[i];
-            if((e.day == days && e.month == months) || (e.day == days && e.month == 0))
+            if(events[i].waitDays <= 0)
             {
-                e.onDayEvent?.Invoke();
+                if((e.day == days && e.month == months) || (e.day == days && e.month == 0))
+                {
+                    e.onDayEvent?.Invoke();
+                }
+            }else{
+                events[i].waitDays--;
             }
         }
 
@@ -80,6 +83,8 @@ public struct DayEvent
     public int day;
     [Tooltip("Se for 0, pode ser qualquer mês")]
     public int month;
+
+    public int waitDays;
 
     public UnityEngine.Events.UnityEvent onDayEvent;
 }

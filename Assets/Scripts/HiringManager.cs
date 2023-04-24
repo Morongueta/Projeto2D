@@ -123,6 +123,8 @@ public class HiringManager : MonoBehaviour
 
     private void FinishFiring()
     {
+        TimeManager.i.timeIsRunning = true;
+        EventController.i.eventIsOn = true;
         HideBox(fireBox);
         LeanTween.cancel(firingButton.gameObject);
         firing = false;
@@ -258,8 +260,6 @@ public class HiringManager : MonoBehaviour
         hireState = HireState.NONE;
         confirmBox.DestroyFromBoxAll(.35f);
         contractButton.gameObject.LeanMove(buttonHiddenPos, .25f);
-        
-        timer = PeriodTimer.Timer(200f, null);
     }
 
     public void ResetInterviewMoney()
