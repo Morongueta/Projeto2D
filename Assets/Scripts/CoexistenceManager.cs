@@ -87,7 +87,7 @@ public class CoexistenceManager : MonoBehaviour
         for (int i = 0; i < personInCompany.Count; i++)
         {
             CurriculumData data = personInCompany[i];
-            if(data.personName.GetHashCode() == cur.personName.GetHashCode() && data.salary.GetHashCode() == cur.salary.GetHashCode())
+            if(ComparePersons(data,cur))
             {
                 personInCompany.RemoveAt(i);
                 found = true;
@@ -130,6 +130,27 @@ public class CoexistenceManager : MonoBehaviour
         }
     }
 
+    public bool ComparePersons(CurriculumData personA, CurriculumData personB)
+    {
+        if(personA.personName.GetHashCode() == personB.personName.GetHashCode() && personA.salary.GetHashCode() == personB.salary.GetHashCode())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool ComparePersons(CurriculumData[] group, CurriculumData personB)
+    {
+        for (int i = 0; i < group.Length; i++)
+        {
+            if(ComparePersons(group[i], personB))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public CurriculumData[] GetPersons()
     {
         return personInCompany.ToArray();
@@ -141,9 +162,22 @@ public class CoexistenceManager : MonoBehaviour
         return personInCompany[index];
     }
 
-    public CurriculumData GetRandomPerson()
+    public CurriculumData GetRandomPerson(params CurriculumData[] persons)
     {
-        return personInCompany[Random.Range(0, personInCompany.Count)];
+        List<CurriculumData> datas = new List<CurriculumData>();
+        datas.AddRange(persons);
+        if(persons.Length == 0)
+        {
+            return personInCompany[Random.Range(0, personInCompany.Count)];
+        }else{
+            CurriculumData result = personInCompany[Random.Range(0, personInCompany.Count)];
+            while(ComparePersons(persons, result))
+            {
+                result = personInCompany[Random.Range(0, personInCompany.Count)];
+            }
+
+            return result;
+        }
     }
 
     public void AddTrait(int personID, int traitID)

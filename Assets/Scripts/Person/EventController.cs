@@ -11,6 +11,9 @@ public class EventController : MonoBehaviour
     //-Aleatório
     //-Governamental (Fiscal, imposto, essas coisas)
     //-Necessidades (Ausencia de Faxineiro, Segurança, Gerente)
+
+    private float tempIncrease;
+
     public bool eventIsOn = true;
     [SerializeField]private Curriculum bossCurriculum;
     [SerializeField]private float eventTick;
@@ -72,8 +75,13 @@ public class EventController : MonoBehaviour
         #region Conflict Event
         AddEvent(conflictEvents, ()=>
         {
-            CurriculumData personA = CoexistenceManager.i.GetRandomPerson();
-            CurriculumData personB = CoexistenceManager.i.GetRandomPerson();
+            if(CoexistenceManager.i.GetPersons().Length < 3) return;
+            CurriculumData personC = CoexistenceManager.i.GetRandomPerson();
+
+            CurriculumData personA = CoexistenceManager.i.GetRandomPerson(personC);
+            
+            CurriculumData personB = CoexistenceManager.i.GetRandomPerson(personC, personA);
+
             string personAName = personA.personName + "\n";
             string personBName = personB.personName + "\n";
             QueueManager.i.AddQuestionPerson(personAName + " e " + personBName + " estão brigando feio", "Deixa lá", "Manda embora", ()=>{
@@ -81,15 +89,18 @@ public class EventController : MonoBehaviour
             },()=>{
                 CoexistenceManager.i.RemovePerson(personA);
                 CoexistenceManager.i.RemovePerson(personB);
-            });
+            },personC.TempCur());
         });
         #endregion
 
         #region Break Event
         AddEvent(breakEvents, ()=>
         {
-            CurriculumData data = CoexistenceManager.i.GetRandomPerson();
-            QueueManager.i.AddQuestionPerson("O Computador do " + data.personName + "\n parece quebrado", "Compra outro", "Deixa assim", ()=>{EarningSystem.i.ChangeMoney(-Random.Range(1500,3000),"Computador");}, ()=>{AddTemporaryStats(0f,0.05f,30f);});
+            if(CoexistenceManager.i.GetPersons().Length < 2) return;
+            CurriculumData owner = CoexistenceManager.i.GetRandomPerson();
+            CurriculumData data = CoexistenceManager.i.GetRandomPerson(owner);
+
+            QueueManager.i.AddQuestionPerson("O Computador "+ ((data.gender.ToLower()[0] == 'm') ? "da " : "do ") + data.personName + "\n parece quebrado", "Compra outro", "Deixa assim", ()=>{EarningSystem.i.ChangeMoney(-Random.Range(1500,3000),"Computador");}, ()=>{AddTemporaryStats(0f,0.05f,30f);},owner.TempCur());
             UpdateValue();
         });
         #endregion
@@ -97,6 +108,7 @@ public class EventController : MonoBehaviour
         #region Random Event
         AddEvent(randomEvents, ()=>
         {
+            if(CoexistenceManager.i.GetPersons().Length < 1) return;
             QueueManager.i.AddQuestionPerson("Nossos algorítmos detectaram que um criador de conteúdo produziu um vídeo utilizando um dos nossos projetos, acha que deveríamos agir?", "Sim", "Não", ()=>{
                 EarningSystem.i.ChangeMoney(1500, "Copyright");
             }, ()=>{
@@ -114,6 +126,14 @@ public class EventController : MonoBehaviour
 
         AddEvent(randomEvents, ()=>
         {
+            EarningSystem.i.ChangeMoney(-Random.Range(100, 500), "Reembolsos");
+
+            UpdateValue();
+        });
+
+        AddEvent(randomEvents, ()=>
+        {
+            if(CoexistenceManager.i.GetPersons().Length < 1) return;
             CurriculumData data = CoexistenceManager.i.GetRandomPerson();
             QueueManager.i.AddQuestionPerson("Um festival de jogos se aproxima e tem um prêmio para o melhor jogo, deveriamos participar? O resultado não é imediato e nem garantido", "Sim", "Não", ()=>{
                 EarningSystem.i.ChangeMoney(-3000, "Festival");
@@ -135,6 +155,7 @@ public class EventController : MonoBehaviour
 
         AddEvent(randomEvents, ()=>
         {
+            if(CoexistenceManager.i.GetPersons().Length < 5) return;
             string contractText = "Recebemos um pedido de uma outra desenvolvedora, eles precisam de alguns funcionários, pode dar um bom dinheiro, eles querem:";
             int amount = Random.Range(1,4);
             List<CurriculumData> datas = new List<CurriculumData>();
@@ -145,7 +166,7 @@ public class EventController : MonoBehaviour
 
                 datas.Add(data);
 
-                contractText += "/n- " + data.personName;
+                contractText += "\n- " + data.personName;
             }
 
             PaperManager.i.AddContractPaper(contractText, ()=>{
@@ -259,31 +280,40 @@ public class EventController : MonoBehaviour
     }
     private void TickEvent()
     {
-        BaseEvent selectedEvent = null;
-
-        int eventTimes = 0;
-        while (eventTimes < 2)
+        float chance = Random.value;
+        
+        bool runEvent = false;
+        Debug.Log(chance);
+        if(chanceToBreak + tempIncrease <= chance)
         {
-            int eventIndex = Random.Range(0, 4);
-
-            float chance = Random.value;
-
-            if(eventIndex == 0)
-            {
-                if(chanceToBreak <= chance) selectedEvent = breakEvents[Random.Range(0,breakEvents.Count)];
-                
-            }else if(eventIndex == 1)
-            {
-                if(chanceToConflict <= chance) selectedEvent = conflictEvents[Random.Range(0,conflictEvents.Count)];
-            }
-            else if(eventIndex == 2)
-            {
-                if(chanceToRandom <= chance) selectedEvent = randomEvents[Random.Range(0,randomEvents.Count)];
-            }
-            eventTimes++;
+            StartCoroutine(TickDelay(breakEvents[Random.Range(0,breakEvents.Count)], Random.Range(0f,3f)));
+            runEvent = true;
         }
 
-        if(selectedEvent != null) selectedEvent.CallEvent();
+        chance = Random.value;
+        Debug.Log(chance);
+        if(chanceToConflict + tempIncrease <= chance) 
+        {
+            StartCoroutine(TickDelay(conflictEvents[Random.Range(0,conflictEvents.Count)], Random.Range(0f,3f)));
+            runEvent = true;
+        }
+
+        chance = Random.value;
+        Debug.Log(chance);
+        if(chanceToRandom + tempIncrease <= chance)
+        {
+            StartCoroutine(TickDelay(randomEvents[Random.Range(0,randomEvents.Count)], Random.Range(0f,3f)));
+            runEvent = true;
+        } 
+
+        if(runEvent == false) tempIncrease += .1f; else tempIncrease = 0f;
+
+    }
+
+    private IEnumerator TickDelay(BaseEvent call, float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        call.CallEvent();
     }
 
     public void UpdateValue()
