@@ -1744,7 +1744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventIsOn: 1
   bossCurriculum: {fileID: 905941812}
-  eventTick: 10
+  eventTick: 15
   tickMultiplier_base: 1
   chanceToBreak_base: 0.075
   chanceToConflict_base: 0.075

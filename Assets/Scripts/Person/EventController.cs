@@ -85,11 +85,31 @@ public class EventController : MonoBehaviour
             string personAName = personA.personName + "\n";
             string personBName = personB.personName + "\n";
             QueueManager.i.AddQuestionPerson(personAName + " e " + personBName + " estão brigando feio", "Deixa lá", "Manda embora", ()=>{
-                AddTemporaryStats(.15f,0f,30f);
+                AddTemporaryStats(.05f,0f,10f);
             },()=>{
                 CoexistenceManager.i.RemovePerson(personA);
                 CoexistenceManager.i.RemovePerson(personB);
             },personC.TempCur());
+        });
+
+        AddEvent(conflictEvents, ()=>
+        {
+            if(CoexistenceManager.i.GetPersons().Length < 3) return;
+
+            CurriculumData personC = CoexistenceManager.i.GetRandomPerson();
+
+            CurriculumData personA = CoexistenceManager.i.GetRandomPerson(personC);
+
+            CurriculumData personB = CoexistenceManager.i.GetRandomPerson(personC, personA);
+
+            string personAName = personA.personName + "\n";
+            string personBName = personB.personName + "\n";
+            QueueManager.i.AddQuestionPerson(personAName + " foi pego roubando a comida " + ((personB.gender.ToLower()[0] == 'm') ? "da " : "do ") + personBName + " ta cheio de buchicho na empresa, o que fazer?", "Bronca", "Manda embora", ()=>{
+                AddTemporaryStats(.05f,0f,10f);
+            },()=>{
+                CoexistenceManager.i.RemovePerson(personA);
+            },personC.TempCur());
+            
         });
         #endregion
 
@@ -101,6 +121,15 @@ public class EventController : MonoBehaviour
             CurriculumData data = CoexistenceManager.i.GetRandomPerson(owner);
 
             QueueManager.i.AddQuestionPerson("O Computador "+ ((data.gender.ToLower()[0] == 'm') ? "da " : "do ") + data.personName + "\n parece quebrado", "Compra outro", "Deixa assim", ()=>{EarningSystem.i.ChangeMoney(-Random.Range(1500,3000),"Computador");}, ()=>{AddTemporaryStats(0f,0.05f,30f);},owner.TempCur());
+            UpdateValue();
+        });
+
+        AddEvent(breakEvents, ()=>
+        {
+            if(CoexistenceManager.i.GetPersons().Length < 1) return;
+            CurriculumData owner = CoexistenceManager.i.GetRandomPerson();
+
+            QueueManager.i.AddReportPerson("Alguem derramou café no teto, muito café, como?","Como?", ()=>{EarningSystem.i.ChangeMoney(-Random.Range(50,100),"Café");},owner.TempCur());
             UpdateValue();
         });
         #endregion
@@ -162,7 +191,7 @@ public class EventController : MonoBehaviour
 
             for (int i = 0; i < amount; i++)
             {
-                CurriculumData data = CoexistenceManager.i.GetRandomPerson();
+                CurriculumData data = CoexistenceManager.i.GetRandomPerson(datas.ToArray());
 
                 datas.Add(data);
 

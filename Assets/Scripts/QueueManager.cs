@@ -48,9 +48,9 @@ public class QueueManager : MonoBehaviour
         }
     }
 
-    public void AddReportPerson(string reportText, string reportConfirm, System.Action confirmAction = null)
+    public void AddReportPerson(string reportText, string reportConfirm, System.Action confirmAction = null, Curriculum c = null)
     {
-        GameObject person = AddPerson(reportPerson);
+        GameObject person = AddPerson(c,reportPerson);
 
         PersonReport personReport = person.GetComponent<PersonReport>();
 
