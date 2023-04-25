@@ -188,8 +188,11 @@ public class WorldButton : MonoBehaviour
         for (int i = 0; i < organizedHits.Count; i++)
         {
             SpriteRenderer renderer = organizedHits[i].collider.GetComponent<SpriteRenderer>();
-            int id = SortingLayer.GetLayerValueFromID(renderer.sortingLayerID);
-            Debug.Log("The object named: " + renderer.name + " is on layer: " + id + " at order: " + renderer.sortingOrder);
+            if(renderer != null)
+            {
+                int id = SortingLayer.GetLayerValueFromID(renderer.sortingLayerID);
+                Debug.Log("The object named: " + renderer.name + " is on layer: " + id + " at order: " + renderer.sortingOrder);
+            }
         }
 
         if(organizedHits[0].collider != null)

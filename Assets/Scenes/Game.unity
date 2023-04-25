@@ -6230,7 +6230,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323123371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -10752,7 +10752,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1585067464}
   m_HandleRect: {fileID: 1585067463}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000002
   m_Size: 0.52800506
   m_NumberOfSteps: 0
   m_OnValueChanged:
