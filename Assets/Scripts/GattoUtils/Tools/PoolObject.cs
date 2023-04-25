@@ -113,6 +113,8 @@ namespace Gatto.Utils
         {
             GameObject result = null;
 
+            CleanPool();
+
             if(freeToUse.Count <= 0)
             {
                 AddObjects(9);
@@ -123,6 +125,29 @@ namespace Gatto.Utils
             inUse.Add(result);
             result.SetActive(true);
             return result;
+        }
+
+        public void CleanPool()
+        {
+            for (int i = 0; i < freeToUse.Count;)
+            {
+                if(freeToUse[i] == null)
+                {
+                    freeToUse.RemoveAt(i);
+                }else{
+                    i++;
+                }
+            }
+
+            for (int i = 0; i < inUse.Count;)
+            {
+                if(inUse[i] == null)
+                {
+                    inUse.RemoveAt(i);
+                }else{
+                    i++;
+                }
+            }
         }
 
         public GameObject DestroyObject(GameObject obj)
