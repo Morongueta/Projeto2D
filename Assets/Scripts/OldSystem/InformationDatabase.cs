@@ -81,7 +81,7 @@ public class InformationDatabase : MonoBehaviour
 
         int experience = UnityEngine.Random.Range(0, exp.Length);
         string salary = (100 * (int)Mathf.Round((UnityEngine.Random.Range(v.min, v.max) + ((experience + 1) * 550) - 550) / 100.0f)).ToString();
-
+        v.variance = v.variance + (.1f * (experience + 1));
         string removed = v.name.Replace("(a)", "");
 
         string femaleSimple = removed + "a";

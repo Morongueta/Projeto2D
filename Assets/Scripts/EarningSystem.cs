@@ -42,6 +42,11 @@ public class EarningSystem : MonoBehaviour
         moneyText.text = "R$" + money.ToString("N0");
 
         if(Input.GetKeyDown(KeyCode.G))ChangeMoney(Random.Range(-1000,1000), "NoReason");
+    }   
+
+    public int GetMoney()
+    {
+        return money;
     }
 
 

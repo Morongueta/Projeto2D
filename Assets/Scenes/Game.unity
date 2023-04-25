@@ -3400,6 +3400,7 @@ Transform:
   - {fileID: 905941810}
   - {fileID: 1630867671}
   - {fileID: 1313493980}
+  - {fileID: 1352589644}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6326,6 +6327,50 @@ MonoBehaviour:
   paperCurriculum: {fileID: 8464347572216079283, guid: cfe5ce9e1eac0194aa82f57ab476e8d6, type: 3}
   paperContract: {fileID: 5087966292337293767, guid: c66f465840c9cab4daaffd20afbe8a1f, type: 3}
   paperSpawnPos: {x: 0, y: 16.85, z: 0}
+--- !u!1 &1352589643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1352589644}
+  - component: {fileID: 1352589645}
+  m_Layer: 0
+  m_Name: ResultManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1352589644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352589643}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 683382391}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1352589645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352589643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138e7a1b6555a2a4e92f0375fda54559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1369843673
 GameObject:
   m_ObjectHideFlags: 0
@@ -11806,14 +11851,6 @@ PrefabInstance:
       propertyPath: UIMouse
       value: 
       objectReference: {fileID: 444024990}
-    - target: {fileID: 3410754782314852045, guid: ea517cb424883274ba83419293324ab4, type: 3}
-      propertyPath: mouseSpeed
-      value: 650
-      objectReference: {fileID: 0}
-    - target: {fileID: 3410754782314852045, guid: ea517cb424883274ba83419293324ab4, type: 3}
-      propertyPath: UILayer.m_Bits
-      value: 2080
-      objectReference: {fileID: 0}
     - target: {fileID: 3410754782314852045, guid: ea517cb424883274ba83419293324ab4, type: 3}
       propertyPath: simulatedMouse
       value: 0

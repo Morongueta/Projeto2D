@@ -9,6 +9,8 @@ public class CustomMouse : MonoBehaviour
     [Header("Keyboard Mouse")]
     [SerializeField] private bool simulatedMouse;
 
+    private const string KEY_SIMULATED = "KEY_SIMULATEDMOUSE";
+
     [SerializeField] private Canvas canvas;
     private Vector2 mousePositionSimulated;
     [SerializeField]private float mouseSpeed;
@@ -51,9 +53,18 @@ public class CustomMouse : MonoBehaviour
         Cursor.visible = false;
 
         mousePositionSimulated = canvas.renderingDisplaySize / 2f;
+
+        simulatedMouse = (PlayerPrefs.GetInt(KEY_SIMULATED) == 0) ? false:true;
+        
     }
     private void Update()
     {
+        if(Input.GetButtonDown("VERDE1"))
+        {
+            simulatedMouse = !simulatedMouse;
+            PlayerPrefs.SetInt(KEY_SIMULATED, (simulatedMouse)?1:0);
+        }
+
         mousePosition = Input.mousePosition;
 
         if(simulatedMouse)
@@ -80,8 +91,10 @@ public class CustomMouse : MonoBehaviour
             pointingUI = hitCurriculumUI.collider != null;
         }
 
+        RaycastHit2D hitUI = Physics2D.CircleCast(mousePosition, .1f, Vector2.zero, .15f, UILayer);
+
         
-        if(EventSystem.current.IsPointerOverGameObject())
+        if(hitUI.collider != null || EventSystem.current.IsPointerOverGameObject())
         {
             UIMouse.enabled = true;
             render.enabled = false;

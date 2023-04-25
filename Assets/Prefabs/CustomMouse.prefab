@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulatedMouse: 0
   canvas: {fileID: 0}
-  mouseSpeed: 300
+  mouseSpeed: 650
   UIMouse: {fileID: 0}
   defaultMouse: {fileID: -1498069614, guid: 0a89b933201348342a17805ff9b635b1, type: 3}
   copyMouse: {fileID: -721871811, guid: 0a89b933201348342a17805ff9b635b1, type: 3}
@@ -114,7 +114,7 @@ MonoBehaviour:
     m_Bits: 512
   UILayer:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 2080
   curriculumUILayer:
     serializedVersion: 2
     m_Bits: 2048

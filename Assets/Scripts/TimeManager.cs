@@ -16,6 +16,8 @@ public class TimeManager : MonoBehaviour
     private bool canCallEvents;
     [SerializeField]private TextMeshProUGUI dayText;
 
+    public System.Action onTimeTick;
+
     public static TimeManager i;
 
     private void Awake() {
@@ -45,6 +47,7 @@ public class TimeManager : MonoBehaviour
                 days = 1;
             }
 
+            onTimeTick?.Invoke();
             canCallEvents = true;
 
             dayTimer = dayDuration;
