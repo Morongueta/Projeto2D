@@ -17,6 +17,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField]private TextMeshProUGUI dayText;
 
     public System.Action onTimeTick;
+    public System.Action onMonthChangeTick;
 
     public static TimeManager i;
 
@@ -42,6 +43,7 @@ public class TimeManager : MonoBehaviour
             days++;
             if(days > 30)
             {
+                onMonthChangeTick?.Invoke();
                 months++;
                 if(months > 12) months = 1;
                 days = 1;

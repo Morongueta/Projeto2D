@@ -24,6 +24,8 @@ public class TutorialPerson : Person
         public UnityEvent declineAction;
     }
 
+    private bool ended = false;
+
     public TutorialStep[] steps;
     private int curStep;
 
@@ -55,6 +57,7 @@ public class TutorialPerson : Person
     public void ShowTutorial()
     {
         TextBoxManager.i.HideTextBox();
+        if (ended) return;
 
         if(curStep < steps.Length)
         {
@@ -68,7 +71,7 @@ public class TutorialPerson : Person
                         ShowTutorial();
                     }, ()=>{  //Decline
                         steps[curStep].declineAction?.Invoke();
-                        curStep--;
+                        curStep++;
                         ShowTutorial();
                     });
                 break;
@@ -105,8 +108,10 @@ public class TutorialPerson : Person
 
     public void EndTutorial()
     {
+        ended = true;
         QueueManager.i.RemoveFromQueue(0);
         TutorialManager.i.EndTutorial();
+        
     }
 
 

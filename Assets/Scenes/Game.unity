@@ -4071,7 +4071,7 @@ MonoBehaviour:
   tutorialStepOne: {fileID: 8753131622139827443, guid: 04159cb21528a724ea00e6c4ea2953d3, type: 3}
   tutorialStepTwo: {fileID: 4144943976730486510, guid: dd03e69383d68b34082471cc7d98f52a, type: 3}
   bossCurriculum: {fileID: 905941812}
-  alwaysRunTutorial: 0
+  alwaysRunTutorial: 1
 --- !u!114 &905941812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9757,8 +9757,38 @@ MonoBehaviour:
     - busco sempre o lado positivo das coisas
     contributionExplanation:
     - Eles gostavam de mim
-  - name: "Pregui\xE7oso"
+  - name: Cauteloso
     ID: 4
+    BlackListID: 08000000
+    type: 0
+    performance: 0
+    agressiveness: 0
+    disastrous: -0.5
+    responsability: 0
+    stayFactor: 0.05
+    awayChance: 0
+    contributionTime: 1
+    traitDetail:
+    - "costumo pensar tr\xEAs vezes antes de qualquer coisa"
+    contributionExplanation:
+    - Nunca dei prejuizo para eles
+  - name: Trabalho em equipe
+    ID: 5
+    BlackListID: 0b000000
+    type: 0
+    performance: 0.11
+    agressiveness: 0
+    disastrous: -0.23
+    responsability: 0.16
+    stayFactor: 0.05
+    awayChance: 0
+    contributionTime: 2
+    traitDetail:
+    - gosto de trabalhar em equipe
+    contributionExplanation:
+    - pessoal gostava de mim
+  - name: "Pregui\xE7oso"
+    ID: 6
     BlackListID: 00000000
     type: 1
     performance: -0.5
@@ -9773,7 +9803,7 @@ MonoBehaviour:
     contributionExplanation:
     - Eles tinham outro ritmo
   - name: Pavio Curto
-    ID: 5
+    ID: 7
     BlackListID: 01000000
     type: 1
     performance: 0
@@ -9788,7 +9818,7 @@ MonoBehaviour:
     contributionExplanation:
     - "Aquele pessoal n\xE3o sabia de nada"
   - name: "Irrespons\xE1vel"
-    ID: 6
+    ID: 8
     BlackListID: 02000000
     type: 1
     performance: 0
@@ -9803,7 +9833,7 @@ MonoBehaviour:
     contributionExplanation:
     - Eles tinham outro ritmo
   - name: Pessimista
-    ID: 7
+    ID: 9
     BlackListID: 03000000
     type: 1
     performance: 0
@@ -9818,7 +9848,7 @@ MonoBehaviour:
     contributionExplanation:
     - "Acabou n\xE3o dando certo"
   - name: Desastrado
-    ID: 8
+    ID: 10
     BlackListID: 09000000
     type: 1
     performance: -0.15
@@ -9832,51 +9862,21 @@ MonoBehaviour:
     - costumo ser bem agitado
     contributionExplanation:
     - Acabei quebrando um computador sem querer
-  - name: Cauteloso
-    ID: 9
-    BlackListID: 08000000
-    type: 0
-    performance: 0
-    agressiveness: 0
-    disastrous: -0.5
-    responsability: 0
-    stayFactor: 0.05
-    awayChance: 0
-    contributionTime: 1
-    traitDetail:
-    - "costumo pensar tr\xEAs vezes antes de qualquer coisa"
-    contributionExplanation:
-    - Nunca dei prejuizo para eles
-  - name: PlaceHolderPositive
-    ID: 10
-    BlackListID: 0b000000
-    type: 0
-    performance: 0
-    agressiveness: 0
-    disastrous: -0.5
-    responsability: 0
-    stayFactor: 0.05
-    awayChance: 0
-    contributionTime: 0
-    traitDetail:
-    - fumo djamba
-    contributionExplanation:
-    - "\xE9 s\xF3 um placeholder cara"
-  - name: PlaceHolderNegative
+  - name: Sem iniciativa
     ID: 11
     BlackListID: 08000000
     type: 1
-    performance: 0
-    agressiveness: 0
-    disastrous: -0.5
-    responsability: 0
+    performance: -0.13
+    agressiveness: -0.21
+    disastrous: -0.02
+    responsability: -0.18
     stayFactor: 0.05
     awayChance: 0
-    contributionTime: 0
+    contributionTime: -1
     traitDetail:
-    - curto um narga
+    - me falta iniciativa
     contributionExplanation:
-    - "\xE9 s\xF3 um placeholder cara"
+    - "n\xE3o gosto de ser o primeiro"
   masculineBodies:
   - {fileID: 21300000, guid: 5881b690a2afeba41ae744fcb57b5a25, type: 3}
   feminineBodies:

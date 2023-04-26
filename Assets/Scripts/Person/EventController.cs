@@ -239,7 +239,11 @@ public class EventController : MonoBehaviour
         QueueManager.i.AddQuestionPerson("Temos que manter a empresa um local dinamico para todos, tem alguem que precisa sair?", "Sim", "Não",()=>{
             HiringManager.i.StartFiring();
             
-        }, null, bossCurriculum);
+        }, () =>
+        {
+            EventController.i.eventIsOn = true;
+            TimeManager.i.timeIsRunning = true;
+        }, bossCurriculum);
     }
     
     public void TaxesEvent()

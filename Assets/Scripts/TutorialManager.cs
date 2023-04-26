@@ -64,5 +64,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.SetInt(TUTORIAL_KEY, 1);
 
         EventController.i.eventIsOn = true;
+
+        TextBoxManager.i.HideTextBox();
     }
 }

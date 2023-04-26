@@ -23,7 +23,7 @@ public class ResultManager : MonoBehaviour
     {
         money = EarningSystem.i;
         timeToFinish = 5f;
-        TimeManager.i.onTimeTick += ()=>{dayCount++;};
+        TimeManager.i.onMonthChangeTick += ()=>{ MonthTick(); };
     }
 
     private void Update()
@@ -53,24 +53,22 @@ public class ResultManager : MonoBehaviour
             gameFinished = true;
         }
 
-        if(money.GetMoney() >= 20000)
+        
+    }
+
+    public void MonthTick()
+    {
+        if (money.GetMoney() >= 20000)
         {
-            if(dayCount >= 30)
-            {
-                //Win
-                resultText.text = "Prosperou!";
-                gameFinished = true;
-            }
-        }else if(money.GetMoney() < 0)
+            //Win
+            resultText.text = "Prosperou!";
+            gameFinished = true;
+        }
+        else if (money.GetMoney() < 0)
         {
-            if(dayCount >= 30)
-            {
-                //Lose
-                resultText.text = "Faliu!";
-                gameFinished = true;
-            }
-        }else{
-            dayCount = 0;
+            //Lose
+            resultText.text = "Faliu!";
+            gameFinished = true;
         }
     }
 }
