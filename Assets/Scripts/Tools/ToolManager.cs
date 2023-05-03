@@ -38,13 +38,13 @@ public class ToolManager : MonoBehaviour
     {
         if(!UsingHand)
         {
-            UsingTool = (Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0"));
+            UsingTool = CustomInput.GetKey(KeyCode.Mouse0, "VERDE0");
         }
 
-        UsingHand = Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0");
+        UsingHand = CustomInput.GetKey(KeyCode.Mouse0, "VERDE0");
 
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0"))
+        if(CustomInput.GetKeyDown(KeyCode.Mouse0, "VERDE0"))
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
 

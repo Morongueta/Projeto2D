@@ -41,7 +41,7 @@ public class EarningSystem : MonoBehaviour
     private void Update() {
         moneyText.text = "R$" + money.ToString("N0");
 
-        if(Input.GetKeyDown(KeyCode.G))ChangeMoney(Random.Range(-1000,1000), "NoReason");
+        //if(Input.GetKeyDown(KeyCode.G))ChangeMoney(Random.Range(-1000,1000), "NoReason");
     }   
 
     public int GetMoney()
@@ -96,8 +96,8 @@ public class EarningSystem : MonoBehaviour
         }
 
         Rect rect = background.rect;
-        rect.width = (textWidth * mainCanvas.renderingDisplaySize.x / 1366);
-        rect.height = (textHeight * mainCanvas.renderingDisplaySize.y / 768) * tooltipShown.Count;
+        rect.width = (textWidth);
+        rect.height = (textHeight) * tooltipShown.Count;
         background.LeanSize(new Vector2(rect.width, rect.height), .05f);
     }
 

@@ -19,11 +19,11 @@ public class EraserTool : MonoBehaviour
         mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition) : Vector2.zero;
 
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0"))
+        if(CustomInput.GetKeyDown(KeyCode.Mouse0, "VERDE0"))
         {
             startMousePos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
         }
-        if(Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0"))
+        if(CustomInput.GetKey(KeyCode.Mouse0, "VERDE0"))
         {
             RaycastHit2D[] hit = Physics2D.CircleCastAll(mousePos, eraserSize, Vector2.zero, eraserSize, lineLayer);
             RaycastHit2D[] hitPaper = Physics2D.RaycastAll(mousePos, Vector2.zero, 1f, paperLayer);

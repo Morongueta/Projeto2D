@@ -36,6 +36,8 @@ public class TimeManager : MonoBehaviour
 
         if(!timeIsRunning) return;
 
+        if(Input.GetKeyDown(KeyCode.H)) dayTimer = 0f;
+
         EventHandler();
 
         if(dayTimer <= 0f)

@@ -28,10 +28,34 @@ public class Contract : MonoBehaviour
 
     private void Update()
     {
-        bool confirm = Physics2D.OverlapBox(confirmPosition + (Vector2)transform.position, Vector2.one * checkBoxSize, 0f, penLayer) != null;
+        Collider2D[] confirmCollider = Physics2D.OverlapBoxAll(confirmPosition + (Vector2)transform.position, Vector2.one * checkBoxSize, 0f, penLayer);
+        Collider2D[] declineCollider = Physics2D.OverlapBoxAll(negatePosition + (Vector2)transform.position, Vector2.one * checkBoxSize, 0f, penLayer);
 
-        bool decline = Physics2D.OverlapBox(negatePosition + (Vector2)transform.position, Vector2.one * checkBoxSize, 0f, penLayer) != null;
+        bool confirm = false;
+        bool decline = false;
 
+        for (int i = 0; i < confirmCollider.Length; i++)
+        {
+            if(confirmCollider[i].gameObject.transform.parent != null)
+            {
+                if(confirmCollider[i].gameObject.transform.parent == this.transform)
+                {
+                    confirm = true;
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < declineCollider.Length; i++)
+        {
+            if(declineCollider[i].gameObject.transform.parent != null)
+            {
+                if(declineCollider[i].gameObject.transform.parent == this.transform)
+                {
+                    decline = true;
+                    break;
+                }
+            }
+        }
 
         if(state == ContractState.NONE)
         {

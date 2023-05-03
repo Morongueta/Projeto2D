@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class CustomMouse : MonoBehaviour
 {
     [Header("Keyboard Mouse")]
-    [SerializeField] private bool simulatedMouse;
+    public bool simulatedMouse;
 
     private const string KEY_SIMULATED = "KEY_SIMULATEDMOUSE";
 
@@ -57,13 +57,16 @@ public class CustomMouse : MonoBehaviour
         simulatedMouse = (PlayerPrefs.GetInt(KEY_SIMULATED) == 0) ? false:true;
         
     }
+
+    public void SetSimulatedMouse(bool b)
+    {
+        CustomMouse.i.simulatedMouse = b;
+        PlayerPrefs.SetInt(KEY_SIMULATED, (simulatedMouse)?1:0);
+    }
+
     private void Update()
     {
-        if(Input.GetButtonDown("VERDE1"))
-        {
-            simulatedMouse = !simulatedMouse;
-            PlayerPrefs.SetInt(KEY_SIMULATED, (simulatedMouse)?1:0);
-        }
+        
 
         mousePosition = Input.mousePosition;
 

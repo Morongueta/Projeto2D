@@ -24,10 +24,14 @@ public class EventController : MonoBehaviour
 
     [Space]
 
-    [SerializeField, Range(0f,1f)]private float chanceToBreak_base;
-    [SerializeField, Range(0f,1f)]private float chanceToConflict_base;
+    [SerializeField, Range(0f,1f)]private float breakIncrease_base;
+    [SerializeField, Range(0f,1f)]private float conflictIncrease_base;
     [SerializeField, Range(0f,1f)]private float chanceToRandom_base;
     [SerializeField, Range(0f,1f)]private float chanceToGovernment_base;
+
+    private float conflictIncrease;
+    private float breakIncrease;
+
 
     private float chanceToBreak;
     private float chanceToConflict;
@@ -260,33 +264,34 @@ public class EventController : MonoBehaviour
         EarningSystem.i.ChangeMoney(-taxes, "Impostos");
     }
 
-    public void SalaryEvent()
+    public void EndOnMonthEvent()
     {
         CurriculumData[] data = CoexistenceManager.i.GetPersons();
 
-        int amount = 0;
+        int payment = 0;
 
         for (int i = 0; i < data.Length; i++)
         {
-            amount += int.Parse(data[i].salary.Replace("R$", "").Replace(" ", ""));
+            payment += int.Parse(data[i].salary.Replace("R$", "").Replace(" ", ""));
         }
 
-        EarningSystem.i.ChangeMoney(-amount, "Pagamento");
-    }
-
-    public void EarnEvent()
-    {
-        CurriculumData[] data = CoexistenceManager.i.GetPersons();
-
-        int amount = 0;
+        int earnBrute = 0;
 
         for (int i = 0; i < data.Length; i++)
         {
             float variance = data[i].vacancy.variance;
-            amount += Mathf.RoundToInt((int.Parse(data[i].salary.Replace("R$", "").Replace(" ", ""))) * Random.Range(variance, 1f + variance));
+            earnBrute += Mathf.RoundToInt((int.Parse(data[i].salary.Replace("R$", "").Replace(" ", ""))) * Random.Range(1f - variance, 1f + variance));
         }
 
-        EarningSystem.i.ChangeMoney(amount, "Lucro");
+
+        EarningSystem.i.ChangeMoney(-payment, "Pagamentos");
+        EarningSystem.i.ChangeMoney(earnBrute, "Bruto");
+
+        int final = earnBrute - payment;
+        string reason = "Lucro";
+        if(final < 0f) reason = "Déficit";
+        
+        EarningSystem.i.AddTooltip(final, reason);
     }
 
 
@@ -313,22 +318,29 @@ public class EventController : MonoBehaviour
     }
     private void TickEvent()
     {
+        if(CoexistenceManager.i.GetPersons().Length <= 0) return;
+
         float chance = Random.value;
+
+        chanceToBreak += breakIncrease_base + breakIncrease;
+        chanceToConflict += conflictIncrease_base + conflictIncrease;
         
         bool runEvent = false;
         Debug.Log(chance);
-        if(chanceToBreak + tempIncrease <= chance)
+        if(chanceToBreak >= 1f)
         {
             StartCoroutine(TickDelay(breakEvents[Random.Range(0,breakEvents.Count)], Random.Range(0f,3f)));
             runEvent = true;
+            chanceToBreak = 0f;
         }
 
         chance = Random.value;
         Debug.Log(chance);
-        if(chanceToConflict + tempIncrease <= chance) 
+        if(chanceToConflict >= 1f) 
         {
             StartCoroutine(TickDelay(conflictEvents[Random.Range(0,conflictEvents.Count)], Random.Range(0f,3f)));
             runEvent = true;
+            chanceToConflict = 0f;
         }
 
         chance = Random.value;
@@ -380,8 +392,9 @@ public class EventController : MonoBehaviour
 
         chanceToRandom = ClampValue(chanceToRandom_base);
         tickMultiplier = ClampValue(tickMultiplier_base + tickMult, 0.5f, 1.5f);
-        chanceToBreak = ClampValue(chanceToBreak_base + breakChance);
-        chanceToConflict = ClampValue(chanceToConflict_base + conflictChance);
+
+        conflictIncrease = ClampValue(conflictChance);
+        breakIncrease = ClampValue(breakChance);
     }
 
     private float ClampValue(float value, float min = 0.1f, float max = 0.75f)

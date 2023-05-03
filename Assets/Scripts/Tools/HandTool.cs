@@ -33,7 +33,7 @@ public class HandTool : MonoBehaviour
 
         Vector3 mouse = Camera.main.ScreenToWorldPoint(mousePos);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0")) //Mouse click
+        if (CustomInput.GetKeyDown(KeyCode.Mouse0, "VERDE0")) //Mouse click
         {
             cameraOffset = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
             RaycastHit2D[] hit = Physics2D.RaycastAll(mouse, Vector2.zero, 1f,dragLayer);
@@ -66,7 +66,7 @@ public class HandTool : MonoBehaviour
             }
         }
 
-        if ((Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0")) && objectDown != null)
+        if ((CustomInput.GetKey(KeyCode.Mouse0, "VERDE0")) && objectDown != null)
         {
             
             pos = (mouse - (Vector3)cameraOffset) + (Vector3)objectPos;
@@ -75,7 +75,7 @@ public class HandTool : MonoBehaviour
 
         }
 
-        if((Input.GetKeyUp(KeyCode.Mouse0) || Input.GetButtonUp("VERDE0")) && objectDown != null) 
+        if(CustomInput.GetKey(KeyCode.Mouse0, "VERDE0") == false && objectDown != null) 
         {
             UpFuction();
         }

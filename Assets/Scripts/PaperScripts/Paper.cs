@@ -35,6 +35,11 @@ public class Paper : MonoBehaviour
     private SpriteRenderer render;
     private Drawable draw = null;
 
+    [Header("Sprites")]
+    [SerializeField]private Sprite baseSprite;
+    [SerializeField]private Sprite invalidSprite;
+    [SerializeField]private Sprite copySprite;
+
     public bool canGet = true;
 
     private void Awake()
@@ -188,6 +193,15 @@ public class Paper : MonoBehaviour
             lines[i].startWidth = sizes[i];
             lines[i].endWidth = sizes[i];
         }
+    }
+
+    public void SetInvalid()
+    {
+        render.sprite = invalidSprite;
+    }
+    public void SetCopy()
+    {
+        render.sprite = copySprite;
     }
 
     private void OnDrawGizmos()

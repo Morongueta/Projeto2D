@@ -43,7 +43,8 @@ public class CoexistenceManager : MonoBehaviour
             cur.transform.Find("SalaryText").GetComponent<TextMeshProUGUI>().text = "R$" + personInCompany[i].salary;
 
             cur.GetComponent<Button>().onClick.AddListener(()=>{
-                PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
+                GameObject paper = PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
+                paper.GetComponent<Paper>().SetCopy();
             });
 
             curriculumUIList.Add(cur);

@@ -26,6 +26,16 @@ public class PaperBox : MonoBehaviour
     private void Update()
     {
         if (countText != null) countText.text = paperInside.Count + "/" + maxPapers;
+
+        Check();
+    }
+
+    private void Check()
+    {
+        for (int i = 0; i < paperInside.Count; i++)
+        {
+            if(paperInside[i] == null) paperInside.RemoveAt(i);
+        }
     }
 
     private void UpdatePapers()
@@ -88,9 +98,12 @@ public class PaperBox : MonoBehaviour
     {
         for (int i = 0; i < paperInside.Count; i++)
         {
-            GameObject paper = paperInside[i];
-            paper.GetComponent<Paper>().canGet = false;
-            Destroy(paper,timed);
+            if(paperInside[i] != null)
+            {
+                GameObject paper = paperInside[i];
+                paper.GetComponent<Paper>().canGet = false;
+                Destroy(paper,timed);
+            }
         }
         paperInside.Clear();
     }

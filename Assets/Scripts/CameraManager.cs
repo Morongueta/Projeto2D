@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    [SerializeField]private GameObject downArrow, upArrow;
     [SerializeField]private Vector2 minPos;
     [SerializeField]private Vector2 maxPos;
 
@@ -52,6 +53,18 @@ public class CameraManager : MonoBehaviour
         clampPos.y = Mathf.Clamp(clampPos.y, minPos.y + height / 2f, maxPos.y - height / 2f);
         //clampPos.y = cam.transform.position.y;
         clampPos.z = -10f;
+
+        downArrow.SetActive(true);
+        upArrow.SetActive(true);
+
+        if(Mathf.Abs(cam.transform.position.y - (minPos.y + height / 3f)) < 4f)
+        {
+            downArrow.SetActive(false);
+        }
+        if(Mathf.Abs(cam.transform.position.y - (maxPos.y - height / 2f)) < 4f)
+        {
+            upArrow.SetActive(false);
+        }
     }
 
     private void LateUpdate()

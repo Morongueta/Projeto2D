@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PenTool : MonoBehaviour
 {
+    [SerializeField]private LayerMask paperLayer;
     private Vector2 mousePos;
     private Vector2 startMousePos;
 
@@ -32,13 +33,14 @@ public class PenTool : MonoBehaviour
         mousePos = Input.mousePresent ? Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition) : Vector2.zero;
 
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("VERDE0"))
+        if(CustomInput.GetKeyDown(KeyCode.Mouse0, "VERDE0"))
         {
             startMousePos = Camera.main.ScreenToWorldPoint(CustomMouse.i.mousePosition);
         }
-        if(Input.GetKey(KeyCode.Mouse0) || Input.GetButton("VERDE0"))
+
+        if(CustomInput.GetKey(KeyCode.Mouse0, "VERDE0"))
         {
-            RaycastHit2D[] hit = Physics2D.RaycastAll(mousePos, Vector2.zero, 1f);
+            RaycastHit2D[] hit = Physics2D.RaycastAll(mousePos, Vector2.zero, 1f, paperLayer);
             if(hit.Length == 0)
             {
                 curLine = null;
@@ -111,7 +113,7 @@ public class PenTool : MonoBehaviour
                 }
             }
         }
-        if(Input.GetKeyUp(KeyCode.Mouse0) || Input.GetButtonUp("VERDE0"))
+        if(!CustomInput.GetKey(KeyCode.Mouse0, "VERDE0") && curLine != null)
         {
             if(curLine != null)drawingOn.GetComponent<Drawable>().AddLineToList(curLine);
             if(curLine != null)if(curLine.positionCount < 2)

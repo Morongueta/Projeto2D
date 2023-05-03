@@ -1539,6 +1539,12 @@ MonoBehaviour:
     cell: 
     civil: 
     vaga: 
+    vacancy:
+      name: 
+      id: 0
+      min: 0
+      max: 0
+      variance: 0
     exp: 
     salary: 
     relationship: 
@@ -1652,6 +1658,9 @@ MonoBehaviour:
   maxPaperSpace: {x: 8.98, y: 3.61}
   fallSpeed: 25
   fixedOn: 0
+  baseSprite: {fileID: 0}
+  invalidSprite: {fileID: 21300000, guid: 199eff59951d4314f95064a13ef8b5c0, type: 3}
+  copySprite: {fileID: 21300000, guid: 855e5efdb5e3e864b90bcfcfd7e3d0c7, type: 3}
   canGet: 1
 --- !u!114 &951410766378915617
 MonoBehaviour:

@@ -26,18 +26,20 @@ public class HiringManager : MonoBehaviour
     private int timerID = 939;
     private _PeriodTimer timer;
     public HireState hireState;
+    private Vector2 selectPos;
 
     [Header("Hire - Interview")]
     private bool setupInterview;
     private bool startedInterview;
     private GameObject[] hirePapers;
-    private Vector2 selectPos;
+    private Vector2 interviewPos;
 
     [Header("Interview")]
     private int maxInterviewMoney = 6;
     private int interviewMoney = 0;
 
     [Header("Fire Person")]
+    private Vector2 firingPos;
     [SerializeField] private WorldButton firingButton;
     [SerializeField] private PaperBox fireBox;
     [SerializeField] private bool firing;
@@ -86,6 +88,9 @@ public class HiringManager : MonoBehaviour
 
     public void StartHiring()
     {
+        selectPos = Vector2.zero;
+        interviewPos = Vector2.zero;
+
         hirePapers = PaperManager.i.GetHiringPapers(6);
         hireState = HireState.SELECTING;
         ShowBox(negateBox);
@@ -112,12 +117,14 @@ public class HiringManager : MonoBehaviour
 
         if(firing)
         {
-            if (selectPos != buttonVisiblePos + new Vector2(0f,-1f))
+            if (firingPos != buttonVisiblePos + new Vector2(0f,-1f))
             {
-                selectPos = buttonVisiblePos + new Vector2(0f,-1f);
+                firingPos = buttonVisiblePos + new Vector2(0f,-1f);
                 LeanTween.cancel(firingButton.gameObject);
                 firingButton.gameObject.LeanMove(buttonVisiblePos + new Vector2(0f,-1f), .25f);
             }
+        }else{
+            firingPos = Vector2.zero;
         }
     }
 
@@ -214,18 +221,18 @@ public class HiringManager : MonoBehaviour
         {
             if(confirmBox.GetIsFull() && hireState == HireState.INTERVIEW)
             {
-                if (selectPos != buttonVisiblePos)
+                if (interviewPos != buttonVisiblePos)
                 {
-                    selectPos = buttonVisiblePos;
+                    interviewPos = buttonVisiblePos;
                     LeanTween.cancel(contractButton.gameObject);
                     contractButton.gameObject.LeanMove(buttonVisiblePos, .25f);
                 }
             }
             else
             {
-                if (selectPos != buttonHiddenPos)
+                if (interviewPos != buttonHiddenPos)
                 {
-                    selectPos = buttonHiddenPos;
+                    interviewPos = buttonHiddenPos;
                     LeanTween.cancel(contractButton.gameObject);
                     contractButton.gameObject.LeanMove(buttonHiddenPos, .25f);
                 }
@@ -256,6 +263,19 @@ public class HiringManager : MonoBehaviour
         HideBox(confirmBox);
         LeanTween.cancel(contractButton.gameObject);
         //negateBox.DestroyFromBoxAll();
+
+        Paper[] papersInDesk = FindObjectsOfType<Paper>();
+
+        for (int i = 0; i < papersInDesk.Length; i++)
+        {
+            Curriculum cur = papersInDesk[i].GetComponent<Curriculum>();
+            if(cur != null)
+            {
+                papersInDesk[i].type = PaperType.NONE;
+                papersInDesk[i].SetInvalid();
+            }
+        }
+
         if(confirmBox.GetPapers().Length > 0)CoexistenceManager.i.AddPerson(confirmBox.GetPapers()[0].GetComponent<Curriculum>());
         hireState = HireState.NONE;
         confirmBox.DestroyFromBoxAll(.35f);
