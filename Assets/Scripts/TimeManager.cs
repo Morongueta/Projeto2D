@@ -69,7 +69,7 @@ public class TimeManager : MonoBehaviour
             DayEvent e = events[i];
             if(events[i].waitDays <= 0)
             {
-                if((e.day == days && e.month == months) || (e.day == days && e.month == 0))
+                if((e.day == days && e.month == months) || (e.day == days && e.month == 0) || (e.day == 0 && e.month == months) || (e.day == 0 && e.month == 0))
                 {
                     e.onDayEvent?.Invoke();
                 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using static UnityEngine.ParticleSystem;
+using Gatto.Utils;
 
 public class Curriculum : MonoBehaviour
 {
@@ -173,6 +173,13 @@ public struct CurriculumData
     public int faceType;
     public int clothesType;
 
+
+    [Header("Temporary Variables")]
+    public int daysWorked;
+    public int totalDaysWorked;
+
+    public float temporaryAwayChance;
+
     public void Store(Curriculum c)
     {
         personName = c.curriculumData.personName;
@@ -246,6 +253,24 @@ public struct CurriculumData
         traits.AddRange(positiveTraits);
         traits.AddRange(negativeTraits);
         return traits.ToArray();
+    }
+
+    public void IncreaseDays(int days)
+    {
+        daysWorked += days;
+        totalDaysWorked += days;
+    }
+    public float GetAwayChance()
+    {
+        float chance = 0f;
+        Trait[] traits = GetAllTraits();
+
+        for (int i = 0; i < traits.Length; i++)
+        {
+            chance += traits[i].awayChance;
+        }
+        chance += temporaryAwayChance;
+        return chance;
     }
 
     public void AddTrait(Trait trait)

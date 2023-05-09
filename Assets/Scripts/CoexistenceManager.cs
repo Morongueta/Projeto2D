@@ -14,7 +14,7 @@ public class CoexistenceManager : MonoBehaviour
     private List<GameObject> curriculumUIList = new List<GameObject>();
 
     [Header("Persons")]
-    [SerializeField]private List<CurriculumData> personInCompany;
+    public List<CurriculumData> personInCompany;
 
     public static CoexistenceManager i;
 

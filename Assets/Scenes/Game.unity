@@ -4158,6 +4158,9 @@ MonoBehaviour:
     hairType: 0
     faceType: 0
     clothesType: 0
+    daysWorked: 0
+    totalDaysWorked: 0
+    temporaryAwayChance: 0
 --- !u!1 &912829873
 GameObject:
   m_ObjectHideFlags: 0
@@ -6147,6 +6150,25 @@ MonoBehaviour:
         - m_Target: {fileID: 338474468}
           m_TargetAssemblyTypeName: EventController, Assembly-CSharp
           m_MethodName: EndOnMonthEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventName: "FinalDoM\xEAs"
+    day: 0
+    month: 0
+    waitDays: 0
+    onDayEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 338474468}
+          m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+          m_MethodName: CalcDaysWorked
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -11490,6 +11512,9 @@ MonoBehaviour:
     hairType: 0
     faceType: 0
     clothesType: 0
+    daysWorked: 0
+    totalDaysWorked: 0
+    temporaryAwayChance: 0
   - personName: "Kaique da Costa\r"
     gender: Homem
     age: 45
@@ -11515,6 +11540,9 @@ MonoBehaviour:
     hairType: 0
     faceType: 0
     clothesType: 0
+    daysWorked: 0
+    totalDaysWorked: 0
+    temporaryAwayChance: 0
   - personName: "Cec\xEDlia Silva\r"
     gender: Mulher
     age: 41
@@ -11540,6 +11568,9 @@ MonoBehaviour:
     hairType: 0
     faceType: 0
     clothesType: 0
+    daysWorked: 0
+    totalDaysWorked: 0
+    temporaryAwayChance: 0
   - personName: "Vicente Lima\r"
     gender: Homem
     age: 39
@@ -11565,6 +11596,9 @@ MonoBehaviour:
     hairType: 0
     faceType: 0
     clothesType: 0
+    daysWorked: 0
+    totalDaysWorked: 0
+    temporaryAwayChance: 0
   - personName: "Maria Alice Gon\xE7alves\r"
     gender: Mulher
     age: 33
@@ -11590,6 +11624,9 @@ MonoBehaviour:
     hairType: 0
     faceType: 0
     clothesType: 0
+    daysWorked: 0
+    totalDaysWorked: 0
+    temporaryAwayChance: 0
 --- !u!4 &1978981014
 Transform:
   m_ObjectHideFlags: 0

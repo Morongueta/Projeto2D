@@ -90,6 +90,8 @@ public class EventController : MonoBehaviour
             string personBName = personB.personName + "\n";
             QueueManager.i.AddQuestionPerson(personAName + " e " + personBName + " estão brigando feio", "Deixa lá", "Manda embora", ()=>{
                 AddTemporaryStats(.05f,0f,10f);
+                AddTemporaryStatsToData(personA, .15f, 30f);
+                AddTemporaryStatsToData(personB, .15f, 30f);
             },()=>{
                 CoexistenceManager.i.RemovePerson(personA);
                 CoexistenceManager.i.RemovePerson(personB);
@@ -229,6 +231,20 @@ public class EventController : MonoBehaviour
         #endregion
     }
 
+    public void CalcDaysWorked()
+    {
+        for (int i = 0; i < CoexistenceManager.i.personInCompany.Count; i++)
+        {
+            float chance = Random.value * 100f;
+            Debug.Log(CoexistenceManager.i.personInCompany[i].personName + "tem a Chance de faltar de " + (CoexistenceManager.i.personInCompany[i].GetAwayChance() * 100f) + "%" + " e a chance é " + chance);
+            if((CoexistenceManager.i.personInCompany[i].GetAwayChance() * 100f) <= chance)
+            {
+                Debug.Log("Veio ao trabalho");
+                CoexistenceManager.i.personInCompany[i].IncreaseDays(1);
+            }
+        }
+    }
+
     public void HireEvent()
     {
         QueueManager.i.AddQuestionPerson("Hoje é dia de contratação, acredita que podemos adicionar alguem?", "Sim", "Não",()=>{
@@ -280,7 +296,20 @@ public class EventController : MonoBehaviour
         for (int i = 0; i < data.Length; i++)
         {
             float variance = data[i].vacancy.variance;
-            earnBrute += Mathf.RoundToInt((int.Parse(data[i].salary.Replace("R$", "").Replace(" ", ""))) * Random.Range(1f - variance, 1f + variance));
+
+            int salary = (int.Parse(data[i].salary.Replace("R$", "").Replace(" ", "")));
+            int salaryPerDay = Mathf.RoundToInt(salary / 30f);
+
+            int days = 0;
+            int finalValue = 0;
+            while (days < data[i].daysWorked)
+            {
+                finalValue += Mathf.RoundToInt(salaryPerDay * Random.Range(1f - variance, 1f + variance));
+                days++;
+            }
+            
+
+            earnBrute += finalValue;
         }
 
 
@@ -292,6 +321,15 @@ public class EventController : MonoBehaviour
         if(final < 0f) reason = "Déficit";
         
         EarningSystem.i.AddTooltip(final, reason);
+    }
+
+    private void AddTemporaryStatsToData(CurriculumData data,float away, float timer)
+    {
+        data.temporaryAwayChance += away;
+        PeriodTimer.Timer(timer, ()=>
+        {
+            data.temporaryAwayChance -= away;
+        });
     }
 
 
