@@ -79,7 +79,7 @@ public class EventController : MonoBehaviour
         #region Conflict Event
         AddEvent(conflictEvents, ()=>
         {
-            if(CoexistenceManager.i.GetPersons().Length < 3) return;
+            if(CoexistenceManager.i.GetWorkingPersons().Length < 3) return;
             CurriculumData personC = CoexistenceManager.i.GetRandomPerson();
 
             CurriculumData personA = CoexistenceManager.i.GetRandomPerson(personC);
@@ -100,7 +100,7 @@ public class EventController : MonoBehaviour
 
         AddEvent(conflictEvents, ()=>
         {
-            if(CoexistenceManager.i.GetPersons().Length < 3) return;
+            if(CoexistenceManager.i.GetWorkingPersons().Length < 3) return;
 
             CurriculumData personC = CoexistenceManager.i.GetRandomPerson();
 
@@ -122,7 +122,7 @@ public class EventController : MonoBehaviour
         #region Break Event
         AddEvent(breakEvents, ()=>
         {
-            if(CoexistenceManager.i.GetPersons().Length < 2) return;
+            if(CoexistenceManager.i.GetWorkingPersons().Length < 2) return;
             CurriculumData owner = CoexistenceManager.i.GetRandomPerson();
             CurriculumData data = CoexistenceManager.i.GetRandomPerson(owner);
 
@@ -132,7 +132,7 @@ public class EventController : MonoBehaviour
 
         AddEvent(breakEvents, ()=>
         {
-            if(CoexistenceManager.i.GetPersons().Length < 1) return;
+            if(CoexistenceManager.i.GetWorkingPersons().Length < 1) return;
             CurriculumData owner = CoexistenceManager.i.GetRandomPerson();
 
             QueueManager.i.AddReportPerson("Alguem derramou café no teto, muito café, como?","Como?", ()=>{EarningSystem.i.ChangeMoney(-Random.Range(50,100),"Café");},owner.TempCur());
@@ -143,7 +143,7 @@ public class EventController : MonoBehaviour
         #region Random Event
         AddEvent(randomEvents, ()=>
         {
-            if(CoexistenceManager.i.GetPersons().Length < 1) return;
+            if(CoexistenceManager.i.GetWorkingPersons().Length < 1) return;
             QueueManager.i.AddQuestionPerson("Nossos algorítmos detectaram que um criador de conteúdo produziu um vídeo utilizando um dos nossos projetos, acha que deveríamos agir?", "Sim", "Não", ()=>{
                 EarningSystem.i.ChangeMoney(1500, "Copyright");
             }, ()=>{
@@ -168,7 +168,7 @@ public class EventController : MonoBehaviour
 
         AddEvent(randomEvents, ()=>
         {
-            if(CoexistenceManager.i.GetPersons().Length < 1) return;
+            if(CoexistenceManager.i.GetWorkingPersons().Length < 1) return;
             CurriculumData data = CoexistenceManager.i.GetRandomPerson();
             QueueManager.i.AddQuestionPerson("Um festival de jogos se aproxima e tem um prêmio para o melhor jogo, deveriamos participar? O resultado não é imediato e nem garantido", "Sim", "Não", ()=>{
                 EarningSystem.i.ChangeMoney(-3000, "Festival");
@@ -190,7 +190,7 @@ public class EventController : MonoBehaviour
 
         AddEvent(randomEvents, ()=>
         {
-            if(CoexistenceManager.i.GetPersons().Length < 5) return;
+            if(CoexistenceManager.i.GetWorkingPersons().Length < 5) return;
             string contractText = "Recebemos um pedido de uma outra desenvolvedora, eles precisam de alguns funcionários, pode dar um bom dinheiro, eles querem:";
             int amount = Random.Range(1,4);
             List<CurriculumData> datas = new List<CurriculumData>();
@@ -207,7 +207,9 @@ public class EventController : MonoBehaviour
             PaperManager.i.AddContractPaper(contractText, ()=>{
                 for (int i = 0; i < datas.Count; i++)
                 {
-                    CoexistenceManager.i.RemovePerson(datas[i]);
+                    datas[i].workStateLocked = true;
+                    datas[i].workState = WorkState.AWAY;
+                    //CoexistenceManager.i.RemovePerson(datas[i]);
                 }
 
                 PeriodTimer.Timer(100, ()=>{
@@ -215,8 +217,8 @@ public class EventController : MonoBehaviour
                     for (int i = 0; i < datas.Count; i++)
                     {
                         int index = i;
-                        CoexistenceManager.i.AddPerson(datas[index]);
-
+                        datas[index].workStateLocked = false;
+                        datas[i].workState = WorkState.WORKING;
                         moneyGained += Random.Range(1000, 5000);
                     }
 
@@ -231,17 +233,37 @@ public class EventController : MonoBehaviour
         #endregion
     }
 
-    public void CalcDaysWorked()
+    public void DailyPersonInCompanyEvents()
     {
         for (int i = 0; i < CoexistenceManager.i.personInCompany.Count; i++)
         {
-            float chance = Random.value * 100f;
-            Debug.Log(CoexistenceManager.i.personInCompany[i].personName + "tem a Chance de faltar de " + (CoexistenceManager.i.personInCompany[i].GetAwayChance() * 100f) + "%" + " e a chance é " + chance);
-            if((CoexistenceManager.i.personInCompany[i].GetAwayChance() * 100f) <= chance)
-            {
-                Debug.Log("Veio ao trabalho");
-                CoexistenceManager.i.personInCompany[i].IncreaseDays(1);
-            }
+            float chanceToAway = Random.value * 100f;
+
+            CurriculumData person = CoexistenceManager.i.personInCompany[i];
+            ChangeWorkState(person, chanceToAway);
+            CalcDaysWorked(person);
+        }
+
+        CoexistenceManager.i.UpdateDrawer();
+    }
+
+    private void ChangeWorkState(CurriculumData person, float chanceToAway)
+    {
+        if (person.workStateLocked) return;
+
+        if ((person.GetAwayChance() * 100f) <= chanceToAway)
+        {
+            person.workState = WorkState.WORKING;
+            return;
+        }
+        person.workState = WorkState.AWAY;
+    }
+
+    private void CalcDaysWorked(CurriculumData person)
+    {   
+        if (person.workState == WorkState.WORKING)
+        {
+            person.IncreaseDays(1);
         }
     }
 
@@ -270,11 +292,11 @@ public class EventController : MonoBehaviour
     {
         CurriculumData[] data = CoexistenceManager.i.GetPersons();
 
-        int taxes = 500;
+        int taxes = 3000;
 
         for (int i = 0; i < data.Length; i++)
         {
-            taxes += 100;
+            taxes += 1000;
         }
 
         EarningSystem.i.ChangeMoney(-taxes, "Impostos");
@@ -298,18 +320,17 @@ public class EventController : MonoBehaviour
             float variance = data[i].vacancy.variance;
 
             int salary = (int.Parse(data[i].salary.Replace("R$", "").Replace(" ", "")));
-            int salaryPerDay = Mathf.RoundToInt(salary / 30f);
+            int salaryPerDay = Mathf.RoundToInt((salary / 30f) * Random.Range(1f - variance, 1f + variance));
 
             int days = 0;
             int finalValue = 0;
             while (days < data[i].daysWorked)
             {
-                finalValue += Mathf.RoundToInt(salaryPerDay * Random.Range(1f - variance, 1f + variance));
+                finalValue += salaryPerDay;
                 days++;
             }
-            
-
-            earnBrute += finalValue;
+            CoexistenceManager.i.personInCompany[i].daysWorked = 0;
+            earnBrute += Mathf.RoundToInt(finalValue);
         }
 
 
@@ -356,7 +377,7 @@ public class EventController : MonoBehaviour
     }
     private void TickEvent()
     {
-        if(CoexistenceManager.i.GetPersons().Length <= 0) return;
+        if(CoexistenceManager.i.GetWorkingPersons().Length <= 0) return;
 
         float chance = Random.value;
 

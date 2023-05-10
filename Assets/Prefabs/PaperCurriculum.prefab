@@ -100,7 +100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 19998725
+  m_text: (19)981903646
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f989fa71d846c945bce8aba3e6de931, type: 2}
   m_sharedMaterial: {fileID: -3688164928732384714, guid: 5f989fa71d846c945bce8aba3e6de931, type: 2}
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2.15
+  m_fontSize: 2.05
   m_fontSizeBase: 4
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Carlos min
+  m_text: Carlos minuto
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f989fa71d846c945bce8aba3e6de931, type: 2}
   m_sharedMaterial: {fileID: -3688164928732384714, guid: 5f989fa71d846c945bce8aba3e6de931, type: 2}
@@ -1558,6 +1558,10 @@ MonoBehaviour:
     hairType: 0
     faceType: 0
     clothesType: 0
+    workState: 1
+    daysWorked: 0
+    totalDaysWorked: 0
+    temporaryAwayChance: 0
 --- !u!50 &4487444118841695189
 Rigidbody2D:
   serializedVersion: 4

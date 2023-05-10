@@ -13,6 +13,8 @@ public class CoexistenceManager : MonoBehaviour
 
     private List<GameObject> curriculumUIList = new List<GameObject>();
 
+    private bool drawerIsOpened;
+
     [Header("Persons")]
     public List<CurriculumData> personInCompany;
 
@@ -21,6 +23,11 @@ public class CoexistenceManager : MonoBehaviour
     private void Awake()
     {
         i = this;
+    }
+
+    public void UpdateDrawer()
+    {
+        if (drawerIsOpened) OpenDrawer();
     }
 
     public void OpenDrawer()
@@ -42,6 +49,20 @@ public class CoexistenceManager : MonoBehaviour
             cur.transform.Find("JobText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].vaga;
             cur.transform.Find("SalaryText").GetComponent<TextMeshProUGUI>().text = "R$" + personInCompany[i].salary;
 
+            string workState = "";
+
+            switch (personInCompany[i].workState)
+            {
+                case WorkState.AWAY:
+                    workState = "Faltou";
+                    break;
+                case WorkState.WORKING:
+                    break;
+            }
+
+            cur.transform.Find("WorkingStateText").GetComponent<TextMeshProUGUI>().text = workState;
+
+
             cur.GetComponent<Button>().onClick.AddListener(()=>{
                 GameObject paper = PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
                 paper.GetComponent<Paper>().SetCopy();
@@ -50,7 +71,7 @@ public class CoexistenceManager : MonoBehaviour
             curriculumUIList.Add(cur);
         }
 
-
+        drawerIsOpened = true;
         drawerObject.SetActive(true);
     }
 
@@ -62,6 +83,7 @@ public class CoexistenceManager : MonoBehaviour
         }
         curriculumUIList.Clear();
 
+        drawerIsOpened = false;
         drawerObject.SetActive(false);
     }
 
@@ -155,6 +177,18 @@ public class CoexistenceManager : MonoBehaviour
     public CurriculumData[] GetPersons()
     {
         return personInCompany.ToArray();
+    }
+
+    public CurriculumData[] GetWorkingPersons()
+    {
+        List<CurriculumData> workingPeople = new List<CurriculumData>();
+
+        for (int i = 0; i < personInCompany.Count; i++)
+        {
+            if (personInCompany[i].workState == WorkState.WORKING) workingPeople.Add(personInCompany[i]);
+        }
+
+        return workingPeople.ToArray();
     }
 
     public CurriculumData GetPerson(int index)

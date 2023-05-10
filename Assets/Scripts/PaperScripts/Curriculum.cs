@@ -96,6 +96,13 @@ public class Curriculum : MonoBehaviour
 
         curriculumData.height = Random.Range(50,90);
 
+        curriculumData.headType = data.headType;
+        curriculumData.bodyType = data.bodyType;
+        curriculumData.glassesType = data.glassesType;
+        curriculumData.clothesType = data.clothesType;
+        curriculumData.mouthType = data.mouthType;
+        curriculumData.noseType = data.noseType;
+
         if(GetComponent<CurriculumUI>() != null)
         {
             GetComponent<CurriculumUI>().Set(curriculumData);
@@ -143,8 +150,14 @@ public class Curriculum : MonoBehaviour
 
 }
 
+public enum WorkState
+{
+    AWAY,
+    WORKING
+}
+
 [System.Serializable]
-public struct CurriculumData
+public class CurriculumData
 {
     public string personName;
     public string gender;
@@ -170,11 +183,16 @@ public struct CurriculumData
     public float height;
     public int bodyType;
     public int hairType;
-    public int faceType;
+    public int headType;
+    public int glassesType;
+    public int noseType;
+    public int mouthType;
     public int clothesType;
 
 
     [Header("Temporary Variables")]
+    public bool workStateLocked;
+    public WorkState workState = WorkState.WORKING;
     public int daysWorked;
     public int totalDaysWorked;
 
@@ -203,7 +221,10 @@ public struct CurriculumData
 
         bodyType    = c.curriculumData.bodyType;
         hairType    = c.curriculumData.hairType;
-        faceType    = c.curriculumData.faceType;
+        noseType    = c.curriculumData.noseType;
+        mouthType = c.curriculumData.mouthType;
+        headType = c.curriculumData.headType;
+        glassesType = c.curriculumData.glassesType;
         clothesType = c.curriculumData.clothesType;
     }
     public void Store(PersonData data)
@@ -223,9 +244,12 @@ public struct CurriculumData
 
         height = data.c.height;
 
-        bodyType    = data.c.bodyType;
-        hairType    = data.c.hairType;
-        faceType    = data.c.faceType;
+        bodyType = data.c.bodyType;
+        hairType = data.c.hairType;
+        noseType = data.c.noseType;
+        mouthType = data.c.mouthType;
+        headType = data.c.headType;
+        glassesType = data.c.glassesType;
         clothesType = data.c.clothesType;
 
         hasFamily = ((Random.value * 100) < 50f);
@@ -288,8 +312,5 @@ public struct CurriculumData
             if(negativeTraits == null) traits.AddRange(negativeTraits);
             negativeTraits = traits.ToArray();
         }
-        
-
-
     }
 }

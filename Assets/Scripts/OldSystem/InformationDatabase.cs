@@ -26,7 +26,14 @@ public class InformationDatabase : MonoBehaviour
     public Trait[] traits;
 
     public Sprite[] masculineBodies;
+
+    [Header("Feminine Parts")]
     public Sprite[] feminineBodies;
+    public Sprite[] feminine_clothes;
+    public Sprite[] feminine_heads;
+    public Sprite[] feminine_mouths;
+    public Sprite[] feminine_glasses;
+    public Sprite[] feminine_noses;
 
     public static InformationDatabase i;
 
@@ -102,9 +109,13 @@ public class InformationDatabase : MonoBehaviour
 
         //Apparence Generator
         int height = Random.Range(-30,90);
-        int bodyType = (gender < 50f) ? Random.Range(0,feminineBodies.Length) : Random.Range(0,masculineBodies.Length) ;
+        int headType = (gender < 50f) ? Random.Range(0, feminine_heads.Length) : Random.Range(0, masculineBodies.Length);
+        int clotheType = (gender < 50f) ? Random.Range(0, feminine_clothes.Length) : Random.Range(0, masculineBodies.Length);
+        int noseType = (gender < 50f) ? Random.Range(0, feminine_noses.Length) : Random.Range(0, masculineBodies.Length);
+        int mouthType = (gender < 50f) ? Random.Range(0, feminine_mouths.Length) : Random.Range(0, masculineBodies.Length);
+        int glassesType = (gender < 50f) ? Random.Range(0, feminine_glasses.Length) : Random.Range(0, masculineBodies.Length);
 
-        PersonData data = new PersonData(ownerName, genderN, vaga,v, cellphone, age.ToString("D2"), relr, civil, salary, exp[experience],bodyType,0,0,0,height);
+        PersonData data = new PersonData(ownerName, genderN, vaga,v, cellphone, age.ToString("D2"), relr, civil, salary, exp[experience],0,0,headType,mouthType,glassesType,noseType,clotheType,height);
         data.c.positiveTraits = new Trait[0];
         data.c.negativeTraits = new Trait[0];
         return data;
@@ -229,7 +240,7 @@ public class Trait
 
     [Range(-1f, 1f), Tooltip("Esse atributo aumenta ou diminui o tempo que aquela pessoa ficará na empresa")] public float stayFactor = 0f;
 
-    [Range(0f, 1f)] public float awayChance = 0f;
+    [Range(-1f, 1f)] public float awayChance = 0f;
     [Range(-5,5)] public int contributionTime = 0;
 
     [Header("Responses")]
@@ -244,7 +255,7 @@ public struct PersonData
     public CurriculumData c;
 
 
-    public PersonData(string name,string gender, string vaga, InformationDatabase.Vacancy v, string cellphone, string age, string relationship, string civil, string salary, string experience, int bodyType, int hairType, int faceType, int clothesType, int height)
+    public PersonData(string name,string gender, string vaga, InformationDatabase.Vacancy v, string cellphone, string age, string relationship, string civil, string salary, string experience, int bodyType, int hairType, int headType, int mouthType, int glassesType, int noseType, int clothesType, int height)
     {
         c = new CurriculumData();
 
@@ -262,7 +273,11 @@ public struct PersonData
 
         c.bodyType = bodyType;
         c.hairType = hairType;
-        c.faceType = faceType;
+        c.headType = headType;
+        c.glassesType = glassesType;
+        c.mouthType = mouthType;
+        c.noseType = noseType;
+        c.headType = headType;
         c.clothesType = clothesType;
     }
 

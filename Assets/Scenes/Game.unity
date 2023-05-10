@@ -3848,7 +3848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -50}
+  m_AnchoredPosition: {x: -0.00012207031, y: -50}
   m_SizeDelta: {x: 225, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &787853342
@@ -4156,8 +4156,13 @@ MonoBehaviour:
     height: 80
     bodyType: 0
     hairType: 0
-    faceType: 0
+    headType: 0
+    glassesType: 0
+    noseType: 0
+    mouthType: 0
     clothesType: 0
+    workStateLocked: 0
+    workState: 0
     daysWorked: 0
     totalDaysWorked: 0
     temporaryAwayChance: 0
@@ -6159,7 +6164,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventName: "FinalDoM\xEAs"
+  - eventName: "Evento Di\xE1rio"
     day: 0
     month: 0
     waitDays: 0
@@ -6168,7 +6173,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 338474468}
           m_TargetAssemblyTypeName: EventController, Assembly-CSharp
-          m_MethodName: CalcDaysWorked
+          m_MethodName: DailyPersonInCompanyEvents
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -7887,7 +7892,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 53.7, y: 0}
+  m_AnchoredPosition: {x: 53.69995, y: 0}
   m_SizeDelta: {x: 97.7934, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1618665379
@@ -9840,7 +9845,7 @@ MonoBehaviour:
     disastrous: 0
     responsability: 0.15
     stayFactor: 0
-    awayChance: 0
+    awayChance: -0.03
     contributionTime: 2
     traitDetail:
     - gosto muito de aprender coisas novas
@@ -9871,7 +9876,7 @@ MonoBehaviour:
     disastrous: 0
     responsability: 0.5
     stayFactor: 0.1
-    awayChance: 0
+    awayChance: -0.06
     contributionTime: 2
     traitDetail:
     - "s\xF3 saio da empresa quando termino meus afazeres"
@@ -9886,7 +9891,7 @@ MonoBehaviour:
     disastrous: 0
     responsability: 0
     stayFactor: 0.5
-    awayChance: 0
+    awayChance: -0.03
     contributionTime: 1
     traitDetail:
     - busco sempre o lado positivo das coisas
@@ -9931,7 +9936,7 @@ MonoBehaviour:
     disastrous: 0
     responsability: -0.15
     stayFactor: 0
-    awayChance: 0.05
+    awayChance: 0.025
     contributionTime: -2
     traitDetail:
     - "fa\xE7o somente o necess\xE1rio"
@@ -9976,7 +9981,7 @@ MonoBehaviour:
     disastrous: 0
     responsability: 0
     stayFactor: -0.5
-    awayChance: 0.1
+    awayChance: 0.02
     contributionTime: -1
     traitDetail:
     - as vezes me sinto rebaixado como um corsa
@@ -9991,7 +9996,7 @@ MonoBehaviour:
     disastrous: 0.5
     responsability: 0
     stayFactor: -0.05
-    awayChance: 0.1
+    awayChance: 0.01
     contributionTime: -2
     traitDetail:
     - costumo ser bem agitado
@@ -10006,7 +10011,7 @@ MonoBehaviour:
     disastrous: -0.02
     responsability: -0.18
     stayFactor: 0.05
-    awayChance: 0
+    awayChance: 0.02
     contributionTime: -1
     traitDetail:
     - me falta iniciativa
@@ -10016,6 +10021,37 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5881b690a2afeba41ae744fcb57b5a25, type: 3}
   feminineBodies:
   - {fileID: 21300000, guid: 4a6c97ed22d3b7e4889274315a400b4d, type: 3}
+  - {fileID: 739714469, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  - {fileID: 1030354214, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  - {fileID: 739714469, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  feminine_clothes:
+  - {fileID: 365508028, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  - {fileID: 147586759, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  - {fileID: 1030354214, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  - {fileID: 739714469, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  feminine_heads:
+  - {fileID: -1721351254, guid: dab32ba1e83983740b95fcb94665e252, type: 3}
+  - {fileID: 17722943, guid: dab32ba1e83983740b95fcb94665e252, type: 3}
+  - {fileID: 1197111101, guid: dab32ba1e83983740b95fcb94665e252, type: 3}
+  - {fileID: 995100718, guid: dab32ba1e83983740b95fcb94665e252, type: 3}
+  feminine_mouths:
+  - {fileID: -569379477, guid: cb561e913a7f66841972787002914650, type: 3}
+  - {fileID: 1449336501, guid: cb561e913a7f66841972787002914650, type: 3}
+  - {fileID: -151877885, guid: cb561e913a7f66841972787002914650, type: 3}
+  - {fileID: 1672156953, guid: cb561e913a7f66841972787002914650, type: 3}
+  - {fileID: -1166298625, guid: cb561e913a7f66841972787002914650, type: 3}
+  feminine_glasses:
+  - {fileID: 1854562818, guid: 4786db5f70e0de34e94e579cc602faa4, type: 3}
+  - {fileID: -1372852666, guid: 4786db5f70e0de34e94e579cc602faa4, type: 3}
+  - {fileID: -2011065615, guid: 4786db5f70e0de34e94e579cc602faa4, type: 3}
+  - {fileID: 1900876308, guid: 4786db5f70e0de34e94e579cc602faa4, type: 3}
+  - {fileID: 1189273001, guid: 4786db5f70e0de34e94e579cc602faa4, type: 3}
+  feminine_noses:
+  - {fileID: -1825175394, guid: b65ba64ca81843846aa5c3b516f8985a, type: 3}
+  - {fileID: 2004225777, guid: b65ba64ca81843846aa5c3b516f8985a, type: 3}
+  - {fileID: 450827751, guid: b65ba64ca81843846aa5c3b516f8985a, type: 3}
+  - {fileID: -1275932305, guid: b65ba64ca81843846aa5c3b516f8985a, type: 3}
+  - {fileID: -1139586014, guid: b65ba64ca81843846aa5c3b516f8985a, type: 3}
 --- !u!1 &1705766981
 GameObject:
   m_ObjectHideFlags: 0
@@ -10887,7 +10923,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1585067464}
   m_HandleRect: {fileID: 1585067463}
   m_Direction: 2
-  m_Value: 1.0000002
+  m_Value: 1
   m_Size: 0.52800506
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11510,11 +11546,16 @@ MonoBehaviour:
     height: -6
     bodyType: 0
     hairType: 0
-    faceType: 0
+    headType: 0
+    glassesType: 0
+    noseType: 0
+    mouthType: 0
     clothesType: 0
+    workStateLocked: 0
+    workState: 0
     daysWorked: 0
     totalDaysWorked: 0
-    temporaryAwayChance: 0
+    temporaryAwayChance: 0.02
   - personName: "Kaique da Costa\r"
     gender: Homem
     age: 45
@@ -11538,11 +11579,16 @@ MonoBehaviour:
     height: 5
     bodyType: 0
     hairType: 0
-    faceType: 0
+    headType: 0
+    glassesType: 0
+    noseType: 0
+    mouthType: 0
     clothesType: 0
+    workStateLocked: 0
+    workState: 0
     daysWorked: 0
     totalDaysWorked: 0
-    temporaryAwayChance: 0
+    temporaryAwayChance: 0.02
   - personName: "Cec\xEDlia Silva\r"
     gender: Mulher
     age: 41
@@ -11566,11 +11612,16 @@ MonoBehaviour:
     height: 88
     bodyType: 0
     hairType: 0
-    faceType: 0
-    clothesType: 0
+    headType: 2
+    glassesType: 1
+    noseType: 3
+    mouthType: 4
+    clothesType: 2
+    workStateLocked: 0
+    workState: 0
     daysWorked: 0
     totalDaysWorked: 0
-    temporaryAwayChance: 0
+    temporaryAwayChance: 0.02
   - personName: "Vicente Lima\r"
     gender: Homem
     age: 39
@@ -11594,11 +11645,16 @@ MonoBehaviour:
     height: -30
     bodyType: 0
     hairType: 0
-    faceType: 0
+    headType: 0
+    glassesType: 0
+    noseType: 0
+    mouthType: 0
     clothesType: 0
+    workStateLocked: 0
+    workState: 0
     daysWorked: 0
     totalDaysWorked: 0
-    temporaryAwayChance: 0
+    temporaryAwayChance: 0.02
   - personName: "Maria Alice Gon\xE7alves\r"
     gender: Mulher
     age: 33
@@ -11622,11 +11678,16 @@ MonoBehaviour:
     height: 3
     bodyType: 0
     hairType: 0
-    faceType: 0
+    headType: 0
+    glassesType: 0
+    noseType: 0
+    mouthType: 0
     clothesType: 0
+    workStateLocked: 0
+    workState: 0
     daysWorked: 0
     totalDaysWorked: 0
-    temporaryAwayChance: 0
+    temporaryAwayChance: 0.02
 --- !u!4 &1978981014
 Transform:
   m_ObjectHideFlags: 0
