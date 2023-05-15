@@ -19,6 +19,23 @@ public class TimeManager : MonoBehaviour
     public System.Action onTimeTick;
     public System.Action onMonthChangeTick;
 
+    [Header("InWorld Time")]
+    [SerializeField]private Transform astroTrans;
+
+    [SerializeField]private SpriteRenderer skyRender;
+    [SerializeField]private SpriteRenderer backMontainsRender;
+    [SerializeField]private SpriteRenderer frontMontainsRender;
+    [SerializeField]private Color daySkyColor;
+    [SerializeField]private Color nightSkyColor;
+    [SerializeField]private Color dayBackMontainsColor;
+    [SerializeField]private Color nightBackMontainsColor;
+    [SerializeField]private Color dayFrontMontainsColor;
+    [SerializeField]private Color nightFrontMontainsColor;
+
+    private Color curSkyColor;
+    private Color curBackMontainsColor;
+    private Color curFrontMontainsColor;
+
     public static TimeManager i;
 
     private void Awake() {
@@ -38,6 +55,10 @@ public class TimeManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.H)) dayTimer = 0f;
 
+        InWorldDraw();
+
+        
+
         EventHandler();
 
         if(dayTimer <= 0f)
@@ -56,6 +77,29 @@ public class TimeManager : MonoBehaviour
 
             dayTimer = dayDuration;
         }else dayTimer -= Time.deltaTime;
+    }
+
+    private void InWorldDraw()
+    {
+        float angle = dayTimer / dayDuration;
+
+        astroTrans.transform.eulerAngles = new Vector3(0f,0f,360f * angle);
+
+
+        if(angle > .5f)
+        {
+            curSkyColor = daySkyColor;
+            curBackMontainsColor = dayBackMontainsColor;
+            curFrontMontainsColor = dayFrontMontainsColor;
+        }else{
+            curSkyColor = nightSkyColor;
+            curBackMontainsColor = nightBackMontainsColor;
+            curFrontMontainsColor = nightFrontMontainsColor;
+        }
+
+        skyRender.color = Color.Lerp(skyRender.color, curSkyColor, 3f * Time.deltaTime);
+        backMontainsRender.color = Color.Lerp(backMontainsRender.color, curBackMontainsColor, 3f * Time.deltaTime);
+        frontMontainsRender.color = Color.Lerp(frontMontainsRender.color, curFrontMontainsColor, 3f * Time.deltaTime);
     }
 
 

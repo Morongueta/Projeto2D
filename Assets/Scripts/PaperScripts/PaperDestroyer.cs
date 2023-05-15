@@ -22,14 +22,9 @@ public class PaperDestroyer : MonoBehaviour
         {
             partCol = paperRender.sprite.texture.GetPixel(6,37);
         }
-
         
-
         ParticleSystem.MinMaxGradient color = new ParticleSystem.MinMaxGradient(partCol);
-
         partMain.startColor = color;
-
-        
         #endregion
 
         paperParticle.Play();
