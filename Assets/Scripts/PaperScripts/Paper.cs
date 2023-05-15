@@ -34,6 +34,7 @@ public class Paper : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer render;
     private Drawable draw = null;
+    private Draggable drag = null;
 
     [Header("Sprites")]
     [SerializeField]private Sprite baseSprite;
@@ -47,6 +48,7 @@ public class Paper : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         render = GetComponentInChildren<SpriteRenderer>();
         draw = GetComponent<Drawable>();
+        drag = GetComponent<Draggable>();
     }
 
     private void Start()
@@ -122,7 +124,7 @@ public class Paper : MonoBehaviour
 
         if(inBox)
         {
-            if(GetComponent<Draggable>().holding)
+            if(drag.holding)
             {
                 transform.localScale = miniScale;
 
@@ -150,7 +152,9 @@ public class Paper : MonoBehaviour
                 QueueManager.i.RemoveFromQueueCurriculum(cur.curriculumData);
             }
             
-            Destroy(this.gameObject);
+            FindObjectOfType<PaperDestroyer>().DestroyPaper(this.gameObject);
+
+            drag.active = false;
         }
 
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1f,Vector2.zero,1f, boxLayer);

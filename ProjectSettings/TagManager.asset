@@ -50,6 +50,9 @@ TagManager:
   - name: Desk
     uniqueID: 924220083
     locked: 0
+  - name: Effects
+    uniqueID: 414787247
+    locked: 0
   - name: CustomUI
     uniqueID: 2308214313
     locked: 0

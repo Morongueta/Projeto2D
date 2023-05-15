@@ -8,7 +8,7 @@ public class CoexistenceManager : MonoBehaviour
 {
     [Header("Drawer")]
     [SerializeField]private GameObject drawerObject;
-    [SerializeField]private Transform curriculumArea;
+    [SerializeField]private RectTransform curriculumArea;
     [SerializeField]private GameObject curriculumUIObject;
 
     private List<GameObject> curriculumUIList = new List<GameObject>();
@@ -70,6 +70,20 @@ public class CoexistenceManager : MonoBehaviour
 
             curriculumUIList.Add(cur);
         }
+
+
+        float curriculumAreaHeight = 25f;
+
+        int rowQtd = Mathf.CeilToInt((float)personInCompany.Count / 5f);
+        
+        for (int i = 0; i < rowQtd; i++)
+        {
+            curriculumAreaHeight += 225;
+        }
+
+        curriculumAreaHeight += 25;
+
+        curriculumArea.sizeDelta = new Vector2(0f,curriculumAreaHeight);
 
         drawerIsOpened = true;
         drawerObject.SetActive(true);
