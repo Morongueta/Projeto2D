@@ -27,13 +27,18 @@ public class InformationDatabase : MonoBehaviour
 
     public Sprite[] masculineBodies;
 
+    public Color[] skinColors;
+
     [Header("Feminine Parts")]
     public Sprite[] feminineBodies;
     public Sprite[] feminine_clothes;
+    public Sprite[] feminine_hairs;
     public Sprite[] feminine_heads;
     public Sprite[] feminine_mouths;
     public Sprite[] feminine_glasses;
     public Sprite[] feminine_noses;
+
+    
 
     public static InformationDatabase i;
 
@@ -114,8 +119,15 @@ public class InformationDatabase : MonoBehaviour
         int noseType = (gender < 50f) ? Random.Range(0, feminine_noses.Length) : Random.Range(0, masculineBodies.Length);
         int mouthType = (gender < 50f) ? Random.Range(0, feminine_mouths.Length) : Random.Range(0, masculineBodies.Length);
         int glassesType = (gender < 50f) ? Random.Range(0, feminine_glasses.Length) : Random.Range(0, masculineBodies.Length);
+        int hairType = (gender < 50f) ? Random.Range(0, feminine_hairs.Length) : Random.Range(0, masculineBodies.Length);
 
-        PersonData data = new PersonData(ownerName, genderN, vaga,v, cellphone, age.ToString("D2"), relr, civil, salary, exp[experience],0,0,headType,mouthType,glassesType,noseType,clotheType,height);
+        string skinHex = "#" + ColorUtility.ToHtmlStringRGB(skinColors[Random.Range(0, skinColors.Length)]);
+
+        string clothesHex = "#" + ColorUtility.ToHtmlStringRGB(new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f),1f));
+        string hairHex = "#" + ColorUtility.ToHtmlStringRGB(new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f),1f));
+
+        PersonData data = new PersonData(ownerName, genderN, vaga,v, cellphone, age.ToString("D2"), relr, civil, salary, exp[experience],0,hairType,headType,mouthType,glassesType,noseType,clotheType,height,skinHex,hairHex,clothesHex);
+
         data.c.positiveTraits = new Trait[0];
         data.c.negativeTraits = new Trait[0];
         return data;
@@ -255,7 +267,7 @@ public struct PersonData
     public CurriculumData c;
 
 
-    public PersonData(string name,string gender, string vaga, InformationDatabase.Vacancy v, string cellphone, string age, string relationship, string civil, string salary, string experience, int bodyType, int hairType, int headType, int mouthType, int glassesType, int noseType, int clothesType, int height)
+    public PersonData(string name,string gender, string vaga, InformationDatabase.Vacancy v, string cellphone, string age, string relationship, string civil, string salary, string experience, int bodyType, int hairType, int headType, int mouthType, int glassesType, int noseType, int clothesType, int height,string skinHex,string hairHex,string clothesHex)
     {
         c = new CurriculumData();
 
@@ -279,6 +291,10 @@ public struct PersonData
         c.noseType = noseType;
         c.headType = headType;
         c.clothesType = clothesType;
+
+        c.skinHex = skinHex;
+        c.hairHex = hairHex;
+        c.clothesHex = clothesHex;
     }
 
     public CurriculumData Convert()

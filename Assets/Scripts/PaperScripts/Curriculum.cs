@@ -97,11 +97,16 @@ public class Curriculum : MonoBehaviour
         curriculumData.height = Random.Range(50,90);
 
         curriculumData.headType = data.headType;
+        curriculumData.hairType = data.hairType;
         curriculumData.bodyType = data.bodyType;
         curriculumData.glassesType = data.glassesType;
         curriculumData.clothesType = data.clothesType;
         curriculumData.mouthType = data.mouthType;
         curriculumData.noseType = data.noseType;
+
+        curriculumData.skinHex = data.skinHex;
+        curriculumData.hairHex = data.hairHex;
+        curriculumData.clothesHex = data.clothesHex;
 
         if(GetComponent<CurriculumUI>() != null)
         {
@@ -189,6 +194,12 @@ public class CurriculumData
     public int mouthType;
     public int clothesType;
 
+    public string skinHex;
+    public string hairHex;
+    public string clothesHex;
+
+
+
 
     [Header("Temporary Variables")]
     public bool workStateLocked;
@@ -226,6 +237,10 @@ public class CurriculumData
         headType = c.curriculumData.headType;
         glassesType = c.curriculumData.glassesType;
         clothesType = c.curriculumData.clothesType;
+
+        skinHex = c.curriculumData.skinHex;
+        clothesHex = c.curriculumData.clothesHex;
+        hairHex = c.curriculumData.hairHex;
     }
     public void Store(PersonData data)
     {
@@ -251,6 +266,10 @@ public class CurriculumData
         headType = data.c.headType;
         glassesType = data.c.glassesType;
         clothesType = data.c.clothesType;
+
+        skinHex = data.c.skinHex;
+        clothesHex = data.c.clothesHex;
+        hairHex = data.c.hairHex;
 
         hasFamily = ((Random.value * 100) < 50f);
         if(hasFamily) sonsQtd = Random.Range(1,5);

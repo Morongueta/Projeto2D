@@ -30,6 +30,7 @@ public class PaperDestroyer : MonoBehaviour
         paperParticle.Play();
 
         paperObj.transform.position = startDestroyingPos + transform.position;
+        paperObj.GetComponent<Paper>().canGet = false;
         paperObj.LeanMove(endDestroyingPos + transform.position, 1f).setOnComplete(()=>{
             Destroy(paperObj);
         });
