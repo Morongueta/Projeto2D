@@ -358,8 +358,8 @@ public class CurriculumData
 
         for (int i = 0; i < traits.Length; i++)
         {
-            if(traits[i].agressiveness > 0f) stressIncrease += traits[i].agressiveness;
-            if(traits[i].agressiveness < 0f) stressDecrease -= traits[i].agressiveness;
+            if(traits[i].agressiveness > 0f) stressIncrease += traits[i].agressiveness / 10f;
+            if(traits[i].agressiveness < 0f) stressDecrease -= traits[i].agressiveness / 10f;
         }
 
 

@@ -4,6 +4,19 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+public enum DrawerState
+{
+    CHECK,
+    COPY
+}
+
+[System.Serializable]
+public struct DrawerButton
+{
+    public Button btn;
+    public DrawerState state;
+}
+
 public class CoexistenceManager : MonoBehaviour
 {
     [Header("Drawer")]
@@ -11,6 +24,9 @@ public class CoexistenceManager : MonoBehaviour
     [SerializeField]private RectTransform curriculumArea;
     [SerializeField]private GameObject curriculumUIObject;
     [SerializeField] private GameObject flagObj;
+    [SerializeField] private DrawerState drawerState;
+
+    [SerializeField] private DrawerButton[] drawerButtons;
 
     private List<GameObject> curriculumUIList = new List<GameObject>();
 
@@ -24,6 +40,22 @@ public class CoexistenceManager : MonoBehaviour
     private void Awake()
     {
         i = this;
+    }
+
+    private void Start()
+    {
+        ChangeDrawerState(0);
+    }
+
+    public void ChangeDrawerState(int v)
+    {
+        drawerState = (DrawerState)v;
+        UpdateDrawer();
+
+        for (int i = 0; i < drawerButtons.Length; i++)
+        {
+            drawerButtons[i].btn.interactable = (drawerButtons[i].state != drawerState);
+        }
     }
 
     public void UpdateDrawer()
@@ -46,9 +78,21 @@ public class CoexistenceManager : MonoBehaviour
 
             GameObject cur = Instantiate(curriculumUIObject, curriculumArea);
 
-            cur.transform.Find("NameText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].personName;
-            cur.transform.Find("JobText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].vaga;
-            cur.transform.Find("SalaryText").GetComponent<TextMeshProUGUI>().text = "R$" + personInCompany[i].salary;
+            switch (drawerState)
+            {
+                case DrawerState.CHECK:
+                    cur.transform.Find("NameText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].personName;
+                    cur.transform.Find("JobText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].vaga;
+                    cur.transform.Find("SalaryText").GetComponent<TextMeshProUGUI>().text = "Stress: " + personInCompany[i].stress * 100f;
+                break;
+
+                case DrawerState.COPY:
+                    cur.transform.Find("NameText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].personName;
+                    cur.transform.Find("JobText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].vaga;
+                    cur.transform.Find("SalaryText").GetComponent<TextMeshProUGUI>().text = "R$" + personInCompany[i].salary;
+                break;
+            }
+
 
             Transform flagT = cur.transform.Find("FlagArea").transform;
 
@@ -56,9 +100,6 @@ public class CoexistenceManager : MonoBehaviour
             {
                 Instantiate(flagObj, flagT);
             }
-
-
-
 
             string workState = "";
 
@@ -73,11 +114,11 @@ public class CoexistenceManager : MonoBehaviour
 
             cur.transform.Find("WorkingStateText").GetComponent<TextMeshProUGUI>().text = workState;
 
-
-            cur.GetComponent<Button>().onClick.AddListener(()=>{
-                GameObject paper = PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
-                paper.GetComponent<Paper>().SetCopy();
-            });
+            if(drawerState == DrawerState.COPY)
+                cur.GetComponent<Button>().onClick.AddListener(()=>{
+                    GameObject paper = PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
+                    paper.GetComponent<Paper>().SetCopy();
+                });
 
             curriculumUIList.Add(cur);
         }
