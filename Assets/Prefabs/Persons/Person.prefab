@@ -344,6 +344,9 @@ MonoBehaviour:
     daysWorked: 0
     totalDaysWorked: 0
     temporaryAwayChance: 0
+    redFlags: 0
+    stress: 0
+    fear: 0
 --- !u!114 &3393750491720221344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +545,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 637706451
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1458680647, guid: fe56c56b8d970cc4c8789798c2ac0d77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

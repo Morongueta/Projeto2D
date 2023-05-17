@@ -88,13 +88,16 @@ public class EventController : MonoBehaviour
 
             string personAName = personA.personName + "\n";
             string personBName = personB.personName + "\n";
-            QueueManager.i.AddQuestionPerson(personAName + " e " + personBName + " estão brigando feio", "Deixa lá", "Manda embora", ()=>{
+            QueueManager.i.AddQuestionPerson(personAName + " e " + personBName + " estão brigando feio", "Deixa quieto", "Advertir", ()=>{
                 AddTemporaryStats(.05f,0f,10f);
                 AddTemporaryStatsToData(personA, .15f, 30f);
                 AddTemporaryStatsToData(personB, .15f, 30f);
+
+                personA.ChangeStress(.05f);
+                personB.ChangeStress(.05f);
             },()=>{
-                CoexistenceManager.i.RemovePerson(personA);
-                CoexistenceManager.i.RemovePerson(personB);
+                personA.RedFlag();
+                personB.RedFlag();
             },personC.TempCur());
         });
 
@@ -110,10 +113,11 @@ public class EventController : MonoBehaviour
 
             string personAName = personA.personName + "\n";
             string personBName = personB.personName + "\n";
-            QueueManager.i.AddQuestionPerson(personAName + " foi pego roubando a comida " + ((personB.gender.ToLower()[0] == 'm') ? "da " : "do ") + personBName + " ta cheio de buchicho na empresa, o que fazer?", "Bronca", "Manda embora", ()=>{
+            QueueManager.i.AddQuestionPerson(personAName + " foi pego roubando a comida " + ((personB.gender.ToLower()[0] == 'm') ? "da " : "do ") + personBName + " ta cheio de buchicho na empresa, o que fazer?", "Bronca", "Advertir", ()=>{
                 AddTemporaryStats(.05f,0f,10f);
+                personB.ChangeStress(.05f);
             },()=>{
-                CoexistenceManager.i.RemovePerson(personA);
+                personA.RedFlag();
             },personC.TempCur());
             
         });
@@ -127,6 +131,20 @@ public class EventController : MonoBehaviour
             CurriculumData data = CoexistenceManager.i.GetRandomPerson(owner);
 
             QueueManager.i.AddQuestionPerson("O Computador "+ ((data.gender.ToLower()[0] == 'm') ? "da " : "do ") + data.personName + "\n parece quebrado", "Compra outro", "Deixa assim", ()=>{EarningSystem.i.ChangeMoney(-Random.Range(1500,3000),"Computador");}, ()=>{AddTemporaryStats(0f,0.05f,30f);},owner.TempCur());
+            UpdateValue();
+        });
+
+        AddEvent(breakEvents, () =>
+        {
+            if (CoexistenceManager.i.GetWorkingPersons().Length < 2) return;
+            CurriculumData owner = CoexistenceManager.i.GetRandomPerson();
+            CurriculumData data = CoexistenceManager.i.GetRandomPerson(owner);
+
+            int monthsAway = Random.Range(1, 2);
+
+            bool isWoman = (data.gender.ToLower()[0] == 'm');
+
+            QueueManager.i.AddReportPerson((isWoman ? "A " : "O ") + data.personName + "\n se machucou, " + (isWoman ? "ela " : "ele ") + "vai precisar ficar uns " + monthsAway + " fora", "Melhoras", () => { data.daysAway = monthsAway * 30; }, owner.TempCur());
             UpdateValue();
         });
 
@@ -225,7 +243,6 @@ public class EventController : MonoBehaviour
                     EarningSystem.i.ChangeMoney(moneyGained,"Freelance");
                 },null,"Freelance");
             });
-
             UpdateValue();
         });
 
@@ -242,6 +259,7 @@ public class EventController : MonoBehaviour
             CurriculumData person = CoexistenceManager.i.personInCompany[i];
             ChangeWorkState(person, chanceToAway);
             CalcDaysWorked(person);
+
         }
 
         CoexistenceManager.i.UpdateDrawer();
@@ -260,7 +278,8 @@ public class EventController : MonoBehaviour
     }
 
     private void CalcDaysWorked(CurriculumData person)
-    {   
+    {
+        person.PassADay();
         if (person.workState == WorkState.WORKING)
         {
             person.IncreaseDays(1);

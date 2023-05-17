@@ -10,6 +10,7 @@ public class CoexistenceManager : MonoBehaviour
     [SerializeField]private GameObject drawerObject;
     [SerializeField]private RectTransform curriculumArea;
     [SerializeField]private GameObject curriculumUIObject;
+    [SerializeField] private GameObject flagObj;
 
     private List<GameObject> curriculumUIList = new List<GameObject>();
 
@@ -48,6 +49,16 @@ public class CoexistenceManager : MonoBehaviour
             cur.transform.Find("NameText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].personName;
             cur.transform.Find("JobText").GetComponent<TextMeshProUGUI>().text = personInCompany[i].vaga;
             cur.transform.Find("SalaryText").GetComponent<TextMeshProUGUI>().text = "R$" + personInCompany[i].salary;
+
+            Transform flagT = cur.transform.Find("FlagArea").transform;
+
+            for (int j = 0;j < personInCompany[i].redFlags; j++)
+            {
+                Instantiate(flagObj, flagT);
+            }
+
+
+
 
             string workState = "";
 
@@ -214,15 +225,18 @@ public class CoexistenceManager : MonoBehaviour
     public CurriculumData GetRandomPerson(params CurriculumData[] persons)
     {
         List<CurriculumData> datas = new List<CurriculumData>();
+
+        CurriculumData[] personsWorking = GetWorkingPersons();
+
         datas.AddRange(persons);
         if(persons.Length == 0)
         {
-            return personInCompany[Random.Range(0, personInCompany.Count)];
+            return personsWorking[Random.Range(0, personsWorking.Length)];
         }else{
-            CurriculumData result = personInCompany[Random.Range(0, personInCompany.Count)];
+            CurriculumData result = personsWorking[Random.Range(0, personsWorking.Length)];
             while(ComparePersons(persons, result))
             {
-                result = personInCompany[Random.Range(0, personInCompany.Count)];
+                result = personsWorking[Random.Range(0, personsWorking.Length)];
             }
 
             return result;

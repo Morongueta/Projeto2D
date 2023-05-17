@@ -108,6 +108,12 @@ public class Curriculum : MonoBehaviour
         curriculumData.hairHex = data.hairHex;
         curriculumData.clothesHex = data.clothesHex;
 
+        curriculumData.stress = data.stress;
+        curriculumData.fear = data.fear;
+
+        curriculumData.daysWorked = data.daysWorked;
+
+
         if(GetComponent<CurriculumUI>() != null)
         {
             GetComponent<CurriculumUI>().Set(curriculumData);
@@ -207,7 +213,18 @@ public class CurriculumData
     public int daysWorked;
     public int totalDaysWorked;
 
+    public int daysAway;
+
     public float temporaryAwayChance;
+
+    public int redFlags;
+
+    //Mood
+
+    public float stress;
+    public float fear;
+
+
 
     public void Store(Curriculum c)
     {
@@ -227,6 +244,13 @@ public class CurriculumData
         hasFamily = c.curriculumData.hasFamily;
         sonsQtd = c.curriculumData.sonsQtd;
         contributionTime = c.curriculumData.contributionTime;
+
+        daysWorked = c.curriculumData.daysWorked;
+        totalDaysWorked = c.curriculumData.totalDaysWorked;
+        temporaryAwayChance = c.curriculumData.temporaryAwayChance;
+
+        stress = c.curriculumData.stress;
+        fear = c.curriculumData.fear;
 
         height = c.curriculumData.height;
 
@@ -258,6 +282,13 @@ public class CurriculumData
         salary = data.c.salary;
 
         height = data.c.height;
+
+        daysWorked = data.c.daysWorked;
+        totalDaysWorked = data.c.totalDaysWorked;
+        temporaryAwayChance = data.c.temporaryAwayChance;
+
+        stress = data.c.stress;
+        fear = data.c.fear;
 
         bodyType = data.c.bodyType;
         hairType = data.c.hairType;
@@ -303,6 +334,48 @@ public class CurriculumData
         daysWorked += days;
         totalDaysWorked += days;
     }
+
+    public void ChangeStress(float v)
+    {
+        stress += v;
+    }
+
+    public void RedFlag()
+    {
+        redFlags++;
+        if(redFlags >= 3)
+        {
+            CoexistenceManager.i.RemovePerson(this);
+        }
+    }
+
+    public void PassADay()
+    {
+        float stressIncrease = 0.025f;
+        float stressDecrease = 0.05f;
+
+        Trait[] traits = GetAllTraits();
+
+        for (int i = 0; i < traits.Length; i++)
+        {
+            if(traits[i].agressiveness > 0f) stressIncrease += traits[i].agressiveness;
+            if(traits[i].agressiveness < 0f) stressDecrease -= traits[i].agressiveness;
+        }
+
+
+        switch (workState)
+        {
+            case WorkState.AWAY:
+                stress -= stressDecrease;
+            break;
+            case WorkState.WORKING:
+                stress += stressIncrease;
+            break;
+        }
+
+        stress = Mathf.Clamp(stress, 0f, 1f);
+    }
+
     public float GetAwayChance()
     {
         float chance = 0f;
@@ -313,6 +386,15 @@ public class CurriculumData
             chance += traits[i].awayChance;
         }
         chance += temporaryAwayChance;
+
+        chance += (stress * 25f) / 100f;
+
+        if(daysAway > 0)
+        {
+            daysAway--;
+            chance = 100;
+        }
+
         return chance;
     }
 
