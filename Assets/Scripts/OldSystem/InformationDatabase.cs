@@ -29,8 +29,16 @@ public class InformationDatabase : MonoBehaviour
 
     public Color[] skinColors;
 
+    [Header("Masculine Parts")]
+    public Sprite[] masculine_clothes;
+    public Sprite[] masculine_hairs;
+    public Sprite[] masculine_facialHairs;
+    public Sprite masculine_head;
+    public Sprite masculine_mouth;
+    public Sprite[] masculine_glasses;
+    public Sprite[] masculine_noses;
+
     [Header("Feminine Parts")]
-    public Sprite[] feminineBodies;
     public Sprite[] feminine_clothes;
     public Sprite[] feminine_hairs;
     public Sprite[] feminine_heads;
@@ -114,12 +122,12 @@ public class InformationDatabase : MonoBehaviour
 
         //Apparence Generator
         int height = Random.Range(-30,90);
-        int headType = (gender < 50f) ? Random.Range(0, feminine_heads.Length) : Random.Range(0, masculineBodies.Length);
-        int clotheType = (gender < 50f) ? Random.Range(0, feminine_clothes.Length) : Random.Range(0, masculineBodies.Length);
-        int noseType = (gender < 50f) ? Random.Range(0, feminine_noses.Length) : Random.Range(0, masculineBodies.Length);
-        int mouthType = (gender < 50f) ? Random.Range(0, feminine_mouths.Length) : Random.Range(0, masculineBodies.Length);
-        int glassesType = (gender < 50f) ? Random.Range(0, feminine_glasses.Length) : Random.Range(0, masculineBodies.Length);
-        int hairType = (gender < 50f) ? Random.Range(0, feminine_hairs.Length) : Random.Range(0, masculineBodies.Length);
+        int headType = (gender < 50f) ? Random.Range(0, feminine_heads.Length) : 0;
+        int clotheType = (gender < 50f) ? Random.Range(0, feminine_clothes.Length) : Random.Range(0, masculine_clothes.Length);
+        int noseType = (gender < 50f) ? Random.Range(0, feminine_noses.Length) : Random.Range(0, masculine_noses.Length);
+        int mouthType = (gender < 50f) ? Random.Range(0, feminine_mouths.Length) : Random.Range(0, masculine_facialHairs.Length);
+        int glassesType = (gender < 50f) ? Random.Range(0, feminine_glasses.Length) : Random.Range(0, masculine_glasses.Length);
+        int hairType = (gender < 50f) ? Random.Range(0, feminine_hairs.Length) : Random.Range(0, masculine_hairs.Length);
 
         string skinHex = "#" + ColorUtility.ToHtmlStringRGB(skinColors[Random.Range(0, skinColors.Length)]);
 

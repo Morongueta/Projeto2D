@@ -195,7 +195,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.34375, y: 2.34375}
+    oldSize: {x: 1.6666666, y: 1}
     newSize: {x: 2.37, y: 3.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -245,7 +245,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 55a79a2858f47fc41acd848bf1941c8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de31cc0aa99a52b4890ef43976b01c5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9115,6 +9115,7 @@ MonoBehaviour:
     hasFamily: 1
     sonsQtd: 10000
     contributionTime: 10000
+    customSprite: {fileID: 21300000, guid: 5881b690a2afeba41ae744fcb57b5a25, type: 3}
     height: 80
     bodyType: 0
     hairType: 0
@@ -14038,47 +14039,47 @@ MonoBehaviour:
     id: 1
     min: 1000
     max: 2000
-    variance: 0.8
+    variance: 0.6
   - name: Programador(a)
     id: 2
     min: 1000
     max: 2000
-    variance: 0.8
+    variance: 0.6
   - name: Sonoplasta
     id: 3
     min: 1500
     max: 3500
-    variance: 0.65
+    variance: 0.45
   - name: Contador(a)
     id: 4
     min: 3000
     max: 5000
-    variance: 0.5
+    variance: 0.3
   - name: "Mercad\xF3logo(a)"
     id: 5
     min: 2000
     max: 3000
-    variance: 0.7
+    variance: 0.5
   - name: Faxineiro(a)
     id: 6
     min: 1000
     max: 3000
-    variance: 0.65
+    variance: 0.45
   - name: Modelador(a)
     id: 7
     min: 4000
     max: 5999
-    variance: 0.5
+    variance: 0.3
   - name: Roteirista
     id: 8
     min: 2000
     max: 4000
-    variance: 0.6
+    variance: 0.4
   - name: Gerente
     id: 9
     min: 5000
     max: 10000
-    variance: 0.4
+    variance: 0.2
   masculineNames:
   - "Luigi Azevedo\r"
   - "Gustavo Ferreira\r"
@@ -14587,7 +14588,9 @@ MonoBehaviour:
   - "Mauricio Mazzer\r"
   - "Gabriel Monteiro\r"
   - "Ramon Lacerda\r"
-  - Mar
+  - "Mar\r"
+  - "Luiz Garcia\r"
+  - Paulo Kogos
   feminineNames:
   - "Rebeca Santos\r"
   - "Gabriela Mendes\r"
@@ -15291,11 +15294,33 @@ MonoBehaviour:
   - {r: 0.5377358, g: 0.29775044, b: 0.1187077, a: 1}
   - {r: 0.38679248, g: 0.22744435, b: 0.10728017, a: 1}
   - {r: 0.254717, g: 0.118763044, b: 0.063438945, a: 1}
-  feminineBodies:
-  - {fileID: 21300000, guid: 4a6c97ed22d3b7e4889274315a400b4d, type: 3}
-  - {fileID: 739714469, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
-  - {fileID: 1030354214, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
-  - {fileID: 739714469, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
+  masculine_clothes:
+  - {fileID: -1797874914, guid: a21035bc5ed22364d8cc04a62b8f6bb8, type: 3}
+  - {fileID: 803283255, guid: a21035bc5ed22364d8cc04a62b8f6bb8, type: 3}
+  - {fileID: -335085229, guid: a21035bc5ed22364d8cc04a62b8f6bb8, type: 3}
+  - {fileID: -1064415022, guid: a21035bc5ed22364d8cc04a62b8f6bb8, type: 3}
+  masculine_hairs:
+  - {fileID: -292047689, guid: e87b83f94ce28ef408be4e16fcaf5fb8, type: 3}
+  - {fileID: 217450725, guid: e87b83f94ce28ef408be4e16fcaf5fb8, type: 3}
+  - {fileID: -1202562269, guid: e87b83f94ce28ef408be4e16fcaf5fb8, type: 3}
+  - {fileID: 625747185, guid: e87b83f94ce28ef408be4e16fcaf5fb8, type: 3}
+  masculine_facialHairs:
+  - {fileID: 697738339, guid: 24e2e9b2391a9a24cbfb328f14ef5b5d, type: 3}
+  - {fileID: -1972963866, guid: 24e2e9b2391a9a24cbfb328f14ef5b5d, type: 3}
+  - {fileID: 120604016, guid: 24e2e9b2391a9a24cbfb328f14ef5b5d, type: 3}
+  - {fileID: 0}
+  masculine_head: {fileID: 21300000, guid: a14c1c2a8241d0648a0a66baf5315215, type: 3}
+  masculine_mouth: {fileID: 21300000, guid: ab312606a2948524bb24e0bf8698151c, type: 3}
+  masculine_glasses:
+  - {fileID: 379444939, guid: 7a78446b701788e4d84406ef53577d89, type: 3}
+  - {fileID: -1451695280, guid: 7a78446b701788e4d84406ef53577d89, type: 3}
+  - {fileID: 952355005, guid: 7a78446b701788e4d84406ef53577d89, type: 3}
+  - {fileID: -1199471577, guid: 7a78446b701788e4d84406ef53577d89, type: 3}
+  masculine_noses:
+  - {fileID: 1817959191, guid: 6d1cc3823b586244ca87f9d4a47c4244, type: 3}
+  - {fileID: -902003498, guid: 6d1cc3823b586244ca87f9d4a47c4244, type: 3}
+  - {fileID: -1277311119, guid: 6d1cc3823b586244ca87f9d4a47c4244, type: 3}
+  - {fileID: 1157838404, guid: 6d1cc3823b586244ca87f9d4a47c4244, type: 3}
   feminine_clothes:
   - {fileID: 365508028, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
   - {fileID: 147586759, guid: b379e0aa8c731d24792baa5da8d7ae2d, type: 3}
@@ -17217,170 +17242,92 @@ MonoBehaviour:
   - btn: {fileID: 1839008281}
     state: 1
   personInCompany:
-  - personName: "Luiz Gustavo Moura\r"
-    gender: Homem
-    age: 58
-    cell: (26)4361447
-    civil: Casado
-    vaga: Roteirista
-    vacancy:
-      name: Roteirista
-      id: 8
-      min: 2000
-      max: 4000
-      variance: 0.6
-    exp: Baixo
-    salary: 2400
-    relationship: 
-    positiveTraits: []
-    negativeTraits: []
-    hasFamily: 0
-    sonsQtd: 0
-    contributionTime: 0
-    height: -6
-    bodyType: 0
-    hairType: 0
-    headType: 0
-    glassesType: 0
-    noseType: 0
-    mouthType: 0
-    clothesType: 0
-    skinHex: 
-    hairHex: 
-    clothesHex: 
-    workStateLocked: 0
-    workState: 0
-    daysWorked: 0
-    totalDaysWorked: 0
-    daysAway: 0
-    temporaryAwayChance: 0.02
-    redFlags: 0
-    stress: 0
-    fear: 0
-  - personName: "Kaique da Costa\r"
-    gender: Homem
-    age: 45
-    cell: (98)1498185
-    civil: Casado
-    vaga: Faxineiro
-    vacancy:
-      name: Faxineiro(a)
-      id: 6
-      min: 1000
-      max: 3000
-      variance: 0.65
-    exp: Baixo
-    salary: 1600
-    relationship: 
-    positiveTraits: []
-    negativeTraits: []
-    hasFamily: 0
-    sonsQtd: 0
-    contributionTime: 0
-    height: 5
-    bodyType: 0
-    hairType: 0
-    headType: 0
-    glassesType: 0
-    noseType: 0
-    mouthType: 0
-    clothesType: 0
-    skinHex: 
-    hairHex: 
-    clothesHex: 
-    workStateLocked: 0
-    workState: 0
-    daysWorked: 0
-    totalDaysWorked: 0
-    daysAway: 0
-    temporaryAwayChance: 0.02
-    redFlags: 0
-    stress: 0
-    fear: 0
-  - personName: "Cec\xEDlia Silva\r"
-    gender: Mulher
-    age: 41
-    cell: (93)8128284
-    civil: Viuva
-    vaga: Designer
-    vacancy:
-      name: Designer
-      id: 1
-      min: 1000
-      max: 2000
-      variance: 0.8
-    exp: "Avan\xE7ado"
-    salary: 2400
-    relationship: 
-    positiveTraits: []
-    negativeTraits: []
-    hasFamily: 0
-    sonsQtd: 0
-    contributionTime: 0
-    height: 88
-    bodyType: 0
-    hairType: 1
-    headType: 2
-    glassesType: 1
-    noseType: 3
-    mouthType: 4
-    clothesType: 2
-    skinHex: 
-    hairHex: 
-    clothesHex: 
-    workStateLocked: 0
-    workState: 0
-    daysWorked: 0
-    totalDaysWorked: 0
-    daysAway: 0
-    temporaryAwayChance: 0.02
-    redFlags: 0
-    stress: 0
-    fear: 0
-  - personName: "Vicente Lima\r"
+  - personName: "Ben\xEDcio das Neves\r"
     gender: Homem
     age: 39
-    cell: (44)7262229
-    civil: Divorciado
-    vaga: Roteirista
+    cell: (82)0894752
+    civil: Viuvo
+    vaga: Gerente
     vacancy:
-      name: Roteirista
-      id: 8
-      min: 2000
-      max: 4000
-      variance: 0.6
+      name: Gerente
+      id: 9
+      min: 5000
+      max: 10000
+      variance: 0.5
     exp: "Avan\xE7ado"
-    salary: 3800
+    salary: 8800
     relationship: 
     positiveTraits: []
     negativeTraits: []
     hasFamily: 0
     sonsQtd: 0
     contributionTime: 0
-    height: -30
+    customSprite: {fileID: 0}
+    height: 16
     bodyType: 0
-    hairType: 0
+    hairType: 1
     headType: 0
-    glassesType: 0
+    glassesType: 1
     noseType: 0
-    mouthType: 0
+    mouthType: 3
     clothesType: 0
-    skinHex: 
-    hairHex: 
-    clothesHex: 
+    skinHex: '#B7793D'
+    hairHex: '#802B11'
+    clothesHex: '#C8FCC7'
     workStateLocked: 0
-    workState: 0
+    workState: 1
     daysWorked: 0
     totalDaysWorked: 0
     daysAway: 0
-    temporaryAwayChance: 0.02
+    temporaryAwayChance: 0
     redFlags: 0
     stress: 0
     fear: 0
-  - personName: "Maria Alice Gon\xE7alves\r"
+  - personName: "Joana Porto\r"
     gender: Mulher
-    age: 33
-    cell: (60)1051281
+    age: 47
+    cell: (75)7575547
+    civil: Divorciada
+    vaga: Modeladora
+    vacancy:
+      name: Modelador(a)
+      id: 7
+      min: 4000
+      max: 5999
+      variance: 0.6
+    exp: "Avan\xE7ado"
+    salary: 6400
+    relationship: 
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 0
+    sonsQtd: 0
+    contributionTime: 0
+    customSprite: {fileID: 0}
+    height: -2
+    bodyType: 0
+    hairType: 0
+    headType: 3
+    glassesType: 4
+    noseType: 4
+    mouthType: 3
+    clothesType: 0
+    skinHex: '#633A1B'
+    hairHex: '#0AAFA8'
+    clothesHex: '#D35A90'
+    workStateLocked: 0
+    workState: 1
+    daysWorked: 0
+    totalDaysWorked: 0
+    daysAway: 0
+    temporaryAwayChance: 0
+    redFlags: 0
+    stress: 0
+    fear: 0
+  - personName: "Giovanna Mendes\r"
+    gender: Mulher
+    age: 43
+    cell: (97)9497806
     civil: Divorciada
     vaga: Sonoplasta
     vacancy:
@@ -17388,32 +17335,115 @@ MonoBehaviour:
       id: 3
       min: 1500
       max: 3500
-      variance: 0.65
-    exp: Moderado
-    salary: 2300
+      variance: 0.55
+    exp: Baixo
+    salary: 2100
     relationship: 
     positiveTraits: []
     negativeTraits: []
     hasFamily: 0
     sonsQtd: 0
     contributionTime: 0
-    height: 3
+    customSprite: {fileID: 0}
+    height: -11
     bodyType: 0
-    hairType: 0
-    headType: 0
-    glassesType: 0
-    noseType: 0
-    mouthType: 0
+    hairType: 1
+    headType: 2
+    glassesType: 3
+    noseType: 3
+    mouthType: 2
     clothesType: 0
-    skinHex: 
-    hairHex: 
-    clothesHex: 
+    skinHex: '#ECE0A8'
+    hairHex: '#B1C431'
+    clothesHex: '#B87041'
     workStateLocked: 0
-    workState: 0
+    workState: 1
     daysWorked: 0
     totalDaysWorked: 0
     daysAway: 0
-    temporaryAwayChance: 0.02
+    temporaryAwayChance: 0
+    redFlags: 0
+    stress: 0
+    fear: 0
+  - personName: "Maria Fernanda Souza\r"
+    gender: Mulher
+    age: 59
+    cell: (29)9721773
+    civil: Divorciada
+    vaga: Faxineira
+    vacancy:
+      name: Faxineiro(a)
+      id: 6
+      min: 1000
+      max: 3000
+      variance: 0.75
+    exp: "Avan\xE7ado"
+    salary: 3700
+    relationship: 
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 0
+    sonsQtd: 0
+    contributionTime: 0
+    customSprite: {fileID: 0}
+    height: 64
+    bodyType: 0
+    hairType: 3
+    headType: 0
+    glassesType: 1
+    noseType: 1
+    mouthType: 0
+    clothesType: 2
+    skinHex: '#633A1B'
+    hairHex: '#B10AB1'
+    clothesHex: '#250E37'
+    workStateLocked: 0
+    workState: 1
+    daysWorked: 0
+    totalDaysWorked: 0
+    daysAway: 0
+    temporaryAwayChance: 0
+    redFlags: 0
+    stress: 0
+    fear: 0
+  - personName: "B\xE1rbara Pinto\r"
+    gender: Mulher
+    age: 33
+    cell: (93)1322864
+    civil: Divorciada
+    vaga: "Mercad\xF3loga"
+    vacancy:
+      name: "Mercad\xF3logo(a)"
+      id: 5
+      min: 2000
+      max: 3000
+      variance: 0.7
+    exp: Moderado
+    salary: 3400
+    relationship: 
+    positiveTraits: []
+    negativeTraits: []
+    hasFamily: 0
+    sonsQtd: 0
+    contributionTime: 0
+    customSprite: {fileID: 0}
+    height: 83
+    bodyType: 0
+    hairType: 3
+    headType: 3
+    glassesType: 2
+    noseType: 3
+    mouthType: 0
+    clothesType: 3
+    skinHex: '#FAE5C0'
+    hairHex: '#CE0D18'
+    clothesHex: '#17F0A5'
+    workStateLocked: 0
+    workState: 1
+    daysWorked: 0
+    totalDaysWorked: 0
+    daysAway: 0
+    temporaryAwayChance: 0
     redFlags: 0
     stress: 0
     fear: 0

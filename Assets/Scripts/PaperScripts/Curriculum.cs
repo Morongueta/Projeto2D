@@ -190,6 +190,7 @@ public class CurriculumData
     public int contributionTime;
 
     [Header("Appearence")]
+    public Sprite customSprite;
 
     public float height;
     public int bodyType;
@@ -254,6 +255,8 @@ public class CurriculumData
 
         height = c.curriculumData.height;
 
+        customSprite = c.curriculumData.customSprite;
+
         bodyType    = c.curriculumData.bodyType;
         hairType    = c.curriculumData.hairType;
         noseType    = c.curriculumData.noseType;
@@ -289,6 +292,8 @@ public class CurriculumData
 
         stress = data.c.stress;
         fear = data.c.fear;
+
+        customSprite = data.c.customSprite;
 
         bodyType = data.c.bodyType;
         hairType = data.c.hairType;
