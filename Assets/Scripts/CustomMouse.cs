@@ -66,7 +66,6 @@ public class CustomMouse : MonoBehaviour
 
     private void Update()
     {
-        
 
         mousePosition = Input.mousePosition;
 
