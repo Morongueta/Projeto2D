@@ -89,6 +89,11 @@ public class TutorialPerson : Person
         }
     }
 
+    public void BlinkTutorial()
+    {
+        TutorialManager.i.BlinkTutorial();
+    }
+
 
 
     public void GiveEmptyPaper()

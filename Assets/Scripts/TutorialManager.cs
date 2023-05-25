@@ -7,6 +7,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]private GameObject tutorialStepOne;
     [SerializeField]private GameObject tutorialStepTwo;
 
+    [SerializeField]private SpriteRenderer[] blinkSprites;
+
     [SerializeField]private Curriculum bossCurriculum;
 
     [SerializeField]private bool alwaysRunTutorial;
@@ -26,6 +28,38 @@ public class TutorialManager : MonoBehaviour
     {
         if(alwaysRunTutorial || PlayerPrefs.GetInt(TUTORIAL_KEY, 0) == 0)
             SpawnOne();
+    }
+
+    public void BlinkTutorial()
+    {
+        CameraManager.i.BlinkArrow();
+        BlinkObjects();
+    }
+
+    public void BlinkObjects()
+    {
+        StartCoroutine(EBlink());
+    }
+
+    public IEnumerator EBlink()
+    {
+        float blinkTime = 60f;
+        while(blinkTime > 0f)
+        {
+            blinkTime -= Time.deltaTime * 4f;
+
+            for (int i = 0; i < blinkSprites.Length; i++)
+            {
+                blinkSprites[i].enabled = ((int)blinkTime % 2 == 0);
+
+            }
+            yield return null;
+        }
+
+        for (int i = 0; i < blinkSprites.Length; i++)
+        {
+            blinkSprites[i].enabled = true;
+        }
     }
 
     public void SpawnOne() {

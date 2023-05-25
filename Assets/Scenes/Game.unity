@@ -9036,6 +9036,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialStepOne: {fileID: 8753131622139827443, guid: 04159cb21528a724ea00e6c4ea2953d3, type: 3}
   tutorialStepTwo: {fileID: 4144943976730486510, guid: dd03e69383d68b34082471cc7d98f52a, type: 3}
+  blinkSprites:
+  - {fileID: 951132463}
+  - {fileID: 1331459762}
+  - {fileID: 1633347244}
+  - {fileID: 1184563879}
+  - {fileID: 1737985599}
+  - {fileID: 1586839626}
+  - {fileID: 1790305785}
   bossCurriculum: {fileID: 905941812}
   alwaysRunTutorial: 1
 --- !u!114 &905941812

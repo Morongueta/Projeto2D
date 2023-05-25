@@ -74,6 +74,31 @@ public class CameraManager : MonoBehaviour
         cam.transform.position = clampPos;
     }
 
+    public void BlinkArrow()
+    {
+        StartCoroutine(EBlinkArrow());
+    }
+
+    public IEnumerator EBlinkArrow()
+    {
+        float blinkTime = 60f;
+        SpriteRenderer UpRenderer = upArrow.GetComponent<SpriteRenderer>();
+        SpriteRenderer DownRenderer = downArrow.GetComponent<SpriteRenderer>();
+        while (blinkTime > 0f)
+        {
+            blinkTime -= Time.deltaTime * 2f;
+            
+            UpRenderer.enabled = ((int)blinkTime % 2 == 0);
+            DownRenderer.enabled = ((int)blinkTime % 2 == 0);
+            
+
+            yield return null;
+        }
+
+        UpRenderer.enabled = true;
+        DownRenderer.enabled = true;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
