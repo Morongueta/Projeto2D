@@ -81,7 +81,7 @@ public class CameraManager : MonoBehaviour
 
     public IEnumerator EBlinkArrow()
     {
-        float blinkTime = 60f;
+        float blinkTime = 20f;
         SpriteRenderer UpRenderer = upArrow.GetComponent<SpriteRenderer>();
         SpriteRenderer DownRenderer = downArrow.GetComponent<SpriteRenderer>();
         while (blinkTime > 0f)

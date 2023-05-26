@@ -42,23 +42,23 @@ public class ResultManager : MonoBehaviour
             return;
         }
         
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            resultText.text = "Prosperou!";
-            gameFinished = true;
-        }
-        if(Input.GetKeyDown(KeyCode.V))
-        {
-            resultText.text = "Faliu!";
-            gameFinished = true;
-        }
+        // if(Input.GetKeyDown(KeyCode.B))
+        // {
+        //     resultText.text = "Prosperou!";
+        //     gameFinished = true;
+        // }
+        // if(Input.GetKeyDown(KeyCode.V))
+        // {
+        //     resultText.text = "Faliu!";
+        //     gameFinished = true;
+        // }
 
         
     }
 
     public void MonthTick()
     {
-        if (money.GetMoney() >= 100000)
+        if (money.GetMoney() >= 50000)
         {
             //Win
             resultText.text = "Prosperou!";

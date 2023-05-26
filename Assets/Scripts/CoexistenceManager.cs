@@ -20,6 +20,7 @@ public struct DrawerButton
 public class CoexistenceManager : MonoBehaviour
 {
     [Header("Drawer")]
+    [SerializeField]private AudioClip drawerClip;
     [SerializeField]private GameObject drawerObject;
     [SerializeField]private RectTransform curriculumArea;
     [SerializeField]private GameObject curriculumUIObject;
@@ -65,6 +66,7 @@ public class CoexistenceManager : MonoBehaviour
 
     public void OpenDrawer()
     {
+        SoundManager.Instance.PlaySound(drawerClip, 0.05f);
         for (int i = 0; i < curriculumUIList.Count; i++)
         {
             Destroy(curriculumUIList[i]);

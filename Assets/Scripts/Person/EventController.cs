@@ -140,11 +140,11 @@ public class EventController : MonoBehaviour
             CurriculumData owner = CoexistenceManager.i.GetRandomPerson();
             CurriculumData data = CoexistenceManager.i.GetRandomPerson(owner);
 
-            int monthsAway = Random.Range(1, 2);
+            int daysAway = Random.Range(1, 7);
 
             bool isWoman = (data.gender.ToLower()[0] == 'm');
 
-            QueueManager.i.AddReportPerson((isWoman ? "A " : "O ") + data.personName + "\n se machucou, " + (isWoman ? "ela " : "ele ") + "vai precisar ficar uns " + monthsAway + " fora", "Melhoras", () => { data.daysAway = monthsAway * 30; }, owner.TempCur());
+            QueueManager.i.AddReportPerson((isWoman ? "A " : "O ") + data.personName + "\n se machucou, " + (isWoman ? "ela " : "ele ") + "vai precisar ficar " + ((daysAway == 1) ? "um " : "uns ") + daysAway + ((daysAway == 1) ? " dia" : " dias") + " fora", "Melhoras", () => { data.daysAway = daysAway; }, owner.TempCur());
             UpdateValue();
         });
 
@@ -223,20 +223,12 @@ public class EventController : MonoBehaviour
             }
 
             PaperManager.i.AddContractPaper(contractText, ()=>{
-                for (int i = 0; i < datas.Count; i++)
-                {
-                    datas[i].workStateLocked = true;
-                    datas[i].workState = WorkState.AWAY;
-                    //CoexistenceManager.i.RemovePerson(datas[i]);
-                }
 
                 PeriodTimer.Timer(100, ()=>{
                     int moneyGained = 0;
                     for (int i = 0; i < datas.Count; i++)
                     {
                         int index = i;
-                        datas[index].workStateLocked = false;
-                        datas[i].workState = WorkState.WORKING;
                         moneyGained += Random.Range(1000, 5000);
                     }
 

@@ -66,7 +66,7 @@ public class Contract : MonoBehaviour
         }else if(state != ContractState.NONE)
         {
 		        Debug.Log("Got Input");
-            if(Input.GetButton("VERDE0") == false && Input.GetKey(KeyCode.Mouse0) == false)
+            if(CustomInput.GetKey(KeyCode.Mouse0, "VERDE0") == false)
             {
 		        Debug.Log("Sent Input");
                 GetComponent<Draggable>().active = false;

@@ -88,6 +88,8 @@ public class HiringManager : MonoBehaviour
 
     public void StartHiring()
     {
+        TimeManager.i.timeIsRunning = false;
+        EventController.i.eventIsOn = false;
         selectPos = Vector2.zero;
         interviewPos = Vector2.zero;
 
@@ -259,6 +261,8 @@ public class HiringManager : MonoBehaviour
 
     public void FinishInterview()
     {
+        TimeManager.i.timeIsRunning = true;
+        EventController.i.eventIsOn = true;
         QueueManager.i.RemoveFromQueueInterview();
         HideBox(confirmBox);
         LeanTween.cancel(contractButton.gameObject);

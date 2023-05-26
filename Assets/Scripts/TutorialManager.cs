@@ -43,7 +43,7 @@ public class TutorialManager : MonoBehaviour
 
     public IEnumerator EBlink()
     {
-        float blinkTime = 60f;
+        float blinkTime = 20f;
         while(blinkTime > 0f)
         {
             blinkTime -= Time.deltaTime * 4f;

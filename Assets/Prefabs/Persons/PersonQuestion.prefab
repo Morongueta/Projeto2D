@@ -952,6 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124511474add7134a877a570ea4f1720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepSound: {fileID: 8300000, guid: 066381c0569c9d34caaa69d880e0afce, type: 3}
   inFrontUnityEvent:
     m_PersistentCalls:
       m_Calls: []

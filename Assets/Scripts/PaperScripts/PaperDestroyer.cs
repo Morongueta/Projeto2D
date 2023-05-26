@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PaperDestroyer : MonoBehaviour
 {
+    [SerializeField]private AudioClip shredderSound;
     [SerializeField]private ParticleSystem paperParticle;
 
     [SerializeField]private Vector3 startDestroyingPos;
@@ -31,8 +32,11 @@ public class PaperDestroyer : MonoBehaviour
 
         paperObj.transform.position = startDestroyingPos + transform.position;
         paperObj.GetComponent<Paper>().canGet = false;
+
+        GameObject sfx = SoundManager.Instance.PlaySound(shredderSound, .15f, false);
         paperObj.LeanMove(endDestroyingPos + transform.position, 1f).setOnComplete(()=>{
             Destroy(paperObj);
+            Destroy(sfx);
         });
     }
 

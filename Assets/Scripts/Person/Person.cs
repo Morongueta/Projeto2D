@@ -12,6 +12,8 @@ public enum Personality
 
 public class Person : MonoBehaviour
 {
+    [SerializeField]private AudioClip stepSound;
+    private float stepTimer = 0f;
     public Action inFrontEvent;
     public Action goingAwayEvent;
 
@@ -47,6 +49,8 @@ public class Person : MonoBehaviour
         height = transform.position.y;
         walkTimer = UnityEngine.Random.Range(0f, 10f);
         SetupEvent();
+
+        stepTimer = UnityEngine.Random.Range(0f,.15f);
     }
 
     private void Update()
@@ -56,7 +60,14 @@ public class Person : MonoBehaviour
         if(walking)
         {
             walkTimer += Time.deltaTime;
-            transform.position = new Vector2(transform.position.x, height + Mathf.Sin(walkTimer * 20f) / 4f);
+            transform.position = new Vector2(transform.position.x, height + Mathf.Sin(walkTimer * 20f) / 4f);   
+
+            if(stepTimer <= 0f)
+            {
+                SoundManager.Instance.PlaySound(stepSound, 0.15f, true, -1f,1.5f);
+                stepTimer = UnityEngine.Random.Range(0f,.15f);
+            }
+            stepTimer -= Time.deltaTime;
         }
         else
         {
