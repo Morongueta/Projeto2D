@@ -58,7 +58,7 @@ public class ResultManager : MonoBehaviour
 
     public void MonthTick()
     {
-        if (money.GetMoney() >= 50000)
+        if (money.GetMoney() >= 30000)
         {
             //Win
             resultText.text = "Prosperou!";

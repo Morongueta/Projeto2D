@@ -105,6 +105,23 @@ public class CoexistenceManager : MonoBehaviour
 
             string workState = "";
 
+            if(drawerState == DrawerState.COPY)
+            {
+                cur.GetComponent<Button>().onClick.AddListener(()=>{
+                    GameObject paper = PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
+                    paper.GetComponent<Paper>().SetCopy();
+                });
+            }else{
+                CurriculumData d = personInCompany[i];
+                cur.GetComponent<Button>().onClick.AddListener(()=>{
+                    d.daysAway++;
+                    d.workState = WorkState.AWAY;
+
+                    UpdateDrawer();
+                });
+            }
+
+
             switch (personInCompany[i].workState)
             {
                 case WorkState.AWAY:
@@ -114,13 +131,14 @@ public class CoexistenceManager : MonoBehaviour
                     break;
             }
 
+            if(personInCompany[i].daysAway > 0)
+            {
+                workState = "Dias fora: " + personInCompany[i].daysAway;
+            }
+
             cur.transform.Find("WorkingStateText").GetComponent<TextMeshProUGUI>().text = workState;
 
-            if(drawerState == DrawerState.COPY)
-                cur.GetComponent<Button>().onClick.AddListener(()=>{
-                    GameObject paper = PaperManager.i.AddPersonPaper(personInCompany[storedIndex]);
-                    paper.GetComponent<Paper>().SetCopy();
-                });
+            
 
             curriculumUIList.Add(cur);
         }
