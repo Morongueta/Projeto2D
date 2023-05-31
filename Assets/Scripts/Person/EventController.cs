@@ -328,10 +328,10 @@ public class EventController : MonoBehaviour
 
         for (int i = 0; i < data.Length; i++)
         {
-            float variance = data[i].vacancy.variance;
+            float variance = Random.Range(.7f, data[i].vacancy.variance + 1f);
 
             int salary = (int.Parse(data[i].salary.Replace("R$", "").Replace(" ", "")));
-            int salaryPerDay = Mathf.RoundToInt((salary / 30f) * Random.Range(1f - variance, 1f + variance));
+            int salaryPerDay = Mathf.RoundToInt((salary / 30)) ;
 
             int days = 0;
             int finalValue = 0;
@@ -341,8 +341,8 @@ public class EventController : MonoBehaviour
                 days++;
             }
             CoexistenceManager.i.personInCompany[i].daysWorked = 0;
-            earnBrute += Mathf.RoundToInt(finalValue);
-        }
+            earnBrute += Mathf.RoundToInt(finalValue * variance);
+    }
 
 
         EarningSystem.i.ChangeMoney(-payment, "Pagamentos");

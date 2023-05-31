@@ -343,6 +343,7 @@ public class CurriculumData
     public void ChangeStress(float v)
     {
         stress += v;
+        stress = Mathf.Clamp(stress, 0f, 1f);
     }
 
     public void RedFlag()
@@ -357,14 +358,14 @@ public class CurriculumData
     public void PassADay()
     {
         float stressIncrease = 0.025f;
-        float stressDecrease = 0.05f;
+        float stressDecrease = 0.40f;
 
         Trait[] traits = GetAllTraits();
 
         for (int i = 0; i < traits.Length; i++)
         {
             if(traits[i].agressiveness > 0f) stressIncrease += traits[i].agressiveness / 10f;
-            if(traits[i].agressiveness < 0f) stressDecrease -= traits[i].agressiveness / 10f;
+            //if(traits[i].agressiveness < 0f) stressDecrease -= traits[i].agressiveness / 10f;
         }
 
 

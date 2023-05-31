@@ -117,6 +117,8 @@ public class CoexistenceManager : MonoBehaviour
                     d.daysAway++;
                     d.workState = WorkState.AWAY;
 
+                    d.ChangeStress(-0.35f);
+
                     UpdateDrawer();
                 });
             }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gatto.Utils;
 
 public class PenTool : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class PenTool : MonoBehaviour
                     {
                         if(curLine != null)
                         {
-                            if(Vector2.Distance(lastPos, mousePos) > .000001f)
+                            if(Vector2.Distance(lastPos, mousePos) > .15f)
                             {
                                 curLine.positionCount++;
                                 curLine.SetPosition(curLine.positionCount - 1, mousePos - (Vector2)drawingOn.transform.position);
@@ -121,6 +122,7 @@ public class PenTool : MonoBehaviour
                 drawingOn.GetComponent<Drawable>().RemoveLineFromList(curLine);
                 Destroy(curLine.gameObject);
             }
+
             curLine = null;
             drawingOn = null;
             edgeCol = null;
