@@ -342,7 +342,7 @@ public class EventController : MonoBehaviour
             }
             CoexistenceManager.i.personInCompany[i].daysWorked = 0;
             earnBrute += Mathf.RoundToInt(finalValue * variance);
-    }
+        }
 
 
         EarningSystem.i.ChangeMoney(-payment, "Pagamentos");

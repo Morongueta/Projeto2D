@@ -395,6 +395,8 @@ public class CurriculumData
 
         chance += (stress * 25f) / 100f;
 
+        Debug.Log(chance);
+
         if(daysAway > 0)
         {
             daysAway--;
